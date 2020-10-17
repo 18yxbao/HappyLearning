@@ -4,12 +4,20 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+import okhttp3.*;
+
 import com.example.happyleaning.R;
 import com.example.happylearning.Student.MainActivity;
+
+import org.jetbrains.annotations.NotNull;
+
+import java.io.IOException;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -35,7 +43,8 @@ public class LoginActivity extends AppCompatActivity {
 
 
         //测试用
-        T_account.setText("不改按下即可登陆");
+//        T_account.setText("不改按下即可登陆");
+        T_account.setText("");
 
         B_login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -43,20 +52,49 @@ public class LoginActivity extends AppCompatActivity {
                 final String user = T_account.getText().toString();
                 final String pwd = T_password.getText().toString();
 
+                Callback callback =new Callback() {
+                    @Override
+                    public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                        Log.d("LoginTest", "onFailure: "+e.toString());
+                    }
+
+                    @Override
+                    public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                        String login_result = response.body().string();
+                        Log.d("LoginTest","onClick"+login_result);
+
+                        if(login_result.equals("success")){
+                            SharedPreferences.Editor editor = getSharedPreferences("logindate", MODE_PRIVATE).edit();
+                            editor.putBoolean("islogin", true);
+                            editor.apply();
+
+                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                            startActivity(intent);
+                            LoginActivity.this.finish();
+                        }else{
+                            Toast.makeText(LoginActivity.this,"账号或密码错误",Toast.LENGTH_SHORT);
+                        }
+                    }
+                };
+                LoginAPI loginAPI = new LoginAPI(user,pwd,callback);
+                loginAPI.start();
+//                try {
+//                    loginAPI.join();
+//                }catch (InterruptedException e){
+//                    e.printStackTrace();
+//                    Toast.makeText(view.getContext(),"登录失败",Toast.LENGTH_SHORT);
+//                }
+
                 //测试用, 如果密码相同
-                if(user.equals("不改按下即可登陆")) {
-                    SharedPreferences.Editor editor = getSharedPreferences("logindate", MODE_PRIVATE).edit();
-                    editor.putBoolean("islogin", true);
-                    editor.apply();
-
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                    startActivity(intent);
-                    LoginActivity.this.finish();
-                }
-
-
-
-
+//                if(user.equals("不改按下即可登陆")) {
+//                    SharedPreferences.Editor editor = getSharedPreferences("logindate", MODE_PRIVATE).edit();
+//                    editor.putBoolean("islogin", true);
+//                    editor.apply();
+//
+//                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+//                    startActivity(intent);
+//                    LoginActivity.this.finish();
+//                }
             }
         });
 
