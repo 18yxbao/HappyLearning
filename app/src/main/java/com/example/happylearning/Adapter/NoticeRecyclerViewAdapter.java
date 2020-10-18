@@ -14,25 +14,25 @@ import java.util.List;
 
 public class NoticeRecyclerViewAdapter extends RecyclerView.Adapter<NoticeRecyclerViewAdapter.ViewHolder> {
     private List<String> titleList;
-    private List<String> contentList;
+    private List<String> timeList;
 
     static class ViewHolder extends RecyclerView.ViewHolder{
-        TextView title;
-        TextView content;
+        TextView titleT;
+        TextView timeT;
         LinearLayout noticeLayout;
         View noticeView;
 
         public ViewHolder(View view){
             super(view);
             noticeLayout = (LinearLayout)view.findViewById(R.id.item_notice_layout);
-            title = (TextView)view.findViewById(R.id.item_notice_title);
-            content = (TextView)view.findViewById(R.id.item_notice_content);
+            titleT = (TextView)view.findViewById(R.id.item_notice_title);
+            timeT = (TextView)view.findViewById(R.id.item_notice_time);
         }
     }
 
-    public NoticeRecyclerViewAdapter (List<String> titleList, List<String> contentList) {
+    public NoticeRecyclerViewAdapter (List<String> timeList, List<String> titleList) {
         this.titleList=titleList;
-        this.contentList=contentList;
+        this.timeList=timeList;
     }
 
     @Override
@@ -58,9 +58,9 @@ public class NoticeRecyclerViewAdapter extends RecyclerView.Adapter<NoticeRecycl
     @Override
     public void onBindViewHolder(ViewHolder holder, int position){
         String title= titleList.get(position);
-        String content= contentList.get(position);
-        holder.title.setText(title);
-        holder.content.setText(content);
+        String time= timeList.get(position);
+        holder.timeT.setText(title);
+        holder.timeT.setText(time);
 
     }
 
