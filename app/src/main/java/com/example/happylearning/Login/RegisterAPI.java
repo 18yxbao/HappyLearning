@@ -19,7 +19,7 @@ public class RegisterAPI extends Thread{
     private String username;
     private String password;
 
-    public RegisterAPI(String username,String password)
+    public RegisterAPI(String username, String password)
     {
         this.username = username;
         this.password = password;

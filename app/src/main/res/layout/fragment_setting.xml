@@ -8,6 +8,7 @@
     android:orientation="vertical">
 
     <LinearLayout
+        android:id="@+id/main_setting_mysetting"
         android:layout_width="match_parent"
         android:layout_height="90dp"
         android:background="@color/color_white"
@@ -61,7 +62,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="55dp"
+        android:layout_height="@dimen/long_button_height"
         android:background="@color/color_white"
         android:gravity="center_vertical"
         android:orientation="horizontal">
@@ -87,7 +88,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="55dp"
+        android:layout_height="@dimen/long_button_height"
         android:background="@color/color_white"
         android:gravity="center_vertical"
         android:orientation="horizontal">

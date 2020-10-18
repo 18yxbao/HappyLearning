@@ -1,18 +1,9 @@
 package com.example.happylearning.Login;
 
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.util.Log;
-import android.widget.Toast;
-
-import com.example.happylearning.Student.MainActivity;
-
-import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 
-import okhttp3.Call;
-import okhttp3.Callback;
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -27,13 +18,11 @@ public class LoginAPI extends Thread {
     private String responseData;
     private String username;
     private String password;
-    private Callback callback;
 
-    public LoginAPI(String username,String password,Callback callback)
+    public LoginAPI(String username, String password)
     {
         this.username = username;
         this.password = password;
-        this.callback=callback;
     }
 
     @Override
@@ -48,9 +37,12 @@ public class LoginAPI extends Thread {
                 .post(requestBody)
                 .build();
         Log.d("LoginTest", "loginTest");
+        Response response = null;
         try {
-            client.newCall(request).enqueue(callback);
-        } catch (Exception e) {
+            response = client.newCall(request).execute();
+            responseData = response.body().string();
+            Log.d("LoginTest", "onClick:"+responseData);
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

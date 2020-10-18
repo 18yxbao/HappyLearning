@@ -2,16 +2,25 @@ package com.example.happylearning.Student;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import com.example.happyleaning.Adapter.Home_RecyclerViewAdapter;
+import com.example.happyleaning.Adapter.StringRecyclerViewAdapter;
 import com.example.happyleaning.R;
+
+import java.util.List;
 
 public class ClassActivity extends AppCompatActivity {
 
-    private static final String TAG = "log";
+
     private Toolbar toolbar;
+    private RecyclerView recyclerView;
+    private StringRecyclerViewAdapter adapter;
+    private List<String> SettingList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +33,6 @@ public class ClassActivity extends AppCompatActivity {
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
 
 
     }

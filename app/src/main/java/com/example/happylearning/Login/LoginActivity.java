@@ -10,14 +10,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-import okhttp3.*;
 
 import com.example.happyleaning.R;
-import com.example.happylearning.Student.MainActivity;
-
-import org.jetbrains.annotations.NotNull;
-
-import java.io.IOException;
+import com.example.happyleaning.Student.MainActivity;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -37,14 +32,13 @@ public class LoginActivity extends AppCompatActivity {
         B_login =(Button) findViewById(R.id.login_login);
         B_register =(Button) findViewById(R.id.login_register);
         B_change =(Button) findViewById(R.id.login_change);
-        T_account =(EditText) findViewById(R.id.register_account);
+        T_account =(EditText) findViewById(R.id.login_account);
         T_password =(EditText) findViewById(R.id.login_password);
         T_Title= (TextView) findViewById(R.id.login_title);
 
 
         //测试用
-//        T_account.setText("不改按下即可登陆");
-        T_account.setText("");
+        //T_account.setText("不改按下即可登陆");
 
         B_login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,49 +46,30 @@ public class LoginActivity extends AppCompatActivity {
                 final String user = T_account.getText().toString();
                 final String pwd = T_password.getText().toString();
 
-                Callback callback =new Callback() {
-                    @Override
-                    public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                        Log.d("LoginTest", "onFailure: "+e.toString());
-                    }
+                LoginAPI login = new LoginAPI(user,pwd);
+                login.start();
+                try {
+                    login.join();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                String login_result = login.getResponseData();
+                Log.d("LoginTest", "onClick: "+login_result);
 
-                    @Override
-                    public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                        String login_result = response.body().string();
-                        Log.d("LoginTest","onClick"+login_result);
-
-                        if(login_result.equals("success")){
-                            SharedPreferences.Editor editor = getSharedPreferences("logindate", MODE_PRIVATE).edit();
-                            editor.putBoolean("islogin", true);
-                            editor.apply();
-
-                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                            startActivity(intent);
-                            LoginActivity.this.finish();
-                        }else{
-                            Toast.makeText(LoginActivity.this,"账号或密码错误",Toast.LENGTH_SHORT);
-                        }
-                    }
-                };
-                LoginAPI loginAPI = new LoginAPI(user,pwd,callback);
-                loginAPI.start();
-//                try {
-//                    loginAPI.join();
-//                }catch (InterruptedException e){
-//                    e.printStackTrace();
-//                    Toast.makeText(view.getContext(),"登录失败",Toast.LENGTH_SHORT);
-//                }
-
-                //测试用, 如果密码相同
-//                if(user.equals("不改按下即可登陆")) {
-//                    SharedPreferences.Editor editor = getSharedPreferences("logindate", MODE_PRIVATE).edit();
-//                    editor.putBoolean("islogin", true);
-//                    editor.apply();
-//
-//                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-//                    startActivity(intent);
-//                    LoginActivity.this.finish();
-//                }
+                if(login_result.equals("success"))
+                {
+                    SharedPreferences.Editor editor = getSharedPreferences("logindate", MODE_PRIVATE).edit();
+                    editor.putBoolean("islogin", true);
+                    editor.apply();
+                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    startActivity(intent);
+                    LoginActivity.this.finish();
+                }
+                else if(login_result.equals("fail"))
+                {
+                    Toast.makeText(LoginActivity.this,
+                            "输入密码错误！",Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
