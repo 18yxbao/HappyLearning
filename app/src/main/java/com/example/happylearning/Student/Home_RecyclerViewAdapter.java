@@ -1,4 +1,4 @@
-package com.example.happylearning.Adapter;
+package com.example.happylearning.Student;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,15 +11,12 @@ import android.widget.Toast;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.happylearning.R;
-import com.example.happylearning.Student.ClassActivity;
-import com.example.happylearning.Student.Classes;
-
 
 import java.util.List;
 
 
 public class Home_RecyclerViewAdapter extends RecyclerView.Adapter<Home_RecyclerViewAdapter.ViewHolder> {
-    private List<Classes> classList;
+    private List<String> classList;
 
     static class ViewHolder extends RecyclerView.ViewHolder{
         View classView;
@@ -35,7 +32,7 @@ public class Home_RecyclerViewAdapter extends RecyclerView.Adapter<Home_Recycler
             showmsg = (TextView)view.findViewById(R.id.item_class_msg);
         }
     }
-    public Home_RecyclerViewAdapter(List<Classes> classList){
+    public Home_RecyclerViewAdapter(List<String> classList){
         this.classList = classList;
     }
 
@@ -47,11 +44,11 @@ public class Home_RecyclerViewAdapter extends RecyclerView.Adapter<Home_Recycler
             @Override
             public void onClick(View view) {
                 int position = holder.getAdapterPosition();
-                Classes classes = classList.get(position);
+                String classes = classList.get(position);
                 Context context = view.getContext();
-
+                Toast.makeText(context,classes,Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(context, ClassActivity.class);
-                intent.putExtra("class",classes.getClassName());
+                intent.putExtra("class",classes);
                 context.startActivity(intent);
 
             }
@@ -61,9 +58,9 @@ public class Home_RecyclerViewAdapter extends RecyclerView.Adapter<Home_Recycler
 
     @Override
     public void onBindViewHolder(ViewHolder holder,int position){
-        Classes name= classList.get(position);
-        holder.classname.setText(name.getClassName());
-        holder.showmsg.setText("班号"+name.getClassNum());
+        String name= classList.get(position);
+        holder.classname.setText(name);
+        holder.showmsg.setText(name);
 
     }
 

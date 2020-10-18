@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.os.Bundle;
 
 
+import com.example.happylearning.Login.JoinClassAPI;
+import com.example.happylearning.Login.Util;
 import com.example.happylearning.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -22,6 +24,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
+
+import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -64,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         setHomeFragment();
         setSupportActionBar(toolbar);
+
 
 
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
@@ -110,6 +115,15 @@ public class MainActivity extends AppCompatActivity {
                             Toast.makeText(getApplicationContext(), "搜索内容不能为空！" + input, Toast.LENGTH_LONG).show();
                         }
                         else {
+                            JoinClassAPI join = new JoinClassAPI(input,input2,"17817922657");
+                            join.start();
+                            try {
+                                join.join();
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                            String login_result = join.getResponseData();
+
                             Toast.makeText(getApplicationContext(),input,Toast.LENGTH_SHORT).show();
                         }
                     }

@@ -1,5 +1,6 @@
 package com.example.happylearning.Student;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 
@@ -25,6 +26,13 @@ public class ContentDetailActivity extends AppCompatActivity {
         title=findViewById(R.id.content_detail_title);
         time=findViewById(R.id.content_detail_time);
         content=findViewById(R.id.content_detail_content);
+
+        Intent intent=getIntent();
+        className.setText(intent.getExtras().getString("className"));
+        classNum.setText(intent.getExtras().getString("classNum"));
+        title.setText(intent.getExtras().getString("title"));
+        time.setText(intent.getExtras().getString("time"));
+        content.setText(intent.getExtras().getString("content"));
 
     }
 }

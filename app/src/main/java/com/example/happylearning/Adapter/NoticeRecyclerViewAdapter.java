@@ -36,11 +36,11 @@ public class NoticeRecyclerViewAdapter extends RecyclerView.Adapter<NoticeRecycl
     }
 
     @Override
-    public NoticeRecyclerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_notice,parent,false);
 
-        final NoticeRecyclerViewAdapter.ViewHolder holder = new NoticeRecyclerViewAdapter.ViewHolder(view);
+        final ViewHolder holder = new ViewHolder(view);
         holder.noticeView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
