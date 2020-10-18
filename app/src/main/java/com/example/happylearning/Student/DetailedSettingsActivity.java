@@ -7,6 +7,7 @@ import android.os.Bundle;
 
 import com.example.happylearning.R;
 
+
 public class DetailedSettingsActivity extends AppCompatActivity {
     private Toolbar toolbar;
     @Override

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/menu_notice_add"
+        android:title="发送新公告"
+        app:showAsAction="never">
+    </item>
+    <item
+        android:id="@+id/menu_notice_edit"
+        android:title="编辑公告"
+        app:showAsAction="never">
+    </item>
+
+</menu>

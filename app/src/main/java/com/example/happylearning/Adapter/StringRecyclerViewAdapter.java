@@ -8,6 +8,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.recyclerview.widget.RecyclerView;
+
+
 import com.example.happylearning.R;
 
 import java.util.List;
@@ -37,9 +39,6 @@ public class StringRecyclerViewAdapter extends RecyclerView.Adapter<StringRecycl
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_class,parent,false);
-
-
-
 
         final ViewHolder holder = new ViewHolder(view);
         holder.classView.setOnClickListener(new View.OnClickListener() {

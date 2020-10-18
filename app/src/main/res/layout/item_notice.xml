@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/item_notice_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="start"
+    android:layout_marginBottom="10dp"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:id="@+id/item_notice_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:text="时间"
+        android:textSize="24sp"/>
+
+    <TextView
+        android:id="@+id/item_notice_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:text="标题"
+        android:textSize="18sp"/>
+
+</LinearLayout>

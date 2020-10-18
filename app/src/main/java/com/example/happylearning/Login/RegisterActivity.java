@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.example.happylearning.R;
 
+
 public class RegisterActivity extends AppCompatActivity {
 
     private TextView T_Title;
@@ -50,7 +51,7 @@ public class RegisterActivity extends AppCompatActivity {
                     Toast.makeText(RegisterActivity.this,
                             "两次密码不一致！", Toast.LENGTH_SHORT).show();
                 } else {
-                    RegisterAPI register = new RegisterAPI(user, pwd);
+                    RegisterAPI register = new RegisterAPI(user, pwd,account_type);
                     register.start();
                     try {
                         register.join();
@@ -61,6 +62,7 @@ public class RegisterActivity extends AppCompatActivity {
                     if (result.equals("success")) {
                         Toast.makeText(RegisterActivity.this,
                                 "注册成功！", Toast.LENGTH_SHORT).show();
+                        RegisterActivity.this.finish();
                     } else if (result.equals("fail")) {
                         Toast.makeText(RegisterActivity.this,
                                 "该用户名已注册！", Toast.LENGTH_SHORT).show();

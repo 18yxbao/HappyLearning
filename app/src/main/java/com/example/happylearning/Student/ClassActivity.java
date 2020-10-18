@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 import android.view.MenuItem;
 
-import com.example.happylearning.Adapter.Home_RecyclerViewAdapter;
+
 import com.example.happylearning.Adapter.StringRecyclerViewAdapter;
 import com.example.happylearning.R;
 

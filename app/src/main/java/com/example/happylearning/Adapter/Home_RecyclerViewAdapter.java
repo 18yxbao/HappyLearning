@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.happylearning.R;
 import com.example.happylearning.Student.ClassActivity;
-import com.example.happylearning.R;
 
 import java.util.List;
 

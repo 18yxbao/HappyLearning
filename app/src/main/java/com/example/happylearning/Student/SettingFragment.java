@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.example.happylearning.Login.LoginActivity;
 import com.example.happylearning.R;
 
+
 public class SettingFragment extends Fragment {
 
     private LinearLayout mysetting;

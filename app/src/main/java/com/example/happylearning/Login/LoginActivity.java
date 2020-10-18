@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.example.happylearning.R;
 import com.example.happylearning.Student.MainActivity;
 
+
 public class LoginActivity extends AppCompatActivity {
 
     private TextView T_Title;
@@ -46,7 +47,7 @@ public class LoginActivity extends AppCompatActivity {
                 final String user = T_account.getText().toString();
                 final String pwd = T_password.getText().toString();
 
-                LoginAPI login = new LoginAPI(user,pwd);
+                LoginAPI login = new LoginAPI(user,pwd,account_type);
                 login.start();
                 try {
                     login.join();
@@ -110,6 +111,11 @@ public class LoginActivity extends AppCompatActivity {
             startActivity(intent);
             LoginActivity.this.finish();
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+
     }
 
 

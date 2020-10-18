@@ -18,11 +18,13 @@ public class LoginAPI extends Thread {
     private String responseData;
     private String username;
     private String password;
+    private String account_type;
 
-    public LoginAPI(String username, String password)
+    public LoginAPI(String username, String password,int account_type)
     {
         this.username = username;
         this.password = password;
+        this.account_type = Integer.toString(account_type);
     }
 
     @Override
@@ -31,6 +33,7 @@ public class LoginAPI extends Thread {
         RequestBody requestBody = new FormBody.Builder()
                 .add("username", username)
                 .add("password", password)
+                .add("account_type",account_type)
                 .build();
         Request request = new Request.Builder()
                 .url("http://42.194.219.209:8080//HappyLearning_Server//Login")

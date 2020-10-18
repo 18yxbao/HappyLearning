@@ -4,6 +4,7 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
 
+
 import com.example.happylearning.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -11,7 +12,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 
+import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -51,20 +54,49 @@ public class MainActivity extends AppCompatActivity {
         setHomeFragment();
         setSupportActionBar(toolbar);
 
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                String str="";
+                switch (menuItem.getItemId()){
+                    case R.id.menu_join_class_item1:
+                        str="新建课程";
 
 
+                        break;
+                    case R.id.menu_join_class_item2:
+                        str="你选择菜单2";
+                        break;
+                    case R.id.menu_join_class_item3:
+                        str="你选择菜单3";
+                        break;
+                }
+                Toast.makeText(MainActivity.this,str,Toast.LENGTH_SHORT).show();
+                return false;
+            }
+        });
 
     }
-    private void setHomeFragment() {
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_join,menu); // 参数1为布局文件(menu_main.xml)
+        return true;
+    }
+
+    private void setHomeFragment() {
+        toolbar.getMenu().clear();
+        getMenuInflater().inflate(R.menu.menu_join,toolbar.getMenu());
         toolbar.setBackgroundResource(R.color.color_background_grey);
         toolbar.setTitle("首页");
+
         FragmentTransaction transaction = fm.beginTransaction();
         mHomeFragment = HomeFragment.newInstance();
         transaction.replace(R.id.main_tb, mHomeFragment);
         transaction.commit();
     }
     private void setMessageFragment() {
+        toolbar.getMenu().clear();
         toolbar.setBackgroundResource(R.color.color_background_grey);
         toolbar.setTitle("消息");
         FragmentTransaction transaction = fm.beginTransaction();
@@ -73,6 +105,7 @@ public class MainActivity extends AppCompatActivity {
         transaction.commit();
     }
     private void setSettingFragment() {
+        toolbar.getMenu().clear();
         toolbar.setBackgroundResource(R.color.color_white);
         toolbar.setTitle("");
         FragmentTransaction transaction = fm.beginTransaction();
@@ -80,5 +113,7 @@ public class MainActivity extends AppCompatActivity {
         transaction.replace(R.id.main_tb, mSettingFragment);
         transaction.commit();
     }
+
+
 
 }
