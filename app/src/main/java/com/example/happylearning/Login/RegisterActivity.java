@@ -9,7 +9,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.happyleaning.R;
+import com.example.happylearning.R;
 
 public class RegisterActivity extends AppCompatActivity {
 

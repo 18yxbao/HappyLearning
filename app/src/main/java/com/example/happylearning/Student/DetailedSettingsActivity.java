@@ -5,7 +5,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.os.Bundle;
 
-import com.example.happyleaning.R;
+import com.example.happylearning.R;
 
 public class DetailedSettingsActivity extends AppCompatActivity {
     private Toolbar toolbar;

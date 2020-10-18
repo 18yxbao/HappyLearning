@@ -10,8 +10,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.happyleaning.R;
-import com.example.happyleaning.Student.ClassActivity;
+import com.example.happylearning.R;
+import com.example.happylearning.Student.ClassActivity;
+import com.example.happylearning.R;
 
 import java.util.List;
 

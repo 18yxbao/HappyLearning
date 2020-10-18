@@ -11,8 +11,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.happyleaning.R;
-import com.example.happyleaning.Student.MainActivity;
+import com.example.happylearning.R;
+import com.example.happylearning.Student.MainActivity;
 
 public class LoginActivity extends AppCompatActivity {
 
