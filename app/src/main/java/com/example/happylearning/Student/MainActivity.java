@@ -3,12 +3,14 @@ package com.example.happylearning.Student;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.DialogInterface;
-import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 
-import com.example.happylearning.Login.JoinClassAPI;
-import com.example.happylearning.Login.Util;
+import com.example.happylearning.API.JoinClassAPI;
+import com.example.happylearning.Data.Classes;
+import com.example.happylearning.Data.Filedata;
+import com.example.happylearning.Data.Util;
 import com.example.happylearning.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -17,24 +19,62 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
-
 import java.util.List;
 
 
+
 public class MainActivity extends AppCompatActivity {
+
     private FragmentManager fm = this.getFragmentManager();
     private SettingFragment mSettingFragment;
     private HomeFragment mHomeFragment;
     private MessageFragment mmessageFragment;
     private Toolbar toolbar;
+    private List<Classes> classesList=null;
+    private String str;
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        str = Filedata.load("name",getApplicationContext());
+        setContentView(R.layout.activity_main);
+        toolbar = findViewById(R.id.main_toolbar);
+        setHomeFragment();
+        setSupportActionBar(toolbar);
+        BottomNavigationView navView = findViewById(R.id.nav_view);
+        navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
+
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_join,menu); // 参数1为布局文件(menu_main.xml)
+        return true;
+    }
+
+    //Toolbar item 按键响应
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_join_class_item1:
+                alert_edit();
+                break;
+            default:
+                break;
+        }
+        return true;
+    }
+
+    //下导航栏点击事件
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
@@ -55,46 +95,8 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-
-
-
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        toolbar = findViewById(R.id.main_toolbar);
-        BottomNavigationView navView = findViewById(R.id.nav_view);
-        navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-        setHomeFragment();
-        setSupportActionBar(toolbar);
-
-
-
-        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem menuItem) {
-                switch (menuItem.getItemId()){
-                    case R.id.menu_join_class_item1:
-                        alert_edit();
-                        break;
-
-                }
-
-                return false;
-            }
-        });
-
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_join,menu); // 参数1为布局文件(menu_main.xml)
-        return true;
-    }
-
     //输入课程数据对话框
-    public void alert_edit(){
+    private void alert_edit(){
         final LinearLayout layout = new LinearLayout(this);
         final EditText et = new EditText(this);
         final EditText et2 = new EditText(this);
@@ -112,19 +114,11 @@ public class MainActivity extends AppCompatActivity {
                         String input = et.getText().toString();
                         String input2 = et2.getText().toString();
                         if (input.equals("")) {
-                            Toast.makeText(getApplicationContext(), "搜索内容不能为空！" + input, Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(), "不能为空！" + input, Toast.LENGTH_LONG).show();
                         }
                         else {
-                            JoinClassAPI join = new JoinClassAPI(input,input2,"17817922657");
-                            join.start();
-                            try {
-                                join.join();
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
-                            String login_result = join.getResponseData();
-
-                            Toast.makeText(getApplicationContext(),input,Toast.LENGTH_SHORT).show();
+                            ATask atask = new ATask(input,input2,str);
+                            atask.execute();
                         }
                     }
                 })
@@ -138,7 +132,7 @@ public class MainActivity extends AppCompatActivity {
         toolbar.setBackgroundResource(R.color.color_background_grey);
         toolbar.setTitle("首页");
         FragmentTransaction transaction = fm.beginTransaction();
-        mHomeFragment = HomeFragment.newInstance();
+        mHomeFragment = new HomeFragment(str);
         transaction.replace(R.id.main_tb, mHomeFragment);
         transaction.commit();
     }
@@ -148,7 +142,7 @@ public class MainActivity extends AppCompatActivity {
         toolbar.setBackgroundResource(R.color.color_background_grey);
         toolbar.setTitle("消息");
         FragmentTransaction transaction = fm.beginTransaction();
-        mmessageFragment = MessageFragment.newInstance("消息");
+        mmessageFragment = new MessageFragment();
         transaction.replace(R.id.main_tb, mmessageFragment);
         transaction.commit();
     }
@@ -158,11 +152,36 @@ public class MainActivity extends AppCompatActivity {
         toolbar.setBackgroundResource(R.color.color_white);
         toolbar.setTitle("");
         FragmentTransaction transaction = fm.beginTransaction();
-        mSettingFragment = SettingFragment.newInstance("设置");
+        mSettingFragment = new SettingFragment(str);
         transaction.replace(R.id.main_tb, mSettingFragment);
         transaction.commit();
     }
 
+
+    //加入课程请求异步处理
+    private class ATask extends AsyncTask<JoinClassAPI ,JoinClassAPI ,JoinClassAPI > {
+        //后台线程执行时
+        private String input ;
+        private String input2 ;
+        private String name;
+        public ATask(String input,String input2,String name){
+            this.input=input;
+            this.input2=input2;
+            this.name=name;
+        }
+        @Override
+        protected JoinClassAPI doInBackground(JoinClassAPI... params) {
+            JoinClassAPI join = new JoinClassAPI(input,input2,str);
+            return join;
+        }
+        //后台线程执行结束后的操作，其中参数result为doInBackground返回的结果
+        @Override
+        protected void onPostExecute(JoinClassAPI result) {
+            super.onPostExecute(result);
+            String login_result = result.getResponseData();
+            Toast.makeText(getApplicationContext(),login_result,Toast.LENGTH_SHORT).show();
+        }
+    }
 
 
 }

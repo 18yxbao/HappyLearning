@@ -12,14 +12,6 @@ import com.example.happylearning.R;
 
 public class MessageFragment extends Fragment {
 
-    public static MessageFragment newInstance(String param1) {
-        MessageFragment fragment = new MessageFragment();
-        Bundle args = new Bundle();
-        args.putString("agrs1", param1);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     public MessageFragment() {
 
     }
@@ -36,10 +28,6 @@ public class MessageFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_message, container, false);
 
-        Bundle bundle = getArguments();
-        String agrs1 = bundle.getString("agrs1");
-        TextView tv = (TextView)view.findViewById(R.id.message_text);
-        tv.setText(agrs1);
 
         return view;
     }

@@ -1,4 +1,4 @@
-package com.example.happylearning.Login;
+package com.example.happylearning.API;
 
 import android.util.Log;
 
@@ -10,30 +10,18 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-public class RegisterAPI extends Thread{
+public class RegisterAPI {
     // 注意：调用该API前需先在注册活动处对两个密码框的密码是否一致进行判断和处理
     //调用构造类，传入RegisterActivity用户名编辑框获取到的用户名（str1）以及密码编辑框(任何一个）获取到的密码（str2）
     //若该用户名没有被注册过，即注册成功，则responseData = ”success“，若失败，则 = ”fail”
-
     private String responseData;
-    private String username;
-    private String password;
-    private String account_type;
 
-    public RegisterAPI(String username, String password,int account_type)
-    {
-        this.username = username;
-        this.password = password;
-        this.account_type = Integer.toString(account_type);
-    }
-
-    @Override
-    public void run() {
+    public RegisterAPI(String username, String password,int account_type) {
         OkHttpClient client = new OkHttpClient();
         RequestBody requestBody = new FormBody.Builder()
                 .add("username", username)
                 .add("password", password)
-                .add("account_type",account_type)
+                .add("account_type", Integer.toString(account_type))
                 .build();
         Request request = new Request.Builder()
                 .url("http://42.194.219.209:8080//HappyLearning_Server//Register")
@@ -44,7 +32,7 @@ public class RegisterAPI extends Thread{
         try {
             response = client.newCall(request).execute();
             responseData = response.body().string();
-            Log.d("RegisterTest", "onClick:"+responseData);
+            Log.d("RegisterTest", "onClick:" + responseData);
         } catch (IOException e) {
             e.printStackTrace();
         }

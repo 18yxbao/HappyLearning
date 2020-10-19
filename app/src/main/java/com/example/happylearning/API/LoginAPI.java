@@ -1,4 +1,4 @@
-package com.example.happylearning.Login;
+package com.example.happylearning.API;
 
 import android.util.Log;
 
@@ -10,30 +10,17 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-public class LoginAPI extends Thread {
+public class LoginAPI{
     //调用构造类，传入LoginActivity用户名编辑框获取到的用户名（str1）以及密码编辑框获取到的密码（str2）
     //若用户密码匹配，则responseData = ”success“字符串，若失败，则responseData = ”fail”
+    private String responseData="";
 
-
-    private String responseData;
-    private String username;
-    private String password;
-    private String account_type;
-
-    public LoginAPI(String username, String password,int account_type)
-    {
-        this.username = username;
-        this.password = password;
-        this.account_type = Integer.toString(account_type);
-    }
-
-    @Override
-    public void run() {
+    public LoginAPI(String username, String password,int account_type) {
         OkHttpClient client = new OkHttpClient();
         RequestBody requestBody = new FormBody.Builder()
                 .add("username", username)
                 .add("password", password)
-                .add("account_type",account_type)
+                .add("account_type", Integer.toString(account_type))
                 .build();
         Request request = new Request.Builder()
                 .url("http://42.194.219.209:8080//HappyLearning_Server//Login")
@@ -44,7 +31,7 @@ public class LoginAPI extends Thread {
         try {
             response = client.newCall(request).execute();
             responseData = response.body().string();
-            Log.d("LoginTest", "onClick:"+responseData);
+            Log.d("LoginTest", "onClick:" + responseData);
         } catch (IOException e) {
             e.printStackTrace();
         }

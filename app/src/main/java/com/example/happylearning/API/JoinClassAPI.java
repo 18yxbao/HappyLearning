@@ -1,4 +1,4 @@
-package com.example.happylearning.Login;
+package com.example.happylearning.API;
 
 import android.util.Log;
 
@@ -10,21 +10,11 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-public class JoinClassAPI extends Thread{
-    private String class_number;
-    private String class_password;
-    private String student_number;
+public class JoinClassAPI{
     private String responseData;
 
     public JoinClassAPI(String class_number, String class_password,String student_number)
     {
-        this.class_number = class_number;
-        this.class_password = class_password;
-        this.student_number = student_number;
-    }
-
-    @Override
-    public void run() {
         OkHttpClient client = new OkHttpClient();
         RequestBody requestBody = new FormBody.Builder()
                 .add("class_number",class_number)

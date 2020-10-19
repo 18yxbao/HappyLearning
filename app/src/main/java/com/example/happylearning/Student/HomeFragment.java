@@ -1,6 +1,8 @@
 package com.example.happylearning.Student;
 
+import android.annotation.SuppressLint;
 import android.app.Fragment;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,26 +14,22 @@ import androidx.recyclerview.widget.RecyclerView;
 
 
 import com.example.happylearning.Adapter.Home_RecyclerViewAdapter;
-import com.example.happylearning.Login.Util;
+import com.example.happylearning.Data.Classes;
+import com.example.happylearning.Data.Util;
 import com.example.happylearning.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@SuppressLint("ValidFragment")
 public class HomeFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private Home_RecyclerViewAdapter adapter;
-    private List<String> ClassList = new ArrayList<>();
-
-
-    public static HomeFragment newInstance() {
-        HomeFragment fragment = new HomeFragment();
-        return fragment;
-    }
-
-    public HomeFragment() {
-
+    private List<Classes> classesList = new ArrayList<Classes>();
+    private String str;
+    public HomeFragment(String str) {
+        this.str = str;
     }
 
     @Override
@@ -39,24 +37,42 @@ public class HomeFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
     }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_home, container, false);
-        //暂时填入数据
-        List<Classes> classesList= Util.getClassList("17817922657");
-        Log.d("123456", "onCreateView: "+classesList.toString());
-
-
-        //RecyclerView
+        final View view = inflater.inflate(R.layout.fragment_home, container, false);
         recyclerView = (RecyclerView) view.findViewById(R.id.main_home_recyclerview);
-        LinearLayoutManager LayoutManager = new LinearLayoutManager(view.getContext());
+        LinearLayoutManager LayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(LayoutManager);
         adapter = new Home_RecyclerViewAdapter(classesList);
         recyclerView.setAdapter(adapter);
+        ATask ak = new ATask(str);
+        ak.execute();
 
         return view;
+    }
+
+    private class ATask extends AsyncTask<List<Classes> ,List<Classes> ,List<Classes> > {
+        //后台线程执行时
+        private String name;
+
+        public ATask(String str){
+            this.name=str;
+        }
+        @Override
+        protected List<Classes> doInBackground(List<Classes>... params) {
+            List<Classes>  newClassList= Util.getClassList(name);
+            return newClassList;
+        }
+        //后台线程执行结束后的操作，其中参数result为doInBackground返回的结果
+        @Override
+        protected void onPostExecute(List<Classes> result) {
+            super.onPostExecute(result);
+            if (result != null) {
+                classesList.addAll(result);
+                adapter.notifyDataSetChanged();
+            }
+        }
     }
 }
 

@@ -1,4 +1,4 @@
-package com.example.happylearning.Student;
+package com.example.happylearning.Data;
 
 import java.util.List;
 

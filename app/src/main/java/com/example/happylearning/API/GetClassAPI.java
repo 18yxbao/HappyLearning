@@ -1,4 +1,4 @@
-package com.example.happylearning.Login;
+package com.example.happylearning.API;
 
 import android.util.Log;
 
@@ -10,24 +10,18 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-public class GetClassAPI extends Thread{
-    private String student_number;
+public class GetClassAPI{
+
     private String responseData;
 
-    public GetClassAPI(String student_number)
-    {
-        this.student_number = student_number;
-    }
-
-    @Override
-    public void run() {
+    public GetClassAPI(String student_number) {
         OkHttpClient client = new OkHttpClient();
         RequestBody requestBody = new FormBody.Builder()
-                .add("user_type","0")
-                .add("student_number",student_number)
+                .add("user_type", "0")
+                .add("student_number", student_number)
                 .build();
         Request request = new Request.Builder()
-                .url("http://192.168.43.89:8080//HappyLearning_Server//GetClass")
+                .url("http://42.194.219.209:8080//HappyLearning_Server//GetClass")
                 .post(requestBody)
                 .build();
         Log.d("JoinClassTest", "JoinClassTest");
@@ -35,7 +29,7 @@ public class GetClassAPI extends Thread{
         try {
             response = client.newCall(request).execute();
             responseData = response.body().string();
-            Log.d("LoginTest", "onClick:"+responseData);
+            Log.d("LoginTest", "onClick:" + responseData);
         } catch (IOException e) {
             e.printStackTrace();
         }

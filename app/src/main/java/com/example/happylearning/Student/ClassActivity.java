@@ -2,16 +2,11 @@ package com.example.happylearning.Student;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.os.Bundle;
 import android.view.MenuItem;
-
-
 import com.example.happylearning.Adapter.StringRecyclerViewAdapter;
 import com.example.happylearning.R;
-
 import java.util.List;
 
 public class ClassActivity extends AppCompatActivity {
