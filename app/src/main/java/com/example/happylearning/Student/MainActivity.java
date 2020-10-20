@@ -8,9 +8,8 @@ import android.os.Bundle;
 
 
 import com.example.happylearning.API.JoinClassAPI;
-import com.example.happylearning.Data.Classes;
+import com.example.happylearning.Bean.Classes;
 import com.example.happylearning.Data.Filedata;
-import com.example.happylearning.Data.Util;
 import com.example.happylearning.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -19,7 +18,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 
-import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;

@@ -6,6 +6,7 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.happylearning.R;
 
@@ -15,6 +16,7 @@ public class ContentDetailActivity extends AppCompatActivity {
     private TextView title;
     private TextView time;
     private TextView content;
+    //private RecyclerView recyclerView;
 
 
     @Override
@@ -33,6 +35,7 @@ public class ContentDetailActivity extends AppCompatActivity {
         title.setText(intent.getExtras().getString("title"));
         time.setText(intent.getExtras().getString("time"));
         content.setText(intent.getExtras().getString("content"));
+
 
     }
 }

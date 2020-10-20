@@ -22,6 +22,7 @@ public class ClassActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_class);
         toolbar = findViewById(R.id.class_toolbar);
+        recyclerView = findViewById(R.id.class_recycleView);
 
         String title = getIntent().getStringExtra("class");
         toolbar.setTitle(title);

@@ -22,7 +22,7 @@ public class JoinClassAPI{
                 .add("student_number",student_number)
                 .build();
         Request request = new Request.Builder()
-                .url("http://192.168.43.89:8080//HappyLearning_Server//JoinClass")
+                .url("http://42.194.219.209:8080//HappyLearning_Server//JoinClass")
                 .post(requestBody)
                 .build();
         Log.d("JoinClassTest", "JoinClassTest");

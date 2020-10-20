@@ -3,6 +3,7 @@ package com.example.happylearning.Data;
 import android.util.Log;
 
 import com.example.happylearning.API.GetClassAPI;
+import com.example.happylearning.Bean.Classes;
 
 import java.util.ArrayList;
 import java.util.List;

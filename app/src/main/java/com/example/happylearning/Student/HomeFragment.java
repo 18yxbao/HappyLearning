@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.app.Fragment;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 
 import com.example.happylearning.Adapter.Home_RecyclerViewAdapter;
-import com.example.happylearning.Data.Classes;
+import com.example.happylearning.Bean.Classes;
 import com.example.happylearning.Data.Util;
 import com.example.happylearning.R;
 
