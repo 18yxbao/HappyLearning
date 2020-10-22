@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,6 +16,7 @@ import com.example.happylearning.API.LoginAPI;
 import com.example.happylearning.Data.Filedata;
 import com.example.happylearning.R;
 import com.example.happylearning.Student.MainActivity;
+import com.example.happylearning.Teacher.TeacherMainActivity;
 
 
 public class LoginActivity<click> extends AppCompatActivity {
@@ -100,11 +102,22 @@ public class LoginActivity<click> extends AppCompatActivity {
             else if (login_result.equals("success")) {
                 SharedPreferences.Editor editor = getSharedPreferences("logindate", MODE_PRIVATE).edit();
                 editor.putBoolean("islogin", true);
-                editor.apply();
+
                 //文件储存
                 Filedata.save("name", user, getApplicationContext());
+                Intent intent=null;
 
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                if(account_type==0) {
+                    intent = new Intent(LoginActivity.this, MainActivity.class);
+                    editor.putInt("account_type", account_type);
+                    Log.d("login TAG", "IsPass: 1");
+                }
+                else{
+                    intent = new Intent(LoginActivity.this, TeacherMainActivity.class);
+                    editor.putInt("account_type", account_type);
+                    Log.d("login TAG", "IsPass: 2");
+                }
+                editor.apply();
                 startActivity(intent);
                 LoginActivity.this.finish();
             }
@@ -119,7 +132,15 @@ public class LoginActivity<click> extends AppCompatActivity {
     private void IsPass(){
         SharedPreferences sprfMain= getSharedPreferences("logindate",MODE_PRIVATE);
         if(sprfMain.getBoolean("islogin",false)){
-            Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+            Intent intent=null;
+            if(sprfMain.getInt("account_type",0)==0) {
+                intent = new Intent(LoginActivity.this, MainActivity.class);
+                Log.d("login TAG", "IsPass: 3");
+            }
+            else {
+                intent = new Intent(LoginActivity.this, TeacherMainActivity.class);
+                Log.d("login TAG", "IsPass: 4");
+            }
             startActivity(intent);
             LoginActivity.this.finish();
         }

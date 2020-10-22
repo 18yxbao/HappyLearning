@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -23,6 +24,7 @@ public class SettingFragment extends Fragment {
     private TextView account_text;
     private TextView name_text;
     private String account;
+    private Button logout;
 
     public SettingFragment(String account) {
         this.account=account;
@@ -36,23 +38,30 @@ public class SettingFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_setting, container, false);
+        final View view = inflater.inflate(R.layout.fragment_setting, container, false);
         mysetting=(LinearLayout) view.findViewById(R.id.main_setting_mysetting);
         account_text=(TextView) view.findViewById(R.id.main_setting_account);
         name_text=(TextView) view.findViewById(R.id.main_setting_name);
+        logout=view.findViewById(R.id.main_setting_logout);
 
         account_text.setText(account);
         name_text.setText(account);
 
-        mysetting.setOnClickListener(new View.OnClickListener() {
+        logout.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-
+            public void onClick(View v) {
                 SharedPreferences.Editor editor = view.getContext().getSharedPreferences("logindate", view.getContext().MODE_PRIVATE).edit();
                 editor.putBoolean("islogin", false);
                 editor.apply();
                 Intent intent=new Intent(view.getContext(), LoginActivity.class);
                 view.getContext().startActivity(intent);
+            }
+        });
+        mysetting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
             }
         });
 
