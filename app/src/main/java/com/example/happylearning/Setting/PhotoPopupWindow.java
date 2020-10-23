@@ -20,11 +20,12 @@ import java.io.Serializable;
  * 负责接收外部的点击监听器，并设置点击弹窗外关闭弹窗
  */
 public class PhotoPopupWindow extends PopupWindow implements Serializable {
-    private static final long serialVersionUID=1L;
+
     private View mView; // PopupWindow 菜单布局
     private Context mContext; // 上下文参数
     private View.OnClickListener mSelectListener; // 相册选取的点击监听器
     private View.OnClickListener mCaptureListener; // 拍照的点击监听器
+    private PhotoPopupWindow photoPopupWindow;
 
     public PhotoPopupWindow(Activity context, View.OnClickListener selectListener, View.OnClickListener captureListener) {
         super(context);
@@ -79,6 +80,4 @@ public class PhotoPopupWindow extends PopupWindow implements Serializable {
             }
         });
     }
-
-
 }
