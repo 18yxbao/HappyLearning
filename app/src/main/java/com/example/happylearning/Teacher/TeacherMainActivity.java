@@ -5,6 +5,7 @@ import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,6 +18,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.example.happylearning.API.CreateClassAPI;
 import com.example.happylearning.API.JoinClassAPI;
 import com.example.happylearning.Bean.Classes;
 import com.example.happylearning.Data.Filedata;
@@ -35,13 +37,14 @@ public class TeacherMainActivity extends AppCompatActivity {
     private HomeFragment mHomeFragment;
     private MessageFragment mmessageFragment;
     private Toolbar toolbar;
-    private List<Classes> classesList=null;
     private String str;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d("Teacher123", "onCreate: 1");
         str = Filedata.load("name",getApplicationContext());
+
         setContentView(R.layout.activity_main);
         toolbar = findViewById(R.id.main_toolbar);
         setHomeFragment();
@@ -108,12 +111,14 @@ public class TeacherMainActivity extends AppCompatActivity {
                 .setView(layout)
                 .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        String input = et.getText().toString();
-                        String input2 = et2.getText().toString();
-                        if (input.equals("")) {
-                            Toast.makeText(getApplicationContext(), "不能为空！" + input, Toast.LENGTH_LONG).show();
+                        String class_name = et.getText().toString();
+                        String class_password = et2.getText().toString();
+                        if (class_name.equals("")) {
+                            Toast.makeText(getApplicationContext(), "不能为空！" + class_name, Toast.LENGTH_LONG).show();
                         }
                         else {
+                            ATask asyncTask = new ATask(class_name,class_password,str);
+                            asyncTask.execute();
 
                         }
                     }
@@ -154,27 +159,30 @@ public class TeacherMainActivity extends AppCompatActivity {
     }
 
     //创建课程请求异步处理
-    private class ATask extends AsyncTask<JoinClassAPI,JoinClassAPI ,JoinClassAPI > {
+    private class ATask extends AsyncTask<CreateClassAPI,CreateClassAPI ,CreateClassAPI > {
         //后台线程执行时
-        private String input ;
-        private String input2 ;
-        private String name;
-        public ATask(String input,String input2,String name){
-            this.input=input;
-            this.input2=input2;
-            this.name=name;
+        private String class_name ;
+        private String class_password ;
+        private String account;
+        public ATask(String class_name,String class_password,String account){
+            this.class_name=class_name;
+            this.class_password=class_password;
+            this.account=account;
         }
         @Override
-        protected JoinClassAPI doInBackground(JoinClassAPI... params) {
-            JoinClassAPI join = new JoinClassAPI(input,input2,str);
-            return join;
+        protected CreateClassAPI doInBackground(CreateClassAPI... params) {
+            CreateClassAPI createClassAPI = new CreateClassAPI("123456",class_password,class_name,account);
+            return createClassAPI;
         }
         //后台线程执行结束后的操作，其中参数result为doInBackground返回的结果
         @Override
-        protected void onPostExecute(JoinClassAPI result) {
+        protected void onPostExecute(CreateClassAPI result) {
             super.onPostExecute(result);
             String login_result = result.getResponseData();
-            Toast.makeText(getApplicationContext(),login_result,Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), login_result, Toast.LENGTH_SHORT).show();
+            Log.d("TAG123456", "onPostExecute: "+login_result);
+
+
         }
     }
 

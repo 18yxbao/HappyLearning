@@ -2,6 +2,7 @@ package com.example.happylearning.Student;
 
 import android.annotation.SuppressLint;
 import android.app.Fragment;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -60,7 +61,11 @@ public class HomeFragment extends Fragment {
         }
         @Override
         protected List<Classes> doInBackground(List<Classes>... params) {
-            List<Classes>  newClassList= Util.getClassList(name);
+
+            SharedPreferences sprfMain= getActivity().getSharedPreferences("logindate",getActivity().MODE_PRIVATE);
+            String account_type=sprfMain.getString("account_type","0");
+
+            List<Classes>  newClassList= Util.getClassList(name,account_type);
             return newClassList;
         }
         //后台线程执行结束后的操作，其中参数result为doInBackground返回的结果

@@ -27,7 +27,7 @@ public class LoginActivity<click> extends AppCompatActivity {
     private Button B_change;
     private EditText T_account;
     private EditText T_password;
-    private int account_type =0;
+    private String account_type ="0";
     private String user;
     private String pwd;
 
@@ -60,13 +60,13 @@ public class LoginActivity<click> extends AppCompatActivity {
                     break;
                 case R.id.login_change:
 
-                    if(account_type ==0) {
-                        account_type =1;
+                    if(account_type.equals("0")) {
+                        account_type ="1";
                         T_Title.setText("教师登陆");
                         B_change.setText("学生端登陆");
                     }
                     else{
-                        account_type =0;
+                        account_type ="0";
                         T_Title.setText("学生登陆");
                         B_change.setText("教师端登陆");
                     }
@@ -107,14 +107,14 @@ public class LoginActivity<click> extends AppCompatActivity {
                 Filedata.save("name", user, getApplicationContext());
                 Intent intent=null;
 
-                if(account_type==0) {
+                if(account_type.equals("0")) {
                     intent = new Intent(LoginActivity.this, MainActivity.class);
-                    editor.putInt("account_type", account_type);
+                    editor.putString("account_type", account_type);
                     Log.d("login TAG", "IsPass: 1");
                 }
                 else{
                     intent = new Intent(LoginActivity.this, TeacherMainActivity.class);
-                    editor.putInt("account_type", account_type);
+                    editor.putString("account_type", account_type);
                     Log.d("login TAG", "IsPass: 2");
                 }
                 editor.apply();
@@ -131,9 +131,11 @@ public class LoginActivity<click> extends AppCompatActivity {
     //是否跳过登陆
     private void IsPass(){
         SharedPreferences sprfMain= getSharedPreferences("logindate",MODE_PRIVATE);
+        Log.d("login TAG", "IsPass: 0");
         if(sprfMain.getBoolean("islogin",false)){
+            Log.d("login TAG", "IsPass: 1");
             Intent intent=null;
-            if(sprfMain.getInt("account_type",0)==0) {
+            if(sprfMain.getString("account_type","0").equals("0")) {
                 intent = new Intent(LoginActivity.this, MainActivity.class);
                 Log.d("login TAG", "IsPass: 3");
             }

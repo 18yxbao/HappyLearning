@@ -43,6 +43,7 @@ public class DetailedSettingsActivity extends AppCompatActivity {
                     editor.apply();
                     Intent intent=new Intent(view.getContext(), LoginActivity.class);
                     view.getContext().startActivity(intent);
+                    DetailedSettingsActivity.this.finish();
                     break;
 
             }

@@ -32,8 +32,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity android:name=".Student.ContentDetailActivity" />
         <activity android:name=".Login.SetUserInfoActivity"/>
+        <activity android:name=".Teacher.TeacherMainActivity"/>
 
         <provider
             android:name="androidx.core.content.FileProvider"
