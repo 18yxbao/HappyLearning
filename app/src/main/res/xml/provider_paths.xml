@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 注意包名 -->
+    <external-path path="Android/data/com.example.happylearning/" name="files_root" />
+    <external-path
+        name="dcim_path"
+        path="DCIM"/>
+</paths>

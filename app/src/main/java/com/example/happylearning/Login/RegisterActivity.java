@@ -2,6 +2,7 @@ package com.example.happylearning.Login;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -81,6 +82,9 @@ public class RegisterActivity extends AppCompatActivity {
             if (result.equals("success")) {
                 Toast.makeText(RegisterActivity.this,
                         "注册成功！", Toast.LENGTH_SHORT).show();
+                Intent intent=new Intent(RegisterActivity.this,SetUserInfoActivity.class);
+                startActivity(intent);
+
                 RegisterActivity.this.finish();
             } else if (result.equals("fail")) {
                 Toast.makeText(RegisterActivity.this,

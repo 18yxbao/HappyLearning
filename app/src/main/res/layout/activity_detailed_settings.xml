@@ -19,10 +19,19 @@
             app:layout_constraintTop_toTopOf="parent">
         </androidx.appcompat.widget.Toolbar>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/detailed_setting_recyclerView"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/detailed_setting_loadout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/color_red"
+                android:text="退出登录" />
+
+        </LinearLayout>
 
 
     </LinearLayout>

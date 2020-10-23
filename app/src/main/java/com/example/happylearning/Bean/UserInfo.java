@@ -1,7 +1,7 @@
 package com.example.happylearning.Bean;
 
 
-public class StudentInfo {
+public class UserInfo {
     private String number;  //手机号
     private String name;    //名字
     private String userIco; //头像链接
@@ -9,14 +9,15 @@ public class StudentInfo {
     private String major;   //专业
     private String school;  //学校
     private String gender;  //性别
+    private String account_type; //0：学生；1：老师
 //    private String age;     //出生年月
 
 
-    public StudentInfo() {
+    public UserInfo() {
     }
 
-    public StudentInfo(String number, String name, String userIco, String schoolId,
-                       String major, String school, String gender) {
+    public UserInfo(String number, String name, String userIco, String schoolId,
+                    String major, String school, String gender,String account_type) {
         this.number = number;
         this.name = name;
         this.userIco = userIco;
@@ -24,6 +25,7 @@ public class StudentInfo {
         this.major = major;
         this.school = school;
         this.gender = gender;
+        this.account_type=account_type;
     }
 
     public String getNumber() {
@@ -80,6 +82,14 @@ public class StudentInfo {
 
     public void setGender(String gender) {
         this.gender = gender;
+    }
+
+    public String getAccount_type() {
+        return account_type;
+    }
+
+    public void setAccount_type(String account_type) {
+        this.account_type = account_type;
     }
 
     @Override

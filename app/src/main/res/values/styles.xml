@@ -2,8 +2,9 @@
     <style name="AppTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
     </style>
 
-
-
-
-
+    <style name="popwindow_anim_style" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/popup_show</item>
+        <item name="android:windowExitAnimation">@anim/popup_gone</item>
+    </style>
+    
 </resources>
