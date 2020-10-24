@@ -2,9 +2,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/menu_join_class_item1"
-        android:title="加入课程"
-        app:showAsAction="never">
+        android:id="@+id/menu_publish_add"
+        android:title="发布"
+        app:showAsAction="always">
     </item>
-
 </menu>

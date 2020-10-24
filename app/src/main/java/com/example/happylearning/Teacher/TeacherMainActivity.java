@@ -19,16 +19,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.happylearning.API.CreateClassAPI;
-import com.example.happylearning.API.JoinClassAPI;
-import com.example.happylearning.Bean.Classes;
+import com.example.happylearning.Data.AccountUtil;
 import com.example.happylearning.Data.Filedata;
 import com.example.happylearning.R;
 import com.example.happylearning.Student.HomeFragment;
 import com.example.happylearning.Student.MessageFragment;
 import com.example.happylearning.Student.SettingFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-
-import java.util.List;
 
 public class TeacherMainActivity extends AppCompatActivity {
 
@@ -37,21 +34,18 @@ public class TeacherMainActivity extends AppCompatActivity {
     private HomeFragment mHomeFragment;
     private MessageFragment mmessageFragment;
     private Toolbar toolbar;
-    private String str;
+    private String account;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d("Teacher123", "onCreate: 1");
-        str = Filedata.load("name",getApplicationContext());
-
+        account = AccountUtil.getAccount(getApplicationContext());
         setContentView(R.layout.activity_main);
         toolbar = findViewById(R.id.main_toolbar);
         setHomeFragment();
         setSupportActionBar(toolbar);
         BottomNavigationView navView = findViewById(R.id.nav_view);
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-
     }
 
 
@@ -117,7 +111,7 @@ public class TeacherMainActivity extends AppCompatActivity {
                             Toast.makeText(getApplicationContext(), "不能为空！" + class_name, Toast.LENGTH_LONG).show();
                         }
                         else {
-                            ATask asyncTask = new ATask(class_name,class_password,str);
+                            ATask asyncTask = new ATask(class_name,class_password, account);
                             asyncTask.execute();
 
                         }
@@ -133,7 +127,7 @@ public class TeacherMainActivity extends AppCompatActivity {
         toolbar.setBackgroundResource(R.color.color_background_grey);
         toolbar.setTitle("教师端");
         FragmentTransaction transaction = fm.beginTransaction();
-        mHomeFragment = new HomeFragment(str);
+        mHomeFragment = new HomeFragment(account);
         transaction.replace(R.id.main_tb, mHomeFragment);
         transaction.commit();
     }
@@ -153,7 +147,7 @@ public class TeacherMainActivity extends AppCompatActivity {
         toolbar.setBackgroundResource(R.color.color_white);
         toolbar.setTitle("");
         FragmentTransaction transaction = fm.beginTransaction();
-        mSettingFragment = new SettingFragment(str);
+        mSettingFragment = new SettingFragment(account);
         transaction.replace(R.id.main_tb, mSettingFragment);
         transaction.commit();
     }
@@ -171,7 +165,7 @@ public class TeacherMainActivity extends AppCompatActivity {
         }
         @Override
         protected CreateClassAPI doInBackground(CreateClassAPI... params) {
-            CreateClassAPI createClassAPI = new CreateClassAPI("123456",class_password,class_name,account);
+            CreateClassAPI createClassAPI = new CreateClassAPI(class_password,class_name,account);
             return createClassAPI;
         }
         //后台线程执行结束后的操作，其中参数result为doInBackground返回的结果

@@ -9,7 +9,7 @@ import android.os.Bundle;
 
 import com.example.happylearning.API.JoinClassAPI;
 import com.example.happylearning.Bean.Classes;
-import com.example.happylearning.Data.Filedata;
+import com.example.happylearning.Data.AccountUtil;
 import com.example.happylearning.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -36,13 +36,14 @@ public class MainActivity extends AppCompatActivity {
     private MessageFragment mmessageFragment;
     private Toolbar toolbar;
     private List<Classes> classesList=null;
-    private String str;
+    private String account;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        str = Filedata.load("name",getApplicationContext());
         setContentView(R.layout.activity_main);
+
+        account = AccountUtil.getAccount(getApplicationContext());
         toolbar = findViewById(R.id.main_toolbar);
         setHomeFragment();
         setSupportActionBar(toolbar);
@@ -55,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_join,menu); // 参数1为布局文件(menu_main.xml)
+        getMenuInflater().inflate(R.menu.menu_join_class,menu); // 参数1为布局文件(menu_main.xml)
         return true;
     }
 
@@ -115,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
                             Toast.makeText(getApplicationContext(), "不能为空！" + input, Toast.LENGTH_LONG).show();
                         }
                         else {
-                            ATask atask = new ATask(input,input2,str);
+                            ATask atask = new ATask(input,input2, account);
                             atask.execute();
                         }
                     }
@@ -126,11 +127,11 @@ public class MainActivity extends AppCompatActivity {
 
     private void setHomeFragment() {
         toolbar.getMenu().clear();
-        getMenuInflater().inflate(R.menu.menu_join,toolbar.getMenu());
+        getMenuInflater().inflate(R.menu.menu_join_class,toolbar.getMenu());
         toolbar.setBackgroundResource(R.color.color_background_grey);
         toolbar.setTitle("首页");
         FragmentTransaction transaction = fm.beginTransaction();
-        mHomeFragment = new HomeFragment(str);
+        mHomeFragment = new HomeFragment(account);
         transaction.replace(R.id.main_tb, mHomeFragment);
         transaction.commit();
     }
@@ -150,7 +151,7 @@ public class MainActivity extends AppCompatActivity {
         toolbar.setBackgroundResource(R.color.color_white);
         toolbar.setTitle("");
         FragmentTransaction transaction = fm.beginTransaction();
-        mSettingFragment = new SettingFragment(str);
+        mSettingFragment = new SettingFragment(account);
         transaction.replace(R.id.main_tb, mSettingFragment);
         transaction.commit();
     }
@@ -169,7 +170,7 @@ public class MainActivity extends AppCompatActivity {
         }
         @Override
         protected JoinClassAPI doInBackground(JoinClassAPI... params) {
-            JoinClassAPI join = new JoinClassAPI(input,input2,str);
+            JoinClassAPI join = new JoinClassAPI(input,input2, account);
             return join;
         }
         //后台线程执行结束后的操作，其中参数result为doInBackground返回的结果

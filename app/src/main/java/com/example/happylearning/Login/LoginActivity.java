@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.happylearning.API.LoginAPI;
+import com.example.happylearning.Data.AccountUtil;
 import com.example.happylearning.Data.Filedata;
 import com.example.happylearning.R;
 import com.example.happylearning.Student.MainActivity;
@@ -96,28 +97,23 @@ public class LoginActivity<click> extends AppCompatActivity {
             super.onPostExecute(result);
             String login_result = result.getResponseData();
             if(login_result.equals("")){
-                Toast.makeText(LoginActivity.this,
-                        "连接服务器失败！"+result, Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, "连接服务器失败！", Toast.LENGTH_SHORT).show();
             }
             else if (login_result.equals("success")) {
-                SharedPreferences.Editor editor = getSharedPreferences("logindate", MODE_PRIVATE).edit();
-                editor.putBoolean("islogin", true);
 
                 //文件储存
-                Filedata.save("name", user, getApplicationContext());
-                Intent intent=null;
+                AccountUtil.setLog(getApplicationContext(),true);
+                AccountUtil.setAccount(getApplicationContext(),user);
+                AccountUtil.setAccount_type(getApplicationContext(),account_type);
 
+                Intent intent=null;
                 if(account_type.equals("0")) {
                     intent = new Intent(LoginActivity.this, MainActivity.class);
-                    editor.putString("account_type", account_type);
-                    Log.d("login TAG", "IsPass: 1");
                 }
                 else{
                     intent = new Intent(LoginActivity.this, TeacherMainActivity.class);
-                    editor.putString("account_type", account_type);
-                    Log.d("login TAG", "IsPass: 2");
                 }
-                editor.apply();
+
                 startActivity(intent);
                 LoginActivity.this.finish();
             }
@@ -130,18 +126,13 @@ public class LoginActivity<click> extends AppCompatActivity {
 
     //是否跳过登陆
     private void IsPass(){
-        SharedPreferences sprfMain= getSharedPreferences("logindate",MODE_PRIVATE);
-        Log.d("login TAG", "IsPass: 0");
-        if(sprfMain.getBoolean("islogin",false)){
-            Log.d("login TAG", "IsPass: 1");
+        if(AccountUtil.getLog(getApplicationContext())){
             Intent intent=null;
-            if(sprfMain.getString("account_type","0").equals("0")) {
+            if(AccountUtil.getAccount_type(getApplicationContext()).equals("0")) {
                 intent = new Intent(LoginActivity.this, MainActivity.class);
-                Log.d("login TAG", "IsPass: 3");
             }
             else {
                 intent = new Intent(LoginActivity.this, TeacherMainActivity.class);
-                Log.d("login TAG", "IsPass: 4");
             }
             startActivity(intent);
             LoginActivity.this.finish();

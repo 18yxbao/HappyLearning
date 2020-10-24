@@ -7,12 +7,14 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.happylearning.R;
+
 import java.util.List;
 
-public class NoticeRecyclerViewAdapter extends RecyclerView.Adapter<NoticeRecyclerViewAdapter.ViewHolder> {
+public class NoticeListRecyclerViewAdapter extends RecyclerView.Adapter<NoticeListRecyclerViewAdapter.ViewHolder> {
     private List<String> titleList;
     private List<String> timeList;
 
@@ -31,7 +33,7 @@ public class NoticeRecyclerViewAdapter extends RecyclerView.Adapter<NoticeRecycl
         }
     }
 
-    public NoticeRecyclerViewAdapter (List<String> timeList, List<String> titleList) {
+    public NoticeListRecyclerViewAdapter(List<String> timeList, List<String> titleList) {
         this.titleList=titleList;
         this.timeList=timeList;
     }

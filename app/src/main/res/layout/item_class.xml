@@ -16,7 +16,7 @@
             android:id="@+id/item_class_icon"
             android:layout_width="8dp"
             android:layout_height="55dp"
-            android:background="#80DEEA"
+            android:background="@color/color_sky_blue"
             android:gravity="start" />
 
         <LinearLayout

@@ -31,6 +31,7 @@
                 android:orientation="horizontal">
 
                 <LinearLayout
+                    android:id="@+id/class_menber"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -49,6 +50,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/class_talk"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -67,6 +69,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/class_data"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -85,6 +88,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/class_homework"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -106,18 +110,51 @@
             </LinearLayout>
         </LinearLayout>
 
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="2dp" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="left"
+            android:background="@color/color_white"
             android:orientation="vertical">
 
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="课堂公告"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                android:textSize="30sp" />
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:text="课堂公告"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:textSize="30sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical|end"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/class_add"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
+                        android:scaleX="0.75"
+                        android:scaleY="0.75"
+                        android:text="+ 发布"
+                        android:visibility="invisible"
+                        android:textSize="18sp" />
+                </LinearLayout>
+
+
+            </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/class_recycleView"

@@ -17,10 +17,9 @@ public class CreateClassAPI {
 
     private String responseData;
 
-    public CreateClassAPI(String class_number,String class_password, String class_name,String account) {
+    public CreateClassAPI(String class_password, String class_name,String account) {
         OkHttpClient client = new OkHttpClient();
         RequestBody requestBody = new FormBody.Builder()
-                .add("class_number", class_number)
                 .add("class_password", class_password)
                 .add("class_name",class_name)
                 .add("class_teacher",account)

@@ -2,15 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.happylearning">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.CAMERA"/>
-
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -19,7 +10,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Student.DetailedSettingsActivity"/>
+        <activity android:name=".Teacher.PublishActivity"></activity>
+        <activity android:name=".Student.DetailedSettingsActivity" />
         <activity android:name=".Student.ClassActivity" />
         <activity
             android:name=".Student.MainActivity"
@@ -32,10 +24,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity android:name=".Student.ContentDetailActivity" />
-        <activity android:name=".Login.SetUserInfoActivity"/>
-        <activity android:name=".Teacher.TeacherMainActivity"/>
+        <activity android:name=".Login.SetUserInfoActivity" />
+        <activity android:name=".Teacher.TeacherMainActivity" />
+        <activity android:name=".Teacher.Teacher_ClassActivity" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -44,11 +36,16 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/provider_paths"/>
+                android:resource="@xml/provider_paths" />
         </provider>
     </application>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
-
-
+    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>

@@ -10,9 +10,11 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.happylearning.Data.AccountUtil;
 import com.example.happylearning.R;
 import com.example.happylearning.Bean.Classes;
 import com.example.happylearning.Student.ClassActivity;
+import com.example.happylearning.Teacher.Teacher_ClassActivity;
 
 
 import java.util.List;
@@ -20,6 +22,7 @@ import java.util.List;
 
 public class Home_RecyclerViewAdapter extends RecyclerView.Adapter<Home_RecyclerViewAdapter.ViewHolder> {
     private List<Classes> classList;
+    private String account_type;
 
     static class ViewHolder extends RecyclerView.ViewHolder{
         View classView;
@@ -35,14 +38,20 @@ public class Home_RecyclerViewAdapter extends RecyclerView.Adapter<Home_Recycler
             showmsg = (TextView)view.findViewById(R.id.item_class_msg);
         }
     }
+
+
     public Home_RecyclerViewAdapter(List<Classes> classList){
         this.classList = classList;
+
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_class,parent,false);
         final ViewHolder holder = new ViewHolder(view);
+        account_type= AccountUtil.getAccount_type(view.getContext());
+
         holder.classView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -50,10 +59,19 @@ public class Home_RecyclerViewAdapter extends RecyclerView.Adapter<Home_Recycler
                 Classes classes = classList.get(position);
                 Context context = view.getContext();
 
-                Intent intent = new Intent(context, ClassActivity.class);
-                intent.putExtra("class",classes.getClassName());
-                context.startActivity(intent);
+                Intent intent ;
 
+                if(account_type.equals("0")) {
+                    intent = new Intent(context, ClassActivity.class);
+                }
+                else{
+                    intent = new Intent(context, Teacher_ClassActivity.class);
+                }
+
+                intent.putExtra("classID",classes.getClassNum());
+                intent.putExtra("class",classes.getClassName());
+
+                context.startActivity(intent);
             }
         });
         return holder;
