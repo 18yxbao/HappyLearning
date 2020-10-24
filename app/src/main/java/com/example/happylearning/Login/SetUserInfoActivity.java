@@ -10,6 +10,9 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
@@ -26,7 +29,10 @@ import com.example.happylearning.R;
 import com.example.happylearning.Setting.PhotoPopupWindow;
 import com.example.happylearning.Student.SettingFragment;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 public class SetUserInfoActivity extends AppCompatActivity {
 
@@ -74,14 +80,7 @@ public class SetUserInfoActivity extends AppCompatActivity {
                                     200); // 申请的 requestCode 为 200
                         } else {
                             mPhotoPopupWindow.dismiss();
-                            Intent intent = new Intent(Intent.ACTION_PICK);
-                            intent.setType("image/*");
-                            // 判断系统中是否有处理该 Intent 的 Activity
-                            if (intent.resolveActivity(getPackageManager()) != null) {
-                                startActivityForResult(intent, REQUEST_IMAGE_GET);
-                            } else {
-                                Toast.makeText(getApplicationContext(), "未找到图片查看器", Toast.LENGTH_SHORT).show();
-                            }
+                            PictureUtil.startPhoto(SetUserInfoActivity.this);
                         }
 
                     }
@@ -164,7 +163,7 @@ public class SetUserInfoActivity extends AppCompatActivity {
         // 回调成功
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
-                // 小图切割
+                // 裁剪图片返回，设置头像
                 case REQUEST_SMALL_IMAGE_CUTTING:
                     Log.d("pic", "onActivityResult: REQUEST_SMALL_IMAGE_CUTTING");
 //                    if (data != null) {
@@ -173,18 +172,28 @@ public class SetUserInfoActivity extends AppCompatActivity {
                     PictureUtil.readIconFromFile(getApplicationContext(),imageView);
                     break;
 
-                // 相册选取
+                // 相册选取返回调用，裁剪图片
                 case REQUEST_IMAGE_GET:
                     Log.d("pic", "onActivityResult: REQUEST_IMAGE_GET");
-                    PictureUtil.cropphoto(SetUserInfoActivity.this,data.getData());
+                    Uri tempUri=data.getData();
+                    String readPath=PictureUtil.getFilePathByUri(SetUserInfoActivity.this,tempUri);
+                    Uri readUri=PictureUtil.getDcimUri(SetUserInfoActivity.this,new File(readPath));
+                    PictureUtil.cropphoto(SetUserInfoActivity.this,readUri);
                     break;
 
                 // 拍照
                 case REQUEST_IMAGE_CAPTURE:
-                    Log.d("pic", "onActivityResult: REQUEST_IMAGE_CAPTURE");
-                    File file=new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM),"user_icon.jpg");
 
-                    PictureUtil.cropphoto(SetUserInfoActivity.this, PictureUtil.getDcimUri(getApplicationContext(),file));
+
+                    String filename=Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM)+File.separator+"user_icon.jpg";
+                    Bitmap bitmap= BitmapFactory.decodeFile(filename);
+//                    PictureUtil.compressImage(bitmap,filename);
+//                    Bitmap bitmap=PictureUtil.getSmallBitmap(filename,300,300);
+
+                    File file=new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM),"user_icon.jpg");
+                    Uri uri=PictureUtil.getDcimUri(getApplicationContext(),file);
+                    Log.d("pic", "onActivityResult: REQUEST_IMAGE_CAPTURE:"+uri);
+                    PictureUtil.cropphoto(SetUserInfoActivity.this,uri );
 //                    File temp = new File(Environment.getExternalStorageDirectory() + "/" + IMAGE_FILE_NAME);
 //                    startSmallPhotoZoom(Uri.fromFile(temp));
                     break;

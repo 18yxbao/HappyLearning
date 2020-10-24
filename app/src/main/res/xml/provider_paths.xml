@@ -5,4 +5,7 @@
     <external-path
         name="dcim_path"
         path="DCIM"/>
+    <external-path
+        name="picture_path"
+        path="Pictures"/>
 </paths>

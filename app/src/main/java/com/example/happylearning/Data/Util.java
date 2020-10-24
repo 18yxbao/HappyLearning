@@ -10,12 +10,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Util {
-    public static List<Classes> getClassList(String studentNum,String account_type){
+    public static List<Classes> getClassList(String userNum,String account_type){
         List<Classes> classesList = new ArrayList<Classes>();
-        GetClassAPI get = new GetClassAPI(studentNum,account_type);
+        GetClassAPI get = new GetClassAPI(userNum,account_type);
         String get_result = get.getResponseData();
 
-        if(get_result==null||get_result.equals("")) {
+        if(get_result==null||get_result.equals("fail")||get_result.equals("")){
             Log.d("12345678", "NULL " + get_result);
             return null;
         }

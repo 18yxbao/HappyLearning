@@ -14,11 +14,11 @@ public class GetClassAPI{
 
     private String responseData;
 
-    public GetClassAPI(String student_number,String account_type) {
+    public GetClassAPI(String user_number,String account_type) {
         OkHttpClient client = new OkHttpClient();
         RequestBody requestBody = new FormBody.Builder()
                 .add("user_type", account_type)
-                .add("student_number", student_number)
+                .add("user_number", user_number)
                 .build();
         Request request = new Request.Builder()
                 .url("http://42.194.219.209:8080//HappyLearning_Server//GetClass")
