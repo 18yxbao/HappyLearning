@@ -1,34 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
-    <LinearLayout
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/content_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:orientation="vertical">
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/color_white"
 
-        <TextView
-            android:id="@+id/content_detail_classname"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="班级名称"
-            android:textSize="36sp"/>
+        app:layout_constraintTop_toTopOf="parent">
+    </androidx.appcompat.widget.Toolbar>
 
-        <TextView
-            android:id="@+id/content_detail_classnum"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="班号"
-            android:textSize="20sp"/>
-    </LinearLayout>
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_margin="10dp"-->
+<!--        android:background="@color/color_white"-->
+<!--        android:orientation="vertical">-->
 
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="10dp"/>
+<!--        <TextView-->
+<!--            android:id="@+id/content_detail_classname"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="班级名称"-->
+<!--            android:textSize="32sp"/>-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/content_detail_classnum"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="班号"-->
+<!--            android:textSize="18sp"/>-->
+<!--    </LinearLayout>-->
+
+<!--    <Space-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:background="@color/background_gray"-->
+<!--        android:layout_height="10dp"/>-->
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -41,7 +52,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="标题"
-            android:textSize="32sp"/>
+            android:textSize="28sp"/>
 
         <TextView
             android:id="@+id/content_detail_time"
@@ -60,7 +71,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
-        android:textSize="22sp"
+        android:textSize="24sp"
         android:text="通知内容"
         />
 

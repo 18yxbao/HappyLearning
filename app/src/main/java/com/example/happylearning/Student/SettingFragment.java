@@ -88,6 +88,7 @@ public class SettingFragment extends Fragment {
             switch(view.getId()){
                 case R.id.main_setting_mysetting:
                     intent=new Intent(view.getContext(), SetUserInfoActivity.class);
+                    intent.putExtra("userNum",account);
                     view.getContext().startActivity(intent);
                     break;
                 case R.id.main_setting_detailed_setting:

@@ -23,7 +23,7 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText T_password;
     private EditText T_password2;
 
-    private int account_type = 0;
+    private String account_type = "0";
     private String user;
     private String pwd;
     private String pwd2;
@@ -32,7 +32,7 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        account_type = getIntent().getIntExtra("account_type", -1);
+        account_type = getIntent().getStringExtra("account_type");
 
         T_Title = findViewById(R.id.register_title);
         T_account = (EditText) findViewById(R.id.register_account);
@@ -41,7 +41,7 @@ public class RegisterActivity extends AppCompatActivity {
         B_sumbit = (Button) findViewById(R.id.register_submit);
 
 
-        if (account_type == 0) {
+        if (account_type.equals("0")) {
             T_Title.setText("学生注册");
         } else {
             T_Title.setText("教师注册");

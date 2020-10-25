@@ -16,12 +16,12 @@ public class RegisterAPI {
     //若该用户名没有被注册过，即注册成功，则responseData = ”success“，若失败，则 = ”fail”
     private String responseData;
 
-    public RegisterAPI(String username, String password,int account_type) {
+    public RegisterAPI(String username, String password,String account_type) {
         OkHttpClient client = new OkHttpClient();
         RequestBody requestBody = new FormBody.Builder()
                 .add("username", username)
                 .add("password", password)
-                .add("account_type", Integer.toString(account_type))
+                .add("account_type", account_type)
                 .build();
         Request request = new Request.Builder()
                 .url("http://42.194.219.209:8080//HappyLearning_Server//Register")

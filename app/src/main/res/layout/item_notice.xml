@@ -46,6 +46,7 @@
                     android:layout_marginTop="10dp"
                     android:background="#EF9A9A"
                     android:orientation="horizontal"
+                    android:visibility="invisible"
                     android:textColor="#EF9A9A">
 
                     <TextView

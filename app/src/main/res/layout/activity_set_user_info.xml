@@ -67,7 +67,7 @@
                 android:layout_height="1dp" />
 
             <LinearLayout
-                android:id="@+id/set_user_info_name"
+                android:id="@+id/set_user_info_setname"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/long_button_height"
                 android:background="@color/color_white"
@@ -82,9 +82,10 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:id="@+id/set_user_info_name"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Name" />
+                    android:layout_weight="1" />
             </LinearLayout>
 
             <Space
@@ -92,7 +93,7 @@
                 android:layout_height="1dp" />
 
             <LinearLayout
-                android:id="@+id/set_user_info_gender"
+                android:id="@+id/set_user_info_setgender"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/long_button_height"
                 android:background="@color/color_white"
@@ -108,10 +109,11 @@
 
                 <TextView
 
+                    android:id="@+id/set_user_info_gender"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Gender" />
+                    android:text="" />
             </LinearLayout>
 
             <Space
@@ -119,7 +121,7 @@
                 android:layout_height="1dp" />
 
             <LinearLayout
-                android:id="@+id/set_user_info_account"
+                android:id="@+id/set_user_info_setaccount"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/long_button_height"
                 android:background="@color/color_white"
@@ -135,10 +137,10 @@
 
                 <TextView
 
+                    android:id="@+id/set_user_info_account"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Account" />
+                    android:layout_weight="1" />
             </LinearLayout>
 
             <Space
@@ -146,7 +148,7 @@
                 android:layout_height="1dp" />
 
             <LinearLayout
-                android:id="@+id/set_user_info_school"
+                android:id="@+id/set_user_info_setschool"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/long_button_height"
                 android:background="@color/color_white"
@@ -162,10 +164,10 @@
 
                 <TextView
 
+                    android:id="@+id/set_user_info_school"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="School" />
+                    android:layout_weight="1" />
             </LinearLayout>
 
             <Space
@@ -173,7 +175,7 @@
                 android:layout_height="1dp" />
 
             <LinearLayout
-                android:id="@+id/set_user_info_schoolid"
+                android:id="@+id/set_user_info_setschoolid"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/long_button_height"
                 android:background="@color/color_white"
@@ -189,10 +191,10 @@
 
                 <TextView
 
+                    android:id="@+id/set_user_info_schoolid"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="SchoolID" />
+                    android:layout_weight="1" />
             </LinearLayout>
 
             <Space
@@ -200,7 +202,7 @@
                 android:layout_height="1dp" />
 
             <LinearLayout
-                android:id="@+id/set_user_info_major"
+                android:id="@+id/set_user_info_setmajor"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/long_button_height"
                 android:background="@color/color_white"
@@ -216,10 +218,10 @@
 
                 <TextView
 
+                    android:id="@+id/set_user_info_major"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Major" />
+                    android:layout_weight="1" />
             </LinearLayout>
 
             <Space
