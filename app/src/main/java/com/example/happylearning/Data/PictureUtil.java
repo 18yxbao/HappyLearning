@@ -24,10 +24,7 @@ import androidx.fragment.app.Fragment;
 import com.example.happylearning.Setting.PhotoPopupWindow;
 import com.example.happylearning.Student.SettingFragment;
 
-import java.io.BufferedOutputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 
 public class PictureUtil {
@@ -45,7 +42,7 @@ public class PictureUtil {
         } else {
             uri = Uri.fromFile(file);
         }
-        Log.d("PictureUtil", "getDcimUri: "+uri);
+
         return uri;
     }
 
