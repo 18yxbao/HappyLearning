@@ -66,7 +66,7 @@ public class AccountUtil {
             String major, String school, String gender){
 
         String account=getAccount(context);
-        SharedPreferences.Editor editor = context.getSharedPreferences("userinfo", context.MODE_PRIVATE).edit();
+        SharedPreferences.Editor editor = context.getSharedPreferences(account, context.MODE_PRIVATE).edit();
         editor.putString("name", name);
         editor.putString("schoolId", schoolId);
         editor.putString("major", major);
@@ -74,10 +74,8 @@ public class AccountUtil {
         editor.putString("gender", gender);
         editor.apply();
 
-//        String path=context.getExternalCacheDir()+ File.separator+"bmob"+File.separator;
-//        String Picturename="user_icon.jpg";
-//        Bitmap bitmap=Filedata.stringtoBitmap(userIco);
-//        Filedata.savePicture(bitmap,path,Picturename);
+        Bitmap bitmap=Filedata.stringtoBitmap(userIco);
+        Filedata.savePicture(context,bitmap,"bmob","user_icon.jpg");
     }
 
     public static String getName(Context context) {
@@ -91,7 +89,7 @@ public class AccountUtil {
     public static Bitmap getUserIco(Context context) {
         String path=context.getExternalCacheDir()+ File.separator+"bmob"+File.separator;
         String Picturename="user_icon.jpg";
-        Bitmap bitmap=Filedata.loadPicture(path,Picturename);
+        Bitmap bitmap=Filedata.loadPicture(context,path,Picturename);
         return bitmap;
     }
 

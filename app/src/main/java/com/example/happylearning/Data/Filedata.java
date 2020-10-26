@@ -77,15 +77,21 @@ public class Filedata {
         return bitmap;
     }
 
-    public static void savePicture(Bitmap bitmap, String path,String name) {
-        File PHOTO_DIR = new File(path);//设置保存路径
-        File avaterFile = new File(PHOTO_DIR,name);//设置文件名称
-        if (avaterFile.exists()) {
-            avaterFile.delete();
+    public static void savePicture(Context context,Bitmap bitmap, String path, String file_name) {
+
+
+        File bomb=new File(context.getApplicationContext().getExternalCacheDir(),path);
+        if (!bomb.exists()){
+            bomb.mkdir();
+        }
+        File file=new File(bomb,file_name);
+
+        if (file.exists()) {
+            file.delete();
         }
         try {
-            avaterFile.createNewFile();
-            FileOutputStream fos = new FileOutputStream(avaterFile);
+            file.createNewFile();
+            FileOutputStream fos = new FileOutputStream(file);
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
             fos.flush();
             fos.close();
@@ -95,14 +101,14 @@ public class Filedata {
 
     }
 
-    public static Bitmap loadPicture(String path,String name) {
-        File PHOTO_DIR = new File(path);//设置保存路径
+    public static Bitmap loadPicture(Context context,String path, String file_name) {
+        File PHOTO_DIR = new File(context.getApplicationContext().getExternalCacheDir(),path);
         //读取本地图片
         Bitmap bitmap = null;
         try {
-            File avaterFile = new File(PHOTO_DIR, name);
+            File avaterFile = new File(PHOTO_DIR, file_name);
             if (avaterFile.exists()) {
-                bitmap = BitmapFactory.decodeFile(PHOTO_DIR + name);
+                bitmap = BitmapFactory.decodeFile(PHOTO_DIR + file_name);
             }
         } catch (Exception e) {
         }

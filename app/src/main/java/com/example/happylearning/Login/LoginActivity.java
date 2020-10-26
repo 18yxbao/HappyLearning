@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -42,14 +43,6 @@ public class LoginActivity<click> extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         IsPass();//是否跳过
         setContentView(R.layout.activity_login);
-
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
-        }
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
-        }
-
 
         B_login =(Button) findViewById(R.id.login_login);
         B_register =(Button) findViewById(R.id.login_register);
@@ -87,6 +80,9 @@ public class LoginActivity<click> extends AppCompatActivity {
                     }
                     break;
                 case R.id.login_login:
+                    user = T_account.getText().toString();
+                    pwd = T_password.getText().toString();
+
                     ATask_LoginAPI ak = new ATask_LoginAPI();
                     ak.execute();
                     break;
@@ -99,8 +95,6 @@ public class LoginActivity<click> extends AppCompatActivity {
         //后台线程执行时
         @Override
         protected LoginAPI doInBackground(LoginAPI... params) {
-            user = T_account.getText().toString();
-            pwd = T_password.getText().toString();
             LoginAPI login = new LoginAPI(user, pwd, account_type);
             return login;
         }
@@ -125,7 +119,7 @@ public class LoginActivity<click> extends AppCompatActivity {
             }
             else if (login_result.equals("fail")) {
                 Toast.makeText(LoginActivity.this,
-                        "输入密码错误！", Toast.LENGTH_SHORT).show();
+                        "密码错误！", Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -138,6 +132,7 @@ public class LoginActivity<click> extends AppCompatActivity {
             String account = AccountUtil.getAccount(getApplicationContext());
             String account_type = AccountUtil.getAccount_type(getApplicationContext());
             UserInfo result = Util.getUserInfo(getApplicationContext(),account, account_type);
+            Log.d("doInBackground", "doInBackground: "+result.toString());
             if(result!=null) {
                 AccountUtil.setUserInfo(getApplicationContext(), result.getName(), result.getUserIco(), result.getSchoolId(),
                         result.getMajor(), result.getSchool(), result.getGender());
@@ -158,18 +153,14 @@ public class LoginActivity<click> extends AppCompatActivity {
             }
             startActivity(intent);
             finish();
-
         }
     }
 
     //是否跳过登陆
     private void IsPass() {
         if (AccountUtil.getLog(getApplicationContext())) {
-
             ATask_Login aTask_login = new ATask_Login();
             aTask_login.execute();
-
-
         }
     }
 

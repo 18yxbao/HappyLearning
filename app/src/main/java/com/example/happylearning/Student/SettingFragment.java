@@ -87,8 +87,7 @@ public class SettingFragment extends Fragment {
         //logout=view.findViewById(R.id.main_setting_logout);
         imageView=view.findViewById(R.id.main_setting_icon);
         PictureUtil.readIconFromFile(getContext(),imageView);
-        account_text.setText(account);
-        name_text.setText(account);
+
 
 
         return view;
