@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.happylearning.API.RegisterAPI;
+import com.example.happylearning.Data.AccountUtil;
 import com.example.happylearning.R;
 
 
@@ -82,6 +83,8 @@ public class RegisterActivity extends AppCompatActivity {
             if (result.equals("success")) {
                 Toast.makeText(RegisterActivity.this,
                         "注册成功！", Toast.LENGTH_SHORT).show();
+                AccountUtil.setAccount(getApplicationContext(),user);
+                AccountUtil.setAccount_type(getApplicationContext(),account_type);
                 Intent intent=new Intent(RegisterActivity.this,SetUserInfoActivity.class);
                 startActivity(intent);
 

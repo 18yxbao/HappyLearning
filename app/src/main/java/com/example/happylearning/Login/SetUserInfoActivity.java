@@ -23,15 +23,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.happylearning.API.LoginAPI;
 import com.example.happylearning.API.UpdateIconAPI;
 import com.example.happylearning.API.UpdateUserInfoAPI;
+import com.example.happylearning.Bean.UserInfo;
 import com.example.happylearning.Data.AccountUtil;
 import com.example.happylearning.Data.PictureUtil;
 import com.example.happylearning.R;
 import com.example.happylearning.Setting.PhotoPopupWindow;
-import com.example.happylearning.Student.MainActivity;
-import com.example.happylearning.Teacher.TeacherMainActivity;
 
 import java.io.File;
 
@@ -60,12 +58,15 @@ public class SetUserInfoActivity extends AppCompatActivity {
     private String name = "";
     private String gender = "";
     private String account = "";
+    private String account_type = "";
     private String school = "";
     private String schoolid = "";
     private String major = "";
 
 
     private PhotoPopupWindow mPhotoPopupWindow;
+    private PhotoPopupWindow genderPhotoPopupWindow;
+
     private static final int REQUEST_IMAGE_GET = 0;
     private static final int REQUEST_IMAGE_CAPTURE = 1;
     private static final int REQUEST_SMALL_IMAGE_CUTTING = 2;
@@ -93,7 +94,13 @@ public class SetUserInfoActivity extends AppCompatActivity {
         imageView = findViewById(R.id.set_user_info_icon);
         PictureUtil.readIconFromFile(getApplicationContext(), imageView);
 
-        account=AccountUtil.getAccount(getApplicationContext());
+        account = AccountUtil.getAccount(getApplicationContext());
+        account_type= AccountUtil.getAccount_type(getApplicationContext());
+        name=AccountUtil.getName(getApplicationContext());
+        gender=AccountUtil.getGender(getApplicationContext());
+        school=AccountUtil.getSchool(getApplicationContext());
+        schoolid=AccountUtil.getSchoolId(getApplicationContext());
+        major=AccountUtil.getMajor(getApplicationContext());
 
         set_icon = (LinearLayout) findViewById(R.id.set_user_info_seticon);
         set_name = (LinearLayout) findViewById(R.id.set_user_info_setname);
@@ -124,12 +131,35 @@ public class SetUserInfoActivity extends AppCompatActivity {
         set_icon.setOnClickListener(icon_click);
         set_name.setOnClickListener(click);
         set_gender.setOnClickListener(click);
-        set_account.setOnClickListener(click);
+        //set_account.setOnClickListener(click);
         set_school.setOnClickListener(click);
         set_schoolId.setOnClickListener(click);
         set_major.setOnClickListener(click);
         savemsg.setOnClickListener(click);
 
+
+        set_account.setClickable(false);
+
+
+        genderPhotoPopupWindow = new PhotoPopupWindow(SetUserInfoActivity.this
+                , new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                gender = "女";
+                T_gender.setText(gender);
+                genderPhotoPopupWindow.dismiss();
+            }
+        }, new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                gender = "男";
+                T_gender.setText(gender);
+                genderPhotoPopupWindow.dismiss();
+            }
+        }
+        );
+        genderPhotoPopupWindow.btn_camera.setText("男");
+        genderPhotoPopupWindow.btn_select.setText("女");
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -151,9 +181,13 @@ public class SetUserInfoActivity extends AppCompatActivity {
                     startActivityForResult(intent, REQUEST_NAME_GET);
                     break;
                 case R.id.set_user_info_setgender:
-                    intent.putExtra("title", "修改性别");
-                    intent.putExtra("content", gender);
-                    startActivityForResult(intent, REQUEST_GENDER_GET);
+
+//                    intent.putExtra("title", "修改性别");
+//                    intent.putExtra("content", gender);
+//                    startActivityForResult(intent, REQUEST_GENDER_GET);
+                    View rootView = LayoutInflater.from(getApplicationContext()).inflate(R.layout.fragment_setting, null);
+                    genderPhotoPopupWindow.showAtLocation(rootView, Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
+
                     break;
                 case R.id.set_user_info_setaccount:
                     intent.putExtra("title", "修改手机");
@@ -176,7 +210,13 @@ public class SetUserInfoActivity extends AppCompatActivity {
                     startActivityForResult(intent, REQUEST_MAJOR_GET);
                     break;
                 case R.id.set_user_info_save:
-                    save_click();
+
+                    if(name.equals("") ||gender.equals("")||account.equals("")||school.equals("")||schoolid.equals("")||major.equals("")){
+                        Toast.makeText(getApplicationContext(),"内容不能为空",Toast.LENGTH_SHORT).show();
+                    }else{
+                        ATask_UpdataUserInfo aTask_Updata_userInfo =new ATask_UpdataUserInfo();
+                        aTask_Updata_userInfo.execute();
+                    }
                     break;
 
             }
@@ -185,16 +225,7 @@ public class SetUserInfoActivity extends AppCompatActivity {
     };
 
 
-    private void save_click(){
-        if(name.equals("") ||gender.equals("")||account.equals("")||school.equals("")||schoolid.equals("")||major.equals("")){
-            Toast.makeText(getApplicationContext(),"内容不能为空",Toast.LENGTH_SHORT).show();
-        }else{
-            ATask_UserInfo aTask_userInfo=new ATask_UserInfo();
-            aTask_userInfo.execute();
-            Toast.makeText(getApplicationContext(),"跑了",Toast.LENGTH_SHORT).show();
 
-        }
-    }
 
 
     private View.OnClickListener icon_click = new View.OnClickListener() {
@@ -300,8 +331,10 @@ public class SetUserInfoActivity extends AppCompatActivity {
 //                    if (data != null) {
 //                        setPicToView(data);
 //                    }
+
                     PictureUtil.readIconFromFile(getApplicationContext(), imageView);
-                    ATask_Icon aTask_icon=new ATask_Icon();
+
+                    ATask_UpdataIcon aTask_icon=new ATask_UpdataIcon();
                     aTask_icon.execute();
 //                    PictureUtil.updateIconToServer(SetUserInfoActivity.this,account);
                     break;
@@ -357,13 +390,13 @@ public class SetUserInfoActivity extends AppCompatActivity {
 
 
 
-    private class ATask_UserInfo extends AsyncTask<UpdateUserInfoAPI,UpdateUserInfoAPI,UpdateUserInfoAPI > {
+    private class ATask_UpdataUserInfo extends AsyncTask<UpdateUserInfoAPI,UpdateUserInfoAPI,UpdateUserInfoAPI > {
 
         //后台线程执行时
         @Override
         protected UpdateUserInfoAPI doInBackground(UpdateUserInfoAPI... params) {
 
-            UpdateUserInfoAPI updateUserInfoAPI = new UpdateUserInfoAPI(account, name, school, schoolid, major, gender);
+            UpdateUserInfoAPI updateUserInfoAPI = new UpdateUserInfoAPI(account, account_type, name, school, schoolid, major, gender);
             return updateUserInfoAPI;
         }
 
@@ -371,19 +404,20 @@ public class SetUserInfoActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(UpdateUserInfoAPI result) {
             super.onPostExecute(result);
-
-
+            Toast.makeText(getApplicationContext(),result.getResponseData(),Toast.LENGTH_SHORT).show();
+            if(result.getResponseData().equals("success")){
+                finish();
+            }
         }
     }
 
-    private class ATask_Icon extends AsyncTask<UpdateIconAPI,UpdateIconAPI,UpdateIconAPI > {
+    private class ATask_UpdataIcon extends AsyncTask<UpdateIconAPI,UpdateIconAPI,UpdateIconAPI > {
 
         //后台线程执行时
         @Override
         protected UpdateIconAPI doInBackground(UpdateIconAPI... params) {
             String path=getApplicationContext().getExternalCacheDir()+ File.separator+"bmob"+File.separator+"user_icon.jpg";
-            UpdateIconAPI updateIconAPI = new UpdateIconAPI(path,account);
-
+            UpdateIconAPI updateIconAPI = new UpdateIconAPI(path,account,account_type);
             return updateIconAPI;
         }
 

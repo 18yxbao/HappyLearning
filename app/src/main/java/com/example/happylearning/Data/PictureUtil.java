@@ -128,9 +128,9 @@ public class PictureUtil {
         }
     }
 
-    public static void updateIconToServer(Context context, String userNum){
+    public static void updateIconToServer(Context context, String userNum,String user_type){
         String path=context.getExternalCacheDir()+ File.separator+"bmob"+File.separator+"user_icon.jpg";
-        UpdateIconAPI updateIconAPI=new UpdateIconAPI(path,userNum);
+        UpdateIconAPI updateIconAPI=new UpdateIconAPI(path,userNum,user_type);
     }
 
 

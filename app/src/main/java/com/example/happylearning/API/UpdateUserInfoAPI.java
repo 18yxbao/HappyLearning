@@ -20,10 +20,11 @@ public class UpdateUserInfoAPI {
      */
     private String responseData="";
 
-    public UpdateUserInfoAPI(String user_number, String user_name, String user_school, String user_schoolId, String user_major, String user_gender) {
+    public UpdateUserInfoAPI(String user_number, String user_type,String user_name, String user_school, String user_schoolId, String user_major, String user_gender) {
         OkHttpClient client = new OkHttpClient();
         RequestBody requestBody = new FormBody.Builder()
                 .add("user_number" , user_number)
+                .add("user_type",user_type)
                 .add("user_name", user_name)
                 .add("user_school", user_school)
                 .add("user_schoolId", user_schoolId)
@@ -31,7 +32,7 @@ public class UpdateUserInfoAPI {
                 .add("user_gender", user_gender)
                 .build();
         Request request = new Request.Builder()
-                .url("http://192.168.43.89:8080//HappyLearning_Server//UpdateUserInfo")
+                .url("http://42.194.219.209:8080//HappyLearning_Server//UpdateUserInfo")
                 .post(requestBody)
                 .build();
         Log.d("Notice", "AddNotice");

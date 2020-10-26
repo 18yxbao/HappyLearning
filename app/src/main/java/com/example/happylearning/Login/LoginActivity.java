@@ -1,23 +1,28 @@
 package com.example.happylearning.Login;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+
+import android.Manifest;
 import android.content.Intent;
-import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 import com.example.happylearning.API.LoginAPI;
+import com.example.happylearning.Bean.UserInfo;
 import com.example.happylearning.Data.AccountUtil;
-import com.example.happylearning.Data.Filedata;
+import com.example.happylearning.Data.Util;
 import com.example.happylearning.R;
 import com.example.happylearning.Student.MainActivity;
 import com.example.happylearning.Teacher.TeacherMainActivity;
+
 
 
 public class LoginActivity<click> extends AppCompatActivity {
@@ -37,6 +42,15 @@ public class LoginActivity<click> extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         IsPass();//是否跳过
         setContentView(R.layout.activity_login);
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
+        }
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+        }
+
+
         B_login =(Button) findViewById(R.id.login_login);
         B_register =(Button) findViewById(R.id.login_register);
         B_change =(Button) findViewById(R.id.login_change);
@@ -73,14 +87,14 @@ public class LoginActivity<click> extends AppCompatActivity {
                     }
                     break;
                 case R.id.login_login:
-                    aTask ak = new aTask();
+                    ATask_LoginAPI ak = new ATask_LoginAPI();
                     ak.execute();
                     break;
             }
         }
     };
 
-    private class aTask extends AsyncTask<LoginAPI,LoginAPI,LoginAPI > {
+    private class ATask_LoginAPI extends AsyncTask<LoginAPI,LoginAPI,LoginAPI > {
 
         //后台线程执行时
         @Override
@@ -106,16 +120,8 @@ public class LoginActivity<click> extends AppCompatActivity {
                 AccountUtil.setAccount(getApplicationContext(),user);
                 AccountUtil.setAccount_type(getApplicationContext(),account_type);
 
-                Intent intent=null;
-                if(account_type.equals("0")) {
-                    intent = new Intent(LoginActivity.this, MainActivity.class);
-                }
-                else{
-                    intent = new Intent(LoginActivity.this, TeacherMainActivity.class);
-                }
-
-                startActivity(intent);
-                LoginActivity.this.finish();
+                ATask_Login aTask_login = new ATask_Login();
+                aTask_login.execute();
             }
             else if (login_result.equals("fail")) {
                 Toast.makeText(LoginActivity.this,
@@ -124,9 +130,25 @@ public class LoginActivity<click> extends AppCompatActivity {
         }
     }
 
-    //是否跳过登陆
-    private void IsPass(){
-        if(AccountUtil.getLog(getApplicationContext())){
+    private class ATask_Login extends AsyncTask<UserInfo,UserInfo,UserInfo > {
+
+        //后台线程执行时
+        @Override
+        protected UserInfo doInBackground(UserInfo... params) {
+            String account = AccountUtil.getAccount(getApplicationContext());
+            String account_type = AccountUtil.getAccount_type(getApplicationContext());
+            UserInfo result = Util.getUserInfo(getApplicationContext(),account, account_type);
+            if(result!=null) {
+                AccountUtil.setUserInfo(getApplicationContext(), result.getName(), result.getUserIco(), result.getSchoolId(),
+                        result.getMajor(), result.getSchool(), result.getGender());
+            }
+            return  result;
+        }
+
+        //后台线程执行结束后的操作，其中参数result为doInBackground返回的结果
+        @Override
+        protected void onPostExecute(UserInfo result) {
+            super.onPostExecute(result);
             Intent intent=null;
             if(AccountUtil.getAccount_type(getApplicationContext()).equals("0")) {
                 intent = new Intent(LoginActivity.this, MainActivity.class);
@@ -135,19 +157,28 @@ public class LoginActivity<click> extends AppCompatActivity {
                 intent = new Intent(LoginActivity.this, TeacherMainActivity.class);
             }
             startActivity(intent);
-            LoginActivity.this.finish();
+            finish();
+
         }
     }
+
+    //是否跳过登陆
+    private void IsPass() {
+        if (AccountUtil.getLog(getApplicationContext())) {
+
+            ATask_Login aTask_login = new ATask_Login();
+            aTask_login.execute();
+
+
+        }
+    }
+
+
 
     @Override
     public void onBackPressed() {
 
     }
-
-
-
-
-
 
 
 

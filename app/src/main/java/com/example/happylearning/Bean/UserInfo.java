@@ -4,7 +4,7 @@ package com.example.happylearning.Bean;
 public class UserInfo {
     private String number;  //手机号
     private String name;    //名字
-    private String userIco; //头像链接
+    private String userIco; //头像
     private String schoolId;//学号
     private String major;   //专业
     private String school;  //学校

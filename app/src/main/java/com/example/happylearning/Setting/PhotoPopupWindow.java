@@ -26,6 +26,9 @@ public class PhotoPopupWindow extends PopupWindow implements Serializable {
     private View.OnClickListener mSelectListener; // 相册选取的点击监听器
     private View.OnClickListener mCaptureListener; // 拍照的点击监听器
     private PhotoPopupWindow photoPopupWindow;
+    public Button btn_camera;
+    public Button btn_select;
+    public Button btn_cancel;
 
     public PhotoPopupWindow(Activity context, View.OnClickListener selectListener, View.OnClickListener captureListener) {
         super(context);
@@ -42,9 +45,9 @@ public class PhotoPopupWindow extends PopupWindow implements Serializable {
         LayoutInflater inflater = (LayoutInflater) mContext
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         mView = inflater.inflate(R.layout.pop_item, null);
-        Button btn_camera = (Button) mView.findViewById(R.id.icon_btn_camera);
-        Button btn_select = (Button) mView.findViewById(R.id.icon_btn_select);
-        Button btn_cancel = (Button) mView.findViewById(R.id.icon_btn_cancel);
+        btn_camera = (Button) mView.findViewById(R.id.icon_btn_camera);
+        btn_select = (Button) mView.findViewById(R.id.icon_btn_select);
+        btn_cancel = (Button) mView.findViewById(R.id.icon_btn_cancel);
 
         btn_select.setOnClickListener(mSelectListener);
         btn_camera.setOnClickListener(mCaptureListener);

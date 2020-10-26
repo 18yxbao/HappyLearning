@@ -23,6 +23,7 @@ import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.example.happylearning.Data.AccountUtil;
 import com.example.happylearning.Data.PictureUtil;
 import com.example.happylearning.Login.SetUserInfoActivity;
 import com.example.happylearning.R;
@@ -40,9 +41,17 @@ public class SettingFragment extends Fragment {
     private TextView account_text;
     private TextView name_text;
 
-    private String account;
+    private String name = "";
+    private String account = "";
+
+
     private Button logout;
     private ImageView imageView;
+
+    private String IconPath;
+
+
+
 
 
     public SettingFragment(String account) {
@@ -61,9 +70,15 @@ public class SettingFragment extends Fragment {
         setting=(LinearLayout) view.findViewById(R.id.main_setting_detailed_setting);
         account_text=(TextView) view.findViewById(R.id.main_setting_account);
         name_text=(TextView) view.findViewById(R.id.main_setting_name);
+        imageView=(ImageView) view.findViewById(R.id.main_setting_icon);
+
+        account = AccountUtil.getAccount(getContext());
+        name=AccountUtil.getName(getContext());
+
+        PictureUtil.readIconFromFile(view.getContext(), imageView);
 
         account_text.setText(account);
-        name_text.setText(account);
+        name_text.setText(name);
 
         mysetting.setOnClickListener(click);
         setting.setOnClickListener(click);
