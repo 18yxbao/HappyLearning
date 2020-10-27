@@ -3,7 +3,6 @@ package com.example.happylearning.Teacher;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,14 +12,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.happylearning.API.AddNoticeAPI;
-import com.example.happylearning.API.LoginAPI;
-import com.example.happylearning.Data.AccountUtil;
 import com.example.happylearning.Data.TimeUtil;
-import com.example.happylearning.Login.LoginActivity;
 import com.example.happylearning.R;
-import com.example.happylearning.Student.MainActivity;
-
-import java.sql.Time;
 
 public class PublishActivity extends AppCompatActivity {
     private Toolbar toolbar;

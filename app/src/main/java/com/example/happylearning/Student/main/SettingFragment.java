@@ -1,4 +1,4 @@
-package com.example.happylearning.Student;
+package com.example.happylearning.Student.main;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -28,6 +28,8 @@ import com.example.happylearning.Data.PictureUtil;
 import com.example.happylearning.Login.SetUserInfoActivity;
 import com.example.happylearning.R;
 import com.example.happylearning.Setting.PhotoPopupWindow;
+import com.example.happylearning.Student.DetailedSettingsActivity;
+
 import java.io.File;
 
 import static android.app.Activity.RESULT_OK;

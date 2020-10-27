@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.happylearning.Bean.NoticeList;
 import com.example.happylearning.R;
-import com.example.happylearning.Student.ContentDetailActivity;
+import com.example.happylearning.Student.Class.ContentDetailActivity;
 
 import java.util.List;
 
@@ -26,7 +26,6 @@ public class NoticeListRecyclerViewAdapter extends RecyclerView.Adapter<NoticeLi
         TextView titleT;
         TextView timeT;
         LinearLayout noticeLayout;
-
         View noticeView;
 
         public ViewHolder(View view){

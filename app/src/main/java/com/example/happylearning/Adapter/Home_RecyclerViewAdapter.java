@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.happylearning.Data.AccountUtil;
 import com.example.happylearning.R;
 import com.example.happylearning.Bean.Classes;
-import com.example.happylearning.Student.ClassActivity;
+import com.example.happylearning.Student.Class.ClassActivity;
 import com.example.happylearning.Teacher.Teacher_ClassActivity;
 
 
@@ -23,6 +23,11 @@ import java.util.List;
 public class Home_RecyclerViewAdapter extends RecyclerView.Adapter<Home_RecyclerViewAdapter.ViewHolder> {
     private List<Classes> classList;
     private String account_type;
+
+    public static final int ITEM_HEAD = 0;
+    //信息
+    public static final int ITEM_MESSAGE = 1;
+
 
     static class ViewHolder extends RecyclerView.ViewHolder{
         View classView;
@@ -43,6 +48,18 @@ public class Home_RecyclerViewAdapter extends RecyclerView.Adapter<Home_Recycler
     public Home_RecyclerViewAdapter(List<Classes> classList){
         this.classList = classList;
 
+    }
+
+    @Override
+    public int getItemViewType(int position)
+    {
+        if (position == 0)
+            //确定第一个是头部
+            return ITEM_HEAD;
+        else if (position == 1)
+            //确定第二个是信息
+            return ITEM_MESSAGE;
+        return -1;
     }
 
     @Override
@@ -74,6 +91,7 @@ public class Home_RecyclerViewAdapter extends RecyclerView.Adapter<Home_Recycler
                 context.startActivity(intent);
             }
         });
+
         return holder;
     }
 

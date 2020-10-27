@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Student.ClassActivity">
+    tools:context=".Student.Class.ClassActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,152 +17,138 @@
             android:layout_height="?attr/actionBarSize"
             android:background="@color/color_white"></androidx.appcompat.widget.Toolbar>
 
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/color_background_grey"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:background="@color/color_white"
-                android:gravity="center|center_horizontal"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:id="@+id/class_menber"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        app:srcCompat="@mipmap/ic_launcher_round" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="成员" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/class_talk"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        app:srcCompat="@mipmap/ic_launcher_round" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="讨论区" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/class_data"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        app:srcCompat="@mipmap/ic_launcher_round" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="课件" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/class_homework"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        app:srcCompat="@mipmap/ic_launcher_round" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="作业" />
-                </LinearLayout>
-
-
-            </LinearLayout>
-        </LinearLayout>
-
-        <Space
-            android:layout_width="wrap_content"
-            android:layout_height="2dp" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/color_white"
-            android:orientation="vertical">
+            android:layout_height="match_parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="5dp"
-                    android:text="课堂公告"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                    android:textSize="30sp" />
+                android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center_vertical|end"
+                    android:layout_height="wrap_content"
+                    android:background="@color/color_white"
+                    android:gravity="center|center_horizontal"
                     android:orientation="horizontal">
 
-                    <Button
-                        android:id="@+id/class_add"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="10dp"
-                        android:scaleX="0.75"
-                        android:scaleY="0.75"
-                        android:text="+ 发布"
-                        android:visibility="invisible"
-                        android:textSize="18sp" />
+                    <LinearLayout
+                        android:id="@+id/class_notice"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_marginTop="10dp"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            app:srcCompat="@mipmap/ic_launcher_round" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="公告" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/class_member"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_marginTop="10dp"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            app:srcCompat="@mipmap/ic_launcher_round" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="成员" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/class_talk"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_marginTop="10dp"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            app:srcCompat="@mipmap/ic_launcher_round" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="讨论区" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/class_data"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_marginTop="10dp"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            app:srcCompat="@mipmap/ic_launcher_round" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="课件" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/class_homework"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_marginTop="10dp"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            app:srcCompat="@mipmap/ic_launcher_round" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="作业" />
+                    </LinearLayout>
+
+
                 </LinearLayout>
 
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="2dp" />
+
+                <LinearLayout
+                    android:id="@+id/class_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/color_white"
+                    android:orientation="vertical" />
 
             </LinearLayout>
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/class_recycleView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-
-                />
-        </LinearLayout>
+        </ScrollView>
 
 
     </LinearLayout>

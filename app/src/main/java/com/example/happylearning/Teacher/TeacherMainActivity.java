@@ -20,11 +20,10 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.example.happylearning.API.CreateClassAPI;
 import com.example.happylearning.Data.AccountUtil;
-import com.example.happylearning.Data.Filedata;
 import com.example.happylearning.R;
-import com.example.happylearning.Student.HomeFragment;
-import com.example.happylearning.Student.MessageFragment;
-import com.example.happylearning.Student.SettingFragment;
+import com.example.happylearning.Student.main.HomeFragment;
+import com.example.happylearning.Student.main.MessageFragment;
+import com.example.happylearning.Student.main.SettingFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class TeacherMainActivity extends AppCompatActivity {

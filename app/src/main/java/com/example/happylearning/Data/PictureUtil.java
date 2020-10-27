@@ -10,26 +10,17 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import androidx.core.content.FileProvider;
-import androidx.fragment.app.Fragment;
 
 
-import com.example.happylearning.API.LoginAPI;
 import com.example.happylearning.API.UpdateIconAPI;
-import com.example.happylearning.Login.LoginActivity;
-import com.example.happylearning.Setting.PhotoPopupWindow;
-import com.example.happylearning.Student.MainActivity;
-import com.example.happylearning.Student.SettingFragment;
-import com.example.happylearning.Teacher.TeacherMainActivity;
 
 import java.io.File;
 import java.io.IOException;

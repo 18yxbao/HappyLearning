@@ -1,11 +1,8 @@
 package com.example.happylearning.Login;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
 
-import android.Manifest;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -21,7 +18,7 @@ import com.example.happylearning.Bean.UserInfo;
 import com.example.happylearning.Data.AccountUtil;
 import com.example.happylearning.Data.Util;
 import com.example.happylearning.R;
-import com.example.happylearning.Student.MainActivity;
+import com.example.happylearning.Student.main.MainActivity;
 import com.example.happylearning.Teacher.TeacherMainActivity;
 
 

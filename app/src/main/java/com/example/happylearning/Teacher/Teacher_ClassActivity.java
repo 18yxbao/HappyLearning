@@ -1,28 +1,61 @@
 package com.example.happylearning.Teacher;
 
-import android.content.Intent;
-import android.os.AsyncTask;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.happylearning.API.SeeNoticeListAPI;
-import com.example.happylearning.Adapter.NoticeListRecyclerViewAdapter;
-import com.example.happylearning.Bean.NoticeList;
+import com.example.happylearning.Student.Class.NoticeFragment;
 import com.example.happylearning.R;
-import com.example.happylearning.Student.ClassActivity;
 
-import java.util.ArrayList;
-import java.util.List;
+public class Teacher_ClassActivity extends AppCompatActivity {
 
+    private FragmentManager fm = this.getFragmentManager();
+    private NoticeFragment noticeFragment;
+
+    private Toolbar toolbar;
+    private String classID;
+    private String title;
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_class);
+        toolbar = findViewById(R.id.class_toolbar);
+        toolbar.setTitle(title);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        classID=getIntent().getStringExtra("classID");
+        title = getIntent().getStringExtra("class");
+
+        setNoticeFragment();
+
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void setNoticeFragment() {
+        FragmentTransaction transaction = fm.beginTransaction();
+        noticeFragment = new NoticeFragment(classID,title);
+        transaction.replace(R.id.class_content, noticeFragment);
+        transaction.commit();
+    }
+
+
+
+}
+
+/*
 public class Teacher_ClassActivity extends AppCompatActivity {
 
 
@@ -38,6 +71,8 @@ public class Teacher_ClassActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_class);
+
+
         toolbar = findViewById(R.id.class_toolbar);
         title = getIntent().getStringExtra("class");
         classID=getIntent().getStringExtra("classID");
@@ -65,6 +100,7 @@ public class Teacher_ClassActivity extends AppCompatActivity {
     private View.OnClickListener click = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
+            /*
             switch(view.getId()){
                 case R.id.class_add:
                     Intent intent=new Intent(Teacher_ClassActivity.this,PublishActivity.class);
@@ -74,6 +110,8 @@ public class Teacher_ClassActivity extends AppCompatActivity {
                     break;
 
             }
+
+
 
         }
     };
@@ -117,4 +155,6 @@ public class Teacher_ClassActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-}
+    */
+
+
