@@ -4,16 +4,18 @@ import android.graphics.Bitmap;
 
 public class PostBean {
     private Bitmap icon;
+    private String userid;
     private String username;
     private String time;
     private String content;
+    private String pictureNum;  //图片数量
     private Bitmap picture1;
     private Bitmap picture2;
     private Bitmap picture3;
     private String starNum;     //点赞人数
     private String commentNum;  //评论人数
     private boolean isStar; //是否已点赞
-    private String id;
+    private String id;  //post的唯一标识符
     public Bitmap getIcon() {
         return icon;
     }
@@ -100,5 +102,40 @@ public class PostBean {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getUserid() {
+        return userid;
+    }
+
+    public void setUserid(String userid) {
+        this.userid = userid;
+    }
+
+    public String getPictureNum() {
+        return pictureNum;
+    }
+
+    public void setPictureNum(String pictureNum) {
+        this.pictureNum = pictureNum;
+    }
+
+    @Override
+    public String toString() {
+        return "PostBean{" +
+                "icon=" + icon +
+                ", userid='" + userid + '\'' +
+                ", username='" + username + '\'' +
+                ", time='" + time + '\'' +
+                ", content='" + content + '\'' +
+                ", pictureNum='" + pictureNum + '\'' +
+                ", picture1=" + picture1 +
+                ", picture2=" + picture2 +
+                ", picture3=" + picture3 +
+                ", starNum='" + starNum + '\'' +
+                ", commentNum='" + commentNum + '\'' +
+                ", isStar=" + isStar +
+                ", id='" + id + '\'' +
+                '}';
     }
 }

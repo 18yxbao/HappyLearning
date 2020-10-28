@@ -29,6 +29,7 @@
         <activity android:name=".Login.SetUserInfoActivity" />
         <activity android:name=".Teacher.TeacherMainActivity" />
         <activity android:name=".Teacher.Teacher_ClassActivity" />
+        <activity android:name=".Student.Class.PublicPostActivity"/>
 
         <provider
             android:name="androidx.core.content.FileProvider"

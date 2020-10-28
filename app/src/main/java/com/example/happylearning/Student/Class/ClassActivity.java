@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.example.happylearning.Adapter.TiebaRecyclerViewAdapter;
 import com.example.happylearning.Bean.PostBean;
@@ -22,6 +23,7 @@ public class ClassActivity extends AppCompatActivity {
 
     private FragmentManager fm = this.getFragmentManager();
     private NoticeFragment noticeFragment;
+    private PostFragment postFragment;
 
     private Toolbar toolbar;
     private String classID;
@@ -72,7 +74,8 @@ public class ClassActivity extends AppCompatActivity {
 
                     break;
                 case R.id.class_talk:
-
+                    Toast.makeText(getApplicationContext(),"讨论",Toast.LENGTH_SHORT).show();
+                    setTalkFragment();
                     break;
                 case R.id.class_data:
 
@@ -100,15 +103,11 @@ public class ClassActivity extends AppCompatActivity {
         transaction.commit();
     }
 
-    private void talk(){
-        List<PostBean> postBeanList =new ArrayList<PostBean>();
-        TiebaRecyclerViewAdapter adapter;
-
-//        LinearLayoutManager LayoutManager = new LinearLayoutManager(ClassActivity.this);
-//        recyclerView.setLayoutManager(LayoutManager);
-//        adapter=new TiebaRecyclerViewAdapter(postBeanList);
-//        recyclerView.setAdapter(adapter);
-
+    private void setTalkFragment(){
+        FragmentTransaction transaction = fm.beginTransaction();
+        postFragment = new PostFragment(classID,title);
+        transaction.replace(R.id.class_content,postFragment);
+        transaction.commit();
     }
 
 }

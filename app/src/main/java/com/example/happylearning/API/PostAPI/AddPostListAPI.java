@@ -1,4 +1,4 @@
-package com.example.happylearning.API;
+package com.example.happylearning.API.PostAPI;
 
 import android.util.Log;
 
@@ -35,7 +35,7 @@ public class AddPostListAPI {
                 .addFormDataPart("content_type",content_type)
                 .addFormDataPart("image_number",image_number);
 
-        for (int i=0;i<Integer.getInteger(image_number);i++){
+        for (int i=0;i<Integer.parseInt(image_number);i++){
             File file = new File(image_src[i]);//文件路径
             long size = file.length();//文件长度
             RequestBody requestBody = RequestBody.Companion.create(file,mediaType);//把文件与类型放入请求体
@@ -47,7 +47,7 @@ public class AddPostListAPI {
 
         Request request = new Request.Builder()
                 .header("Authorization", "Bearer d3e63518-1ba7-4342-b94c-63c8b9b9046b")//添加请求头的身份认证Token
-                .url("http://42.194.219.209:8080//HappyLearning_Server//AddPost")
+                .url("http://192.168.43.89:8080//HappyLearning_Server//AddPost")
                 .post(multipartBody)
                 .build();
 

@@ -1,19 +1,21 @@
 package com.example.happylearning.Student.Class;
 
-import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
-import com.example.happylearning.API.AddPostListAPI;
+import com.example.happylearning.API.PostAPI.AddPostListAPI;
 import com.example.happylearning.Data.AccountUtil;
 import com.example.happylearning.Data.TimeUtil;
 import com.example.happylearning.R;
@@ -22,30 +24,40 @@ import com.example.happylearning.R;
  * 发微博
  */
 public class PublicPostActivity extends AppCompatActivity {
-    private TextView content;
+    private EditText content;
     private ImageView picture1;
     private ImageView picture2;
     private ImageView picture3;
     private Button sendButton;
+    private String classID;
+    private String className;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_public_post);
-        getSupportActionBar().setTitle("发送讨论消息");
+//        Toolbar toolbar = findViewById(R.id.post_toolbar);
+//        setSupportActionBar(toolbar);
+//        toolbar.setBackgroundResource(R.color.color_background_grey);
+//        toolbar.setTitle("发送讨论消息");
+
         content=findViewById(R.id.public_post_content);
         picture1=findViewById(R.id.public_post_picture1);
         picture2=findViewById(R.id.public_post_picture2);
         picture3=findViewById(R.id.public_post_picture3);
         sendButton=findViewById(R.id.public_post_send);
 
+        Intent intent=getIntent();
+        classID=intent.getStringExtra("classID");
+        className=intent.getStringExtra("className");
+
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String contentText=content.getText().toString();
-                String class_number=getIntent().getStringExtra("class_number");
+//                String class_number=getIntent().getStringExtra("class_number");
                 Context context=PublicPostActivity.this;
-                TalkAtask talkAtask=new TalkAtask(class_number,AccountUtil.getAccount(context),AccountUtil.getName(context),
+                TalkAtask talkAtask=new TalkAtask(classID,AccountUtil.getAccount(context),AccountUtil.getName(context),
                         contentText,"0","0",null, TimeUtil.getTime(),"0");
                 talkAtask.execute();
             }
