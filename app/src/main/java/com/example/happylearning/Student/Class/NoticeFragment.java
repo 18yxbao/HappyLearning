@@ -76,8 +76,10 @@ public class NoticeFragment extends Fragment {
         protected void onPostExecute(SeeNoticeListAPI result) {
             super.onPostExecute(result);
             String seeNoticeListAPI_result = result.getResponseData();
-            if(seeNoticeListAPI_result.equals("")){
+            if(seeNoticeListAPI_result.equals("")) {
                 Toast.makeText(getContext(), "连接服务器失败！", Toast.LENGTH_SHORT).show();
+            }else if(seeNoticeListAPI_result.equals("fail")){
+
             }
             else {
                 noticeLists.clear();

@@ -10,27 +10,31 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-public class JoinClassAPI{
-    private String responseData;
+public class GetClassMatesAPI {
+    /**
+     * 教师发布公告：
+     * "class_number" 课程号码
+     * 	"notice_title" 公告标题
+     * 	"notice_content" 公告内容
+     * 	"notice_date" 发布公告时间 精确到秒
+     */
+    private String responseData="";
 
-    public JoinClassAPI(String class_number, String class_password,String student_number)
-    {
+    public GetClassMatesAPI(String class_number) {
         OkHttpClient client = new OkHttpClient();
         RequestBody requestBody = new FormBody.Builder()
-                .add("class_number",class_number)
-                .add("class_password", class_password)
-                .add("student_number",student_number)
+                .add("class_number", class_number)
                 .build();
         Request request = new Request.Builder()
-                .url("http://192.168.43.89:8080//HappyLearning_Server//JoinClass")
+                .url("http://42.194.219.209:8080//HappyLearning_Server//GetClassMates")
                 .post(requestBody)
                 .build();
-        Log.d("JoinClassTest", "JoinClassTest");
+        Log.d("Notice", "AddNotice");
         Response response = null;
         try {
             response = client.newCall(request).execute();
             responseData = response.body().string();
-            Log.d("LoginTest", "onClick:"+responseData);
+            Log.d("Notice", "onClick:" + responseData);
         } catch (IOException e) {
             e.printStackTrace();
         }

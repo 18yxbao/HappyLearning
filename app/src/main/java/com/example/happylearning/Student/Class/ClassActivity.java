@@ -2,7 +2,6 @@ package com.example.happylearning.Student.Class;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -12,17 +11,13 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.example.happylearning.Adapter.TiebaRecyclerViewAdapter;
-import com.example.happylearning.Bean.PostBean;
 import com.example.happylearning.R;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class ClassActivity extends AppCompatActivity {
 
     private FragmentManager fm = this.getFragmentManager();
     private NoticeFragment noticeFragment;
+    private ClassMemberFragment classMemberFragment;
     private PostFragment postFragment;
 
     private Toolbar toolbar;
@@ -40,12 +35,13 @@ public class ClassActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_class);
+        classID=getIntent().getStringExtra("classID");
+        title = getIntent().getStringExtra("class");
         toolbar = findViewById(R.id.class_toolbar);
         toolbar.setTitle(title);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        classID=getIntent().getStringExtra("classID");
-        title = getIntent().getStringExtra("class");
+
 
         setNoticeFragment();
 
@@ -71,7 +67,7 @@ public class ClassActivity extends AppCompatActivity {
                     setNoticeFragment();
                     break;
                 case R.id.class_member:
-
+                    setClassMemberFragment();
                     break;
                 case R.id.class_talk:
                     Toast.makeText(getApplicationContext(),"讨论",Toast.LENGTH_SHORT).show();
@@ -100,6 +96,13 @@ public class ClassActivity extends AppCompatActivity {
         FragmentTransaction transaction = fm.beginTransaction();
         noticeFragment = new NoticeFragment(classID,title);
         transaction.replace(R.id.class_content, noticeFragment);
+        transaction.commit();
+    }
+
+    private void setClassMemberFragment() {
+        FragmentTransaction transaction = fm.beginTransaction();
+        classMemberFragment = new ClassMemberFragment(classID,title);
+        transaction.replace(R.id.class_content, classMemberFragment);
         transaction.commit();
     }
 

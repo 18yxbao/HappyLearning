@@ -104,6 +104,8 @@ public class Teacher_NoticeFragment extends Fragment {
             String seeNoticeListAPI_result = result.getResponseData();
             if(seeNoticeListAPI_result.equals("")){
                 Toast.makeText(getContext(), "连接服务器失败！", Toast.LENGTH_SHORT).show();
+            }else if(seeNoticeListAPI_result.equals("fail")){
+
             }
             else {
                 noticeLists.clear();
