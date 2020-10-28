@@ -21,7 +21,7 @@ public class DeletePostListAPI {
                 .add("post_id", post_id)
                 .build();
         Request request = new Request.Builder()
-                .url("http://192.168.43.89:8080//HappyLearning_Server//DeletePost")
+                .url("http://42.194.219.209:8080//HappyLearning_Server//DeletePost")
                 .post(requestBody)
                 .build();
         Response response = null;
