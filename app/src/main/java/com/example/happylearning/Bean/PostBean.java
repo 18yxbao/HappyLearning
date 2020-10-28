@@ -14,7 +14,7 @@ public class PostBean {
     private Bitmap picture3;
     private String starNum;     //点赞人数
     private String commentNum;  //评论人数
-    private boolean isStar; //是否已点赞
+    private String isStar; //是否已点赞
     private String id;  //post的唯一标识符
     public Bitmap getIcon() {
         return icon;
@@ -88,11 +88,11 @@ public class PostBean {
         this.commentNum = commentNum;
     }
 
-    public boolean isStar() {
+    public String isStar() {
         return isStar;
     }
 
-    public void setStar(boolean star) {
+    public void setStar(String star) {
         isStar = star;
     }
 

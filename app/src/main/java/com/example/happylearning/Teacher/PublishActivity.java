@@ -11,7 +11,7 @@ import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.happylearning.API.AddNoticeAPI;
+import com.example.happylearning.API.NoticeAPI.AddNoticeAPI;
 import com.example.happylearning.Data.TimeUtil;
 import com.example.happylearning.R;
 

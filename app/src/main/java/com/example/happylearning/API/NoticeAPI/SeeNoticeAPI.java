@@ -1,4 +1,4 @@
-package com.example.happylearning.API;
+package com.example.happylearning.API.NoticeAPI;
 
 import android.util.Log;
 

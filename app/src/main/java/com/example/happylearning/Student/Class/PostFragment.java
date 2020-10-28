@@ -16,10 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.happylearning.API.PostAPI.GetPostListAPI;
-import com.example.happylearning.API.SeeNoticeListAPI;
-import com.example.happylearning.Adapter.NoticeListRecyclerViewAdapter;
 import com.example.happylearning.Adapter.TiebaRecyclerViewAdapter;
-import com.example.happylearning.Bean.NoticeList;
 import com.example.happylearning.Bean.PostBean;
 import com.example.happylearning.Data.AccountUtil;
 import com.example.happylearning.R;
@@ -56,7 +53,7 @@ public class PostFragment extends Fragment {
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(view.getContext());
         recyclerView.setLayoutManager(layoutManager);
-        adapter=new TiebaRecyclerViewAdapter(postBeanList);
+        adapter=new TiebaRecyclerViewAdapter(postBeanList,classID,AccountUtil.getSchool(getContext()),getContext());
         recyclerView.setAdapter(adapter);
 
         sendPostButton=view.findViewById(R.id.fragment_post_add);
@@ -105,9 +102,9 @@ public class PostFragment extends Fragment {
                     String[] temp=spiltResult[i].split(",@.#");
                     PostBean postBean=new PostBean();
                     if(temp[0].equals("like")){
-                        postBean.setStar(true);
+                        postBean.setStar("1");
                     }else if(temp[0].equals("dislike")){
-                        postBean.setStar(false);
+                        postBean.setStar("0");
                     }else{
                         Toast.makeText(getContext(),"解析出错",Toast.LENGTH_SHORT).show();
                     }

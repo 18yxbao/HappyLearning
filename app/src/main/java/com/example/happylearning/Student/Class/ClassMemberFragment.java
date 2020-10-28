@@ -17,9 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.happylearning.API.GetClassMatesAPI;
-import com.example.happylearning.API.SeeNoticeListAPI;
 import com.example.happylearning.Adapter.ClassMemberRecyclerViewAdapter;
-import com.example.happylearning.Bean.NoticeList;
 import com.example.happylearning.Bean.UserInfo;
 import com.example.happylearning.R;
 
