@@ -121,11 +121,16 @@ public class TiebaRecyclerViewAdapter extends RecyclerView.Adapter<TiebaRecycler
                     postBeanList.get(holder.getAdapterPosition()).setStar("1");
                     holder.star.setTextColor(Color.BLUE);
                     starnum++;
+                    postBeanList.get(holder.getAdapterPosition()).setStarNum(""+starnum);
+                    postBeanList.get(holder.getAdapterPosition()).setStar("1");
                     holder.star.setText(starnum+"点赞");
                     if_like="1";
                 }else{
                     postBeanList.get(holder.getAdapterPosition()).setStar("0");
                     holder.star.setTextColor(Color.GRAY);
+                    starnum--;
+                    postBeanList.get(holder.getAdapterPosition()).setStarNum(""+starnum);
+                    postBeanList.get(holder.getAdapterPosition()).setStar("0");
                     holder.star.setText(starnum+"点赞");
                     if_like="0";
                 }
@@ -141,6 +146,11 @@ public class TiebaRecyclerViewAdapter extends RecyclerView.Adapter<TiebaRecycler
     public void onBindViewHolder(ViewHolder holder, int position){
         PostBean postBean = postBeanList.get(position);
 //        holder.icon.setImageBitmap(postBean.getIcon());
+        if(userID.equals(postBean.getUserid())){
+            holder.delete.setVisibility(View.VISIBLE);
+        }else{
+            holder.delete.setVisibility(View.GONE);
+        }
         holder.userT.setText(postBean.getUsername());
         holder.timeT.setText(postBean.getTime());
         if (postBean.getPicture1()!=null){
@@ -170,6 +180,7 @@ public class TiebaRecyclerViewAdapter extends RecyclerView.Adapter<TiebaRecycler
         }
         holder.star.setText(postBean.getStarNum()+"点赞");
         holder.comment.setText(postBean.getCommentNum()+"评论");
+        holder.icon.setImageBitmap(postBean.getIcon());
 
     }
 

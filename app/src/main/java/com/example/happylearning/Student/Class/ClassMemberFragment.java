@@ -11,12 +11,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.PopupMenu;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.happylearning.API.GetClassMatesAPI;
+import com.example.happylearning.API.GetClassTeacherAPI;
 import com.example.happylearning.Adapter.ClassMemberRecyclerViewAdapter;
 import com.example.happylearning.Bean.UserInfo;
 import com.example.happylearning.R;
@@ -28,7 +30,8 @@ import java.util.List;
 public class ClassMemberFragment extends Fragment {
 
     private RecyclerView recyclerView;
-
+    private TextView teacher_name;
+    private TextView teacher_number;
     private String classID;
     private String title;
     private ClassMemberRecyclerViewAdapter classMemberRecyclerViewAdapter;
@@ -63,10 +66,12 @@ public class ClassMemberFragment extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
         classMemberRecyclerViewAdapter =new ClassMemberRecyclerViewAdapter(classMemberList,clickable);
         recyclerView.setAdapter(classMemberRecyclerViewAdapter);
-
+        teacher_name = view.findViewById(R.id.fragment_class_member_name);
+        teacher_number = view.findViewById(R.id.fragment_class_member_number);
         Atask atask=new Atask();
         atask.execute();
-
+        Atask_GetClassTeacher atask_getClassTeacher = new Atask_GetClassTeacher();
+        atask_getClassTeacher.execute();
 
         manage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -133,5 +138,31 @@ public class ClassMemberFragment extends Fragment {
             }
         }
     }
+
+    private class Atask_GetClassTeacher extends AsyncTask<GetClassTeacherAPI, GetClassTeacherAPI, GetClassTeacherAPI> {
+
+        @Override
+        protected GetClassTeacherAPI doInBackground(GetClassTeacherAPI...getClassTeacherAPIS) {
+            Log.d("TAG123456", "onPostExecute: " );
+            return new GetClassTeacherAPI(classID);
+        }
+        @Override
+        protected void onPostExecute(GetClassTeacherAPI result) {
+            super.onPostExecute(result);
+            String Tresult = result.getResponseData();
+            Log.d("TAG123456", "onPostExecute: " + Tresult);
+
+            if (Tresult.equals("")) {
+                Toast.makeText(getContext(), "连接服务器失败！", Toast.LENGTH_SHORT).show();
+            } else if (Tresult.equals("fail")) {
+
+            } else {
+                String[] spiltResult = Tresult.split(",");
+                teacher_name.setText(spiltResult[0]);
+                teacher_number.setText(spiltResult[1]);
+            }
+        }
+    }
+
 }
 

@@ -16,6 +16,24 @@ public class PostBean {
     private String commentNum;  //评论人数
     private String isStar; //是否已点赞
     private String id;  //post的唯一标识符
+    private String userType;
+
+    public String getIsStar() {
+        return isStar;
+    }
+
+    public void setIsStar(String isStar) {
+        this.isStar = isStar;
+    }
+
+    public String getUserType() {
+        return userType;
+    }
+
+    public void setUserType(String userType) {
+        this.userType = userType;
+    }
+
     public Bitmap getIcon() {
         return icon;
     }

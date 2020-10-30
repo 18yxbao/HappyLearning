@@ -19,6 +19,7 @@ import com.example.happylearning.API.PostAPI.GetPostListAPI;
 import com.example.happylearning.Adapter.TiebaRecyclerViewAdapter;
 import com.example.happylearning.Bean.PostBean;
 import com.example.happylearning.Data.AccountUtil;
+import com.example.happylearning.Data.Filedata;
 import com.example.happylearning.R;
 
 import java.util.ArrayList;
@@ -53,7 +54,7 @@ public class PostFragment extends Fragment {
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(view.getContext());
         recyclerView.setLayoutManager(layoutManager);
-        adapter=new TiebaRecyclerViewAdapter(postBeanList,classID,AccountUtil.getSchool(getContext()),getContext());
+        adapter=new TiebaRecyclerViewAdapter(postBeanList,classID,AccountUtil.getAccount(getContext()),getContext());
         recyclerView.setAdapter(adapter);
 
         sendPostButton=view.findViewById(R.id.fragment_post_add);
@@ -109,6 +110,10 @@ public class PostFragment extends Fragment {
                         Toast.makeText(getContext(),"解析出错",Toast.LENGTH_SHORT).show();
                     }
                     int j=1;
+                    postBean.setUserType(temp[j++]);
+                    String iconStr=temp[j++];
+                    postBean.setIcon(Filedata.stringtoBitmap(iconStr));
+
                     postBean.setId(temp[j++]);
                     postBean.setUserid(temp[j++]);
                     postBean.setUsername(temp[j++]);

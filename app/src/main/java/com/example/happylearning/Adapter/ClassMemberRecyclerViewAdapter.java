@@ -24,8 +24,12 @@ public class ClassMemberRecyclerViewAdapter extends RecyclerView.Adapter<ClassMe
     private boolean clickable;
     private List<Integer> deleteMember= new ArrayList<Integer>();
 
-    public List<Integer> getDeleteMember(){
-        List<Integer> temp = deleteMember;
+    public List<String> getDeleteMember(){
+        List<String> temp= new ArrayList<String>();
+        for(int i=0;i<deleteMember.size();i++) {
+            String student_number=classMemberList.get(deleteMember.get(i)).getNumber();
+            temp.add(student_number);
+        }
         deleteMember.clear();
         return temp;
     }
@@ -70,6 +74,7 @@ public class ClassMemberRecyclerViewAdapter extends RecyclerView.Adapter<ClassMe
                         }else{
                             holder.image.setBackgroundResource(R.color.color_red);
                             deleteMember.add(position);
+                            Log.d("deleteMember", "1"+deleteMember);
                         }
                     }
                 }

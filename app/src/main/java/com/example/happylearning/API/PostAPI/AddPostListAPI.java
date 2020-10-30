@@ -19,7 +19,7 @@ public class AddPostListAPI {
 
     private String responseData="";
 
-    public AddPostListAPI(String class_number,String user_number, String user_name,String post_content,String content_type,
+    public AddPostListAPI(String class_number,String user_number,String user_type, String user_name,String post_content,String content_type,
                           String image_number, String[] image_src, String post_date, String reply_id )
     {
 
@@ -30,6 +30,7 @@ public class AddPostListAPI {
                 .setType(MultipartBody.FORM)//添加表单数据
                 .addFormDataPart("class_number", class_number)
                 .addFormDataPart("user_number",user_number)
+                .addFormDataPart("user_type",user_type)
                 .addFormDataPart("user_name",user_name)
                 .addFormDataPart("post_content",post_content)
                 .addFormDataPart("content_type",content_type)
@@ -48,6 +49,7 @@ public class AddPostListAPI {
         Request request = new Request.Builder()
                 .header("Authorization", "Bearer d3e63518-1ba7-4342-b94c-63c8b9b9046b")//添加请求头的身份认证Token
                 .url("http://42.194.219.209:8080//HappyLearning_Server//AddPost")
+//                .url("http://192.168.43.89:8080//HappyLearning_Server//AddPost")
                 .post(multipartBody)
                 .build();
 

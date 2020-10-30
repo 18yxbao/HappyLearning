@@ -133,5 +133,11 @@
         android:layout_height="10dp"
         android:background="@color/color_background_grey"/>
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+
+
 
 </LinearLayout>

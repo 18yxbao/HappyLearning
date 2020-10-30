@@ -75,7 +75,7 @@ public class PictureUtil {
     //裁剪选取或拍摄的图片
     public static void cropphoto(Activity activity, Uri uri){
         //设置裁剪图片保存位置
-        File bomb=new File(activity.getApplicationContext().getExternalCacheDir(),"bmob");
+        File bomb=new File(activity.getApplicationContext().getExternalCacheDir(),"user_icon");
         if (!bomb.exists()){
             bomb.mkdir();
         }
