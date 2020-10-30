@@ -20,6 +20,7 @@ import com.example.happylearning.API.PostAPI.AddPostListAPI;
 import com.example.happylearning.API.PostAPI.DeletePostListAPI;
 import com.example.happylearning.API.PostAPI.StarPostListAPI;
 import com.example.happylearning.Bean.PostBean;
+import com.example.happylearning.Data.AccountUtil;
 import com.example.happylearning.R;
 import com.example.happylearning.Student.main.MainActivity;
 
@@ -134,7 +135,7 @@ public class TiebaRecyclerViewAdapter extends RecyclerView.Adapter<TiebaRecycler
                     holder.star.setText(starnum+"点赞");
                     if_like="0";
                 }
-                StarAtask starAtask=new StarAtask(classID,userID,postID,if_like);
+                StarAtask starAtask=new StarAtask(classID,userID, AccountUtil.getAccount_type(context),postID,if_like);
                 starAtask.execute();
             }
         });
@@ -151,7 +152,12 @@ public class TiebaRecyclerViewAdapter extends RecyclerView.Adapter<TiebaRecycler
         }else{
             holder.delete.setVisibility(View.GONE);
         }
-        holder.userT.setText(postBean.getUsername());
+        if(postBean.getUserType().equals("1")){
+            holder.userT.setText(postBean.getUsername()+"(老师)");
+        }else{
+            holder.userT.setText(postBean.getUsername());
+        }
+
         holder.timeT.setText(postBean.getTime());
         if (postBean.getPicture1()!=null){
             holder.picture1.setImageBitmap(postBean.getPicture1());
@@ -217,17 +223,19 @@ public class TiebaRecyclerViewAdapter extends RecyclerView.Adapter<TiebaRecycler
         String userNum;
         String postID;
         String if_like;
+        String user_type;
 
-        public StarAtask(String class_number,String userNum,String post_id,String if_like){
+        public StarAtask(String class_number,String userNum,String user_type,String post_id,String if_like){
             this.classNum=class_number;
             this.postID=post_id;
+            this.user_type=user_type;
             this.userNum=userNum;
             this.if_like=if_like;
         }
 
         @Override
         protected StarPostListAPI doInBackground(StarPostListAPI... starPostListAPIS) {
-            return new StarPostListAPI(classNum,userNum, postID,if_like);
+            return new StarPostListAPI(classNum,userNum,user_type, postID,if_like);
         }
 
         @Override

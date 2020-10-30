@@ -20,17 +20,19 @@ import okhttp3.Response;
 public class StarPostListAPI {
     private String responseData="";
 
-    public StarPostListAPI(String class_number, String user_number, String post_id,String if_like){
+    public StarPostListAPI(String class_number, String user_number, String user_type, String post_id,String if_like){
 
         OkHttpClient client = new OkHttpClient();
         RequestBody requestBody = new FormBody.Builder()
                 .add("class_number",class_number)
                 .add("user_number",user_number)
+                .add("user_type",user_type)
                 .add("post_id", post_id)
                 .add("if_like", if_like)
                 .build();
         Request request = new Request.Builder()
                 .url("http://42.194.219.209:8080//HappyLearning_Server//PostLike")
+//                .url("http://192.168.43.89:8080//HappyLearning_Server//PostLike")
                 .post(requestBody)
                 .build();
         Response response = null;

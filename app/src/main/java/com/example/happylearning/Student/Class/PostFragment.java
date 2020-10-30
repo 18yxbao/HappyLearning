@@ -68,7 +68,7 @@ public class PostFragment extends Fragment {
                 startActivity(intent);
             }
         });
-        GetPostListAtask atask=new GetPostListAtask(classID, AccountUtil.getAccount(getContext()));
+        GetPostListAtask atask=new GetPostListAtask(classID, AccountUtil.getAccount(getContext()),AccountUtil.getAccount_type(getContext()));
         atask.execute();
         return view;
     }
@@ -76,15 +76,17 @@ public class PostFragment extends Fragment {
     private class GetPostListAtask extends AsyncTask<GetPostListAPI,GetPostListAPI,GetPostListAPI>{
         String classID;
         String userNum;
-        public GetPostListAtask(String classID,String userNum) {
+        String user_type;
+        public GetPostListAtask(String classID,String userNum,String user_type) {
             this.classID=classID;
             this.userNum=userNum;
+            this.user_type=user_type;
         }
 
         @Override
         protected GetPostListAPI doInBackground(GetPostListAPI... seeNoticeListAPIS) {
 
-            return new GetPostListAPI(classID,userNum);
+            return new GetPostListAPI(classID,userNum,user_type,"0");
         }
 
         @Override

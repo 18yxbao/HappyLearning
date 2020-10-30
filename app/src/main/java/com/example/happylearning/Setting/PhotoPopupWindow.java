@@ -3,8 +3,6 @@ package com.example.happylearning.Setting;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
-import android.os.Parcel;
-import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -44,7 +42,7 @@ public class PhotoPopupWindow extends PopupWindow implements Serializable {
     private void Init() {
         LayoutInflater inflater = (LayoutInflater) mContext
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        mView = inflater.inflate(R.layout.pop_item, null);
+        mView = inflater.inflate(R.layout.item_pop, null);
         btn_camera = (Button) mView.findViewById(R.id.icon_btn_camera);
         btn_select = (Button) mView.findViewById(R.id.icon_btn_select);
         btn_cancel = (Button) mView.findViewById(R.id.icon_btn_cancel);

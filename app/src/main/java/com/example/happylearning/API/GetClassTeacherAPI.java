@@ -26,7 +26,8 @@ public class GetClassTeacherAPI {
                 .add("class_number", class_number)
                 .build();
         Request request = new Request.Builder()
-                .url("http://192.168.43.89:8080//HappyLearning_Server//GetClassTeacher")
+                .url("http://42.194.219.209:8080//HappyLearning_Server//GetClassTeacher")
+//                .url("http://192.168.43.89:8080//HappyLearning_Server//GetClassTeacher")
                 .post(requestBody)
                 .build();
         Response response = null;
