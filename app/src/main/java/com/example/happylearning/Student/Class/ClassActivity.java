@@ -28,7 +28,7 @@ public class ClassActivity extends AppCompatActivity {
     private LinearLayout set_member;
     private LinearLayout set_talk;
     private LinearLayout set_data;
-    private LinearLayout set_homework;
+
 
 
     @Override
@@ -49,13 +49,13 @@ public class ClassActivity extends AppCompatActivity {
         set_member=findViewById(R.id.class_member);
         set_talk=findViewById(R.id.class_talk);
         set_data=findViewById(R.id.class_data);
-        set_homework=findViewById(R.id.class_homework);
+
 
         set_notice.setOnClickListener(click);
         set_member.setOnClickListener(click);
         set_talk.setOnClickListener(click);
         set_data.setOnClickListener(click);
-        set_homework.setOnClickListener(click);
+
 
     }
 
@@ -70,15 +70,12 @@ public class ClassActivity extends AppCompatActivity {
                     setClassMemberFragment();
                     break;
                 case R.id.class_talk:
-                    Toast.makeText(getApplicationContext(),"讨论",Toast.LENGTH_SHORT).show();
                     setTalkFragment();
                     break;
                 case R.id.class_data:
 
                     break;
-                case R.id.class_homework:
 
-                    break;
 
             }
         }

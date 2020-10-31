@@ -75,6 +75,7 @@ public class Teacher_ClassMemberFragment extends Fragment {
                 return false;
             }
         };
+
         recyclerView.setLayoutManager(layoutManager);
         classMemberRecyclerViewAdapter = new ClassMemberRecyclerViewAdapter(classMemberList, clickable);
         recyclerView.setAdapter(classMemberRecyclerViewAdapter);
@@ -93,8 +94,10 @@ public class Teacher_ClassMemberFragment extends Fragment {
                     showPopupMenu(manage);
                 } else if (BUTTON_MOD == DELETE_MOD) {
                     List<String> deleteMember = classMemberRecyclerViewAdapter.getDeleteMember();
-                    Atask_DeleteMember atask_deleteMember = new Atask_DeleteMember(deleteMember);
-                    atask_deleteMember.execute();
+                    if(deleteMember.size()!=0) {
+                        Atask_DeleteMember atask_deleteMember = new Atask_DeleteMember(deleteMember);
+                        atask_deleteMember.execute();
+                    }
                     change_button();
                 }
             }

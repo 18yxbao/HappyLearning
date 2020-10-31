@@ -6,7 +6,9 @@ import android.util.Log;
 
 import com.example.happylearning.API.GetClassAPI;
 import com.example.happylearning.API.GetUserInfoAndIconAPI;
+import com.example.happylearning.API.HomeWork.GetHomeWorkListAPI;
 import com.example.happylearning.Bean.Classes;
+import com.example.happylearning.Bean.HomeWorkList;
 import com.example.happylearning.Bean.UserInfo;
 
 import java.util.ArrayList;
@@ -51,5 +53,19 @@ public class Util {
                 result[2], result[4], result[1],account_type);
 
         return userInfo;
+    }
+
+    public static List<HomeWorkList> getHomeWorkLists(Context context, String class_num,String userNum, String account_type){
+        List<HomeWorkList> homeWorkLists= new ArrayList<HomeWorkList>();
+        GetHomeWorkListAPI api = new GetHomeWorkListAPI(class_num,userNum,account_type);
+        String get_result = api.getResponseData();
+        Log.d("getUserInfo", "getUserInfo: "+get_result);
+        if(get_result==null||get_result.equals("fail")||get_result.equals("")){
+            return null;
+        }
+        String[] result = get_result.split(",");
+        //0:number 1:name 2:people_number
+
+        return homeWorkLists;
     }
 }

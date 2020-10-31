@@ -1,38 +1,78 @@
 package com.example.happylearning.Teacher;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.app.Activity;
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
+import android.content.ContentResolver;
+import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.CompoundButton;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.Switch;
+import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.example.happylearning.API.HomeWork.AddHomeWorkAPI;
 import com.example.happylearning.API.NoticeAPI.AddNoticeAPI;
 import com.example.happylearning.Data.TimeUtil;
 import com.example.happylearning.R;
 
+import java.text.DateFormat;
+import java.util.Calendar;
+import java.util.Locale;
+
 public class PublishActivity extends AppCompatActivity {
     private Toolbar toolbar;
 
+    private static final int REQUEST_CODE=1;
 
     private String className;
     private String classID;
+    private String type;
+
+
+
     private EditText E_title;
     private EditText E_content;
+    private TextView T_time;
+    private TextView T_path;
+    private Switch file_switch;
+    private Switch update_switch;
+    private LinearLayout choose_file_layout;
+    private LinearLayout update_time_layout;
+    private LinearLayout file_part;
 
     private String title;
     private String content;
+    private String path="";
+    private String time="";
+
+    DateFormat format= DateFormat.getDateTimeInstance();
+    Calendar calendar= Calendar.getInstance(Locale.CHINA);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_publish);
+
         className = getIntent().getStringExtra("class");
         classID=getIntent().getStringExtra("classID");
+        type=getIntent().getStringExtra("type");
+
         toolbar = findViewById(R.id.publish_toolbar);
         toolbar.setTitle(className);
         getMenuInflater().inflate(R.menu.menu_publish,toolbar.getMenu());
@@ -41,8 +81,119 @@ public class PublishActivity extends AppCompatActivity {
 
         E_title =findViewById(R.id.publish_title);
         E_content =findViewById(R.id.publish_content);
+        T_path=findViewById(R.id.publish_file_name);
+        T_time=findViewById(R.id.publish_update_time);
+        file_switch=findViewById(R.id.publish_switch_file);
+        update_switch=findViewById(R.id.publish_switch_update);
+        choose_file_layout=findViewById(R.id.publish_choose_file_layout);
+        update_time_layout=findViewById(R.id.publish_update_time_layout);
+        file_part=findViewById(R.id.publish_homework_part);
+
+        if(type.equals("0")) {
+            file_part.setVisibility(View.GONE);
+        }
+        else {
+            T_path.setText(path);
+            T_time.setText(time);
+            choose_file_layout.setVisibility(View.GONE);
+            update_time_layout.setVisibility(View.GONE);
+        }
+
+
+        file_switch.setOnCheckedChangeListener(switch_click);
+        update_switch.setOnCheckedChangeListener(switch_click);
+
+        choose_file_layout.setOnClickListener(click);
+        update_time_layout.setOnClickListener(click);
+
 
     }
+
+    private View.OnClickListener click = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+
+            switch(view.getId()){
+                case R.id.publish_choose_file_layout:
+                    Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                    intent.addCategory(Intent.CATEGORY_OPENABLE);
+                    intent.setType("*/*");
+                    startActivityForResult(intent, REQUEST_CODE);
+                    break;
+                case R.id.publish_update_time_layout:
+                    showDatePickerDialog(PublishActivity.this,  4, calendar);
+                    break;
+            }
+
+
+        }
+    };
+
+    private CompoundButton.OnCheckedChangeListener switch_click =  new CompoundButton.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+            switch(compoundButton.getId()) {
+                case R.id.publish_switch_update:
+                    if (b) {
+                        update_time_layout.setVisibility(View.VISIBLE);
+                    } else {
+                        update_time_layout.setVisibility(View.GONE);
+                        time="";
+                        T_time.setText(time);
+                    }
+                    break;
+                case R.id.publish_switch_file:
+                    if (b) {
+                        choose_file_layout.setVisibility(View.VISIBLE);
+                    } else {
+                        choose_file_layout.setVisibility(View.GONE);
+                        path="";
+                        T_path.setText(path);
+                    }
+                    break;
+            }
+        }
+    };
+
+    private void showDatePickerDialog(final Activity activity, int themeResId, final Calendar calendar) {
+        // 直接创建一个DatePickerDialog对话框实例，并将它显示出来
+        new DatePickerDialog(activity, themeResId, new DatePickerDialog.OnDateSetListener() {
+            // 绑定监听器(How the parent is notified that the date is set.)
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                // 此处得到选择的时间，可以进行你想要的操作
+                time=year + "年" + String.format("%02d",(monthOfYear + 1)) + "月" + String.format("%02d",dayOfMonth) + "日";
+                showTimePickerDialog(activity,  4, calendar);
+            }
+        }
+                // 设置初始日期
+                , calendar.get(Calendar.YEAR)
+                , calendar.get(Calendar.MONTH)
+                , calendar.get(Calendar.DAY_OF_MONTH)).show();
+    }
+
+    private void showTimePickerDialog(Activity activity,int themeResId, Calendar calendar) {
+        // Calendar c = Calendar.getInstance();
+        // 创建一个TimePickerDialog实例，并把它显示出来
+        // 解释一哈，Activity是context的子类
+        new TimePickerDialog( activity,themeResId,
+                // 绑定监听器
+                new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                        time=time+" "+ String.format("%02d",hourOfDay)+ ":" + String.format("%02d",minute);
+                        T_time.setText(time);
+                    }
+                }
+                // 设置初始时间
+                , calendar.get(Calendar.HOUR_OF_DAY)
+                , calendar.get(Calendar.MINUTE)
+                // true表示采用24小时制
+                ,true).show();
+    }
+
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -55,21 +206,56 @@ public class PublishActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_publish_add:
-                ATask aTask=new ATask();
-                aTask.execute();
+                if(type.equals("0")) {
+                    ATask_AddNoticeAPI aTaskAddNoticeAPI = new ATask_AddNoticeAPI();
+                    aTaskAddNoticeAPI.execute();
+                }else{
+                    ATask_AddHomeWork aTask_addHomeWork = new ATask_AddHomeWork();
+                    aTask_addHomeWork.execute();
+                }
+
                 break;
             case R.id.home:
                 onBackPressed();
                 break;
-
             default:
                 break;
         }
         return true;
     }
 
+    //startActivityForResult回调
+    @Override
+    protected void onActivityResult(final int requestCode, final int resultCode, @Nullable final Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case REQUEST_CODE:
+                if (data == null) {
+                    // 用户未选择任何文件，直接返回
+                    return;
+                }
+                Uri uri = data.getData(); // 获取用户选择文件的URI
+                // 通过ContentProvider查询文件路径
+                ContentResolver resolver = this.getContentResolver();
+                Cursor cursor = resolver.query(uri, null, null, null, null);
+                if (cursor == null) {
+                    // 未查询到，说明为普通文件，可直接通过URI获取文件路径
+                    path = uri.getPath();
+                    T_path.setText(path);
+                    return;
+                }
+                if (cursor.moveToFirst()) {
+                    // 多媒体文件，从数据库中获取文件的真实路径
+                    path = cursor.getString(cursor.getColumnIndex("_data"));
+                    T_path.setText(path);
+                }
+                cursor.close();
 
-    private class ATask extends AsyncTask<AddNoticeAPI,AddNoticeAPI,AddNoticeAPI > {
+                break;
+        }
+    }
+
+    private class ATask_AddNoticeAPI extends AsyncTask<AddNoticeAPI,AddNoticeAPI,AddNoticeAPI > {
 
         //后台线程执行时
         @Override
@@ -92,4 +278,40 @@ public class PublishActivity extends AppCompatActivity {
             }
         }
     }
+
+    private class ATask_AddHomeWork extends AsyncTask<AddHomeWorkAPI, AddHomeWorkAPI, AddHomeWorkAPI> {
+
+        //后台线程执行时
+        @Override
+        protected AddHomeWorkAPI doInBackground(AddHomeWorkAPI... params) {
+            title=E_title.getText().toString();
+            content=E_content.getText().toString();
+            String work_type="1";
+            String input_time=time;
+            String input_path=path;
+            if(time.equals("")){
+                work_type="0";
+                input_time="0";
+            }
+            if(path.equals("")){
+                input_path="0";
+            }
+            AddHomeWorkAPI addHomeWorkAPI = new AddHomeWorkAPI(title, content, input_time,TimeUtil.getTime(), classID, work_type, input_path);
+            return addHomeWorkAPI;
+        }
+
+        //后台线程执行结束后的操作，其中参数result为doInBackground返回的结果
+        @Override
+        protected void onPostExecute(AddHomeWorkAPI result) {
+            super.onPostExecute(result);
+            String login_result = result.getResponseData();
+            Toast.makeText(PublishActivity.this, login_result, Toast.LENGTH_SHORT).show();
+            if(login_result.equals("success")){
+                PublishActivity.this.finish();
+            }
+        }
+    }
+
+
+
 }

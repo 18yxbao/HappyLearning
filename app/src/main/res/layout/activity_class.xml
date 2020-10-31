@@ -31,7 +31,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="100dp"
                     android:background="@color/color_white"
                     android:gravity="center|center_horizontal"
                     android:orientation="horizontal">
@@ -116,28 +116,12 @@
                             android:text="课件" />
                     </LinearLayout>
 
-                    <LinearLayout
-                        android:id="@+id/class_homework"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <ImageView
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
-                            android:layout_marginTop="10dp"
-                            app:srcCompat="@mipmap/ic_launcher_round" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="作业" />
-                    </LinearLayout>
-
 
                 </LinearLayout>
+
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="2dp" />
 
                 <LinearLayout
                     android:id="@+id/class_content"
@@ -145,10 +129,6 @@
                     android:layout_height="match_parent"
                     android:background="@color/color_white"
                     android:orientation="vertical" />
-
-                <Space
-                    android:layout_width="wrap_content"
-                    android:layout_height="2dp" />
 
             </LinearLayout>
         </ScrollView>

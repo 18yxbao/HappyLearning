@@ -13,6 +13,7 @@ import androidx.appcompat.widget.Toolbar;
 import com.example.happylearning.Student.Class.ClassMemberFragment;
 import com.example.happylearning.Student.Class.NoticeFragment;
 import com.example.happylearning.R;
+import com.example.happylearning.Student.Class.PostFragment;
 
 public class Teacher_ClassActivity extends AppCompatActivity {
 
@@ -20,6 +21,8 @@ public class Teacher_ClassActivity extends AppCompatActivity {
 
     private Teacher_NoticeFragment noticeFragment;
     private Teacher_ClassMemberFragment classMemberFragment;
+    private Teacher_HomeWorkFragment homeWorkFragment;
+    private PostFragment postFragment;
 
     private Toolbar toolbar;
     private String classID;
@@ -29,7 +32,7 @@ public class Teacher_ClassActivity extends AppCompatActivity {
     private LinearLayout set_member;
     private LinearLayout set_talk;
     private LinearLayout set_data;
-    private LinearLayout set_homework;
+
 
 
     @Override
@@ -51,13 +54,13 @@ public class Teacher_ClassActivity extends AppCompatActivity {
         set_member=findViewById(R.id.class_member);
         set_talk=findViewById(R.id.class_talk);
         set_data=findViewById(R.id.class_data);
-        set_homework=findViewById(R.id.class_homework);
+
 
         set_notice.setOnClickListener(click);
         set_member.setOnClickListener(click);
         set_talk.setOnClickListener(click);
         set_data.setOnClickListener(click);
-        set_homework.setOnClickListener(click);
+
 
     }
 
@@ -72,14 +75,12 @@ public class Teacher_ClassActivity extends AppCompatActivity {
                     setClassMemberFragment();
                     break;
                 case R.id.class_talk:
-
+                    setTalkFragment();
                     break;
                 case R.id.class_data:
-
+                    setHomeWorkFragment();
                     break;
-                case R.id.class_homework:
 
-                    break;
 
             }
         }
@@ -104,6 +105,19 @@ public class Teacher_ClassActivity extends AppCompatActivity {
         FragmentTransaction transaction = fm.beginTransaction();
         classMemberFragment = new Teacher_ClassMemberFragment(classID,title);
         transaction.replace(R.id.class_content, classMemberFragment);
+        transaction.commit();
+    }
+    private void setTalkFragment(){
+        FragmentTransaction transaction = fm.beginTransaction();
+        postFragment = new PostFragment(classID,title);
+        transaction.replace(R.id.class_content,postFragment);
+        transaction.commit();
+    }
+
+    private void setHomeWorkFragment() {
+        FragmentTransaction transaction = fm.beginTransaction();
+        homeWorkFragment = new Teacher_HomeWorkFragment(classID,title);
+        transaction.replace(R.id.class_content, homeWorkFragment);
         transaction.commit();
     }
 }

@@ -2,4 +2,14 @@
 <resources>
     <item name="fragment_class_member_recycleView" type="id" />
     <item name="fragment_class_member_manage" type="id" />
+    <item name="publish_file_name" type="id" />
+    <item name="publish_update_time" type="id" />
+    <item name="publish_switch_update" type="id" />
+    <item name="publish_update_time_layout" type="id" />
+    <item name="publish_choose_file_layout" type="id" />
+    <item name="publish_switch_file" type="id" />
+    <item name="publish_toolbar" type="id" />
+    <item name="publish_homework_part" type="id" />
+    <item name="publish_content" type="id" />
+    <item name="publish_title" type="id" />
 </resources>
