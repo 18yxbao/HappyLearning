@@ -141,19 +141,20 @@ public class PostBean {
     @Override
     public String toString() {
         return "PostBean{" +
-                "icon=" + icon +
+//                "icon=" + icon +
                 ", userid='" + userid + '\'' +
                 ", username='" + username + '\'' +
                 ", time='" + time + '\'' +
                 ", content='" + content + '\'' +
                 ", pictureNum='" + pictureNum + '\'' +
-                ", picture1=" + picture1 +
-                ", picture2=" + picture2 +
-                ", picture3=" + picture3 +
+//                ", picture1=" + picture1 +
+//                ", picture2=" + picture2 +
+//                ", picture3=" + picture3 +
                 ", starNum='" + starNum + '\'' +
                 ", commentNum='" + commentNum + '\'' +
                 ", isStar=" + isStar +
                 ", id='" + id + '\'' +
+                ", userType='" + userType + '\'' +
                 '}';
     }
 }

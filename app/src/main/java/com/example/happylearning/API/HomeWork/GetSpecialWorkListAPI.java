@@ -1,8 +1,6 @@
-package com.example.happylearning.API;
+package com.example.happylearning.API.HomeWork;
 
 import android.util.Log;
-
-import com.example.happylearning.Data.Filedata;
 
 import java.io.IOException;
 
@@ -12,35 +10,32 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-
-public class CreateClassAPI {
-
+public class GetSpecialWorkListAPI {
     private String responseData;
 
-    public CreateClassAPI(String class_password, String class_name,String account) {
+    public GetSpecialWorkListAPI(String class_number,String work_id)
+    {
         OkHttpClient client = new OkHttpClient();
         RequestBody requestBody = new FormBody.Builder()
-                .add("class_password", class_password)
-                .add("class_name",class_name)
-                .add("class_teacher",account)
+                .add("class_number", class_number)
+                .add("work_id", work_id)
                 .build();
         Request request = new Request.Builder()
-                .url("http://42.194.219.209:8080//HappyLearning_Server//AddClass")
-//                .url("http://192.168.43.89:8080//HappyLearning_Server//AddClass")
+                .url("http://42.194.219.209:8080//HappyLearning_Server//GetSpecialWorkList")
                 .post(requestBody)
                 .build();
-        Log.d("CreateClassAPI", "JoinClassTest");
+        Log.d("JoinClassTest", "JoinClassTest");
         Response response = null;
         try {
             response = client.newCall(request).execute();
             responseData = response.body().string();
-            Log.d("CreateClassAPI", "onClick:" + responseData);
+            Log.d("LoginTest", "onClick:" + responseData);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
-    public String getResponseData() {
+    public String getResponseData()
+    {
         return responseData;
     }
 }

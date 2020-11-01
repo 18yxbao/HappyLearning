@@ -112,7 +112,7 @@ public class PictureUtil {
         BitmapFactory.Options op=new BitmapFactory.Options();
         op.inPreferredConfig=Bitmap.Config.ARGB_4444;
         String path=context.getExternalCacheDir()+
-                File.separator+"bmob"+File.separator+"user_icon.jpg";//裁剪好的图片保存位置
+                File.separator+"user_icon"+File.separator+"user_icon.jpg";//裁剪好的图片保存位置
         Bitmap icon=BitmapFactory.decodeFile(path,op);//加载本地图片，并获取大小合适的bitmap
         if (icon!=null){
             imageView.setImageBitmap(icon);//将获取的图片设置到imagerview
@@ -120,7 +120,7 @@ public class PictureUtil {
     }
 
     public static void updateIconToServer(Context context, String userNum,String user_type){
-        String path=context.getExternalCacheDir()+ File.separator+"bmob"+File.separator+"user_icon.jpg";
+        String path=context.getExternalCacheDir()+ File.separator+"user_icon"+File.separator+"user_icon.jpg";
         UpdateIconAPI updateIconAPI=new UpdateIconAPI(path,userNum,user_type);
     }
 

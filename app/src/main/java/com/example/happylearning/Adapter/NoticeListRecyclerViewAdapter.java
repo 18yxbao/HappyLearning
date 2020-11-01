@@ -63,6 +63,7 @@ public class NoticeListRecyclerViewAdapter extends RecyclerView.Adapter<NoticeLi
                 intent.putExtra("title",noticeLists.get(position).getTitle());
                 intent.putExtra("time",noticeLists.get(position).getTime());
                 intent.putExtra("content",noticeLists.get(position).getContent());
+                intent.putExtra("action_type","0");
                 context.startActivity(intent);
             }
         });

@@ -2,14 +2,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/menu_create_class_item1"
-        android:title="创建课程"
-        app:showAsAction="never">
-    </item>
-    <item
-        android:id="@+id/menu_create_class_item2"
+        android:id="@+id/menu_long_click_class_item1"
         android:title="删除课程"
         app:showAsAction="never">
     </item>
-
 </menu>

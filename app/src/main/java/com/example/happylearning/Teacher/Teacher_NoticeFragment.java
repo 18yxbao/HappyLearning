@@ -80,13 +80,11 @@ public class Teacher_NoticeFragment extends Fragment {
                     Intent intent=new Intent(getContext(),PublishActivity.class);
                     intent.putExtra("class",title);
                     intent.putExtra("classID",classID);
-                    intent.putExtra("type","0");
+                    intent.putExtra("type","1");
                     startActivity(intent);
                     break;
 
             }
-
-
 
         }
     };

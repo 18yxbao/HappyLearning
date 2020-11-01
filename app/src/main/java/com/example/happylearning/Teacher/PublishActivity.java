@@ -3,16 +3,21 @@ package com.example.happylearning.Teacher;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.ContentResolver;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -28,9 +33,11 @@ import android.widget.Toast;
 
 import com.example.happylearning.API.HomeWork.AddHomeWorkAPI;
 import com.example.happylearning.API.NoticeAPI.AddNoticeAPI;
+import com.example.happylearning.Data.Filedata;
 import com.example.happylearning.Data.TimeUtil;
 import com.example.happylearning.R;
 
+import java.io.File;
 import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Locale;
@@ -58,8 +65,8 @@ public class PublishActivity extends AppCompatActivity {
 
     private String title;
     private String content;
-    private String path="";
-    private String time="";
+    private String path="0";
+    private String time="0";
 
     DateFormat format= DateFormat.getDateTimeInstance();
     Calendar calendar= Calendar.getInstance(Locale.CHINA);
@@ -92,9 +99,10 @@ public class PublishActivity extends AppCompatActivity {
         if(type.equals("0")) {
             file_part.setVisibility(View.GONE);
         }
+
         else {
-            T_path.setText(path);
-            T_time.setText(time);
+            T_path.setText("");
+            T_time.setText("");
             choose_file_layout.setVisibility(View.GONE);
             update_time_layout.setVisibility(View.GONE);
         }
@@ -115,8 +123,14 @@ public class PublishActivity extends AppCompatActivity {
 
             switch(view.getId()){
                 case R.id.publish_choose_file_layout:
+                    //获取读写权限
+                    if(ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED){
+                        ActivityCompat.requestPermissions(PublishActivity.this,new String[]{ "Manifest.permission.WRITE_EXTERNAL_STORAGE"},1);
+                    }
+                    //ACTION_GET_CONTENT
                     Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
                     intent.addCategory(Intent.CATEGORY_OPENABLE);
+                    //表示显示所有类型的文件
                     intent.setType("*/*");
                     startActivityForResult(intent, REQUEST_CODE);
                     break;
@@ -138,8 +152,8 @@ public class PublishActivity extends AppCompatActivity {
                         update_time_layout.setVisibility(View.VISIBLE);
                     } else {
                         update_time_layout.setVisibility(View.GONE);
-                        time="";
-                        T_time.setText(time);
+                        time="0";
+                        T_time.setText("");
                     }
                     break;
                 case R.id.publish_switch_file:
@@ -147,8 +161,8 @@ public class PublishActivity extends AppCompatActivity {
                         choose_file_layout.setVisibility(View.VISIBLE);
                     } else {
                         choose_file_layout.setVisibility(View.GONE);
-                        path="";
-                        T_path.setText(path);
+                        path="0";
+                        T_path.setText("");
                     }
                     break;
             }
@@ -234,26 +248,41 @@ public class PublishActivity extends AppCompatActivity {
                     // 用户未选择任何文件，直接返回
                     return;
                 }
-                Uri uri = data.getData(); // 获取用户选择文件的URI
-                // 通过ContentProvider查询文件路径
-                ContentResolver resolver = this.getContentResolver();
-                Cursor cursor = resolver.query(uri, null, null, null, null);
-                if (cursor == null) {
-                    // 未查询到，说明为普通文件，可直接通过URI获取文件路径
-                    path = uri.getPath();
-                    T_path.setText(path);
-                    return;
-                }
-                if (cursor.moveToFirst()) {
-                    // 多媒体文件，从数据库中获取文件的真实路径
-                    path = cursor.getString(cursor.getColumnIndex("_data"));
+                Uri uri = data.getData();
+                if (uri!=null)
+                {
+                    path = Filedata.getPath(this,uri);//使用工具类对uri进行转化
                     T_path.setText(path);
                 }
-                cursor.close();
 
+                //                Uri uri = data.getData(); // 获取用户选择文件的URI
+//
+//                String[] filePathColumn = {MediaStore.MediaColumns.DATA};
+//
+////                 通过ContentProvider查询文件路径
+//                ContentResolver resolver = this.getContentResolver();
+//                Cursor cursor = resolver.query(uri, filePathColumn, null, null, null);
+//                if (cursor == null) {
+//                    // 未查询到，说明为普通文件，可直接通过URI获取文件路径
+//                    path = uri.getPath();
+//                    T_path.setText(path);
+//                    return;
+//                }
+//                if (cursor.moveToFirst()) {
+//                    // 多媒体文件，从数据库中获取文件的真实路径
+//                    path = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA));
+//                    T_path.setText(path);
+//                }
+//
+//                cursor.close();
                 break;
         }
     }
+
+
+
+
+
 
     private class ATask_AddNoticeAPI extends AsyncTask<AddNoticeAPI,AddNoticeAPI,AddNoticeAPI > {
 
@@ -289,11 +318,13 @@ public class PublishActivity extends AppCompatActivity {
             String work_type="1";
             String input_time=time;
             String input_path=path;
-            if(time.equals("")){
+
+            if(time.equals("0")){
                 work_type="0";
                 input_time="0";
             }
-            if(path.equals("")){
+            Log.d("TAGpath", "doInBackground: "+path);
+            if(path.equals("0")){
                 input_path="0";
             }
             AddHomeWorkAPI addHomeWorkAPI = new AddHomeWorkAPI(title, content, input_time,TimeUtil.getTime(), classID, work_type, input_path);

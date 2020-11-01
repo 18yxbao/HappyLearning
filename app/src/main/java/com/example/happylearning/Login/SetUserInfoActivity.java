@@ -416,7 +416,7 @@ public class SetUserInfoActivity extends AppCompatActivity {
         //后台线程执行时
         @Override
         protected UpdateIconAPI doInBackground(UpdateIconAPI... params) {
-            String path=getApplicationContext().getExternalCacheDir()+ File.separator+"bmob"+File.separator+"user_icon.jpg";
+            String path=getApplicationContext().getExternalCacheDir()+ File.separator+"user_icon"+File.separator+"user_icon.jpg";
             UpdateIconAPI updateIconAPI = new UpdateIconAPI(path,account,account_type);
             return updateIconAPI;
         }
@@ -425,7 +425,7 @@ public class SetUserInfoActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(UpdateIconAPI result) {
             super.onPostExecute(result);
-
+            Toast.makeText(getApplicationContext(),result.getResponseData(),Toast.LENGTH_SHORT).show();
 
         }
     }

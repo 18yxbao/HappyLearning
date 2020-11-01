@@ -75,7 +75,7 @@ public class AccountUtil {
         editor.apply();
 
         Bitmap bitmap=Filedata.stringtoBitmap(userIco);
-        Filedata.savePicture(context,bitmap,"bmob","user_icon.jpg");
+        Filedata.savePicture(context,bitmap,"user_icon","user_icon.jpg");
     }
 
     public static String getName(Context context) {
@@ -87,7 +87,7 @@ public class AccountUtil {
     }
 
     public static Bitmap getUserIco(Context context) {
-        String path=context.getExternalCacheDir()+ File.separator+"bmob"+File.separator;
+        String path=context.getExternalCacheDir()+ File.separator+"user_icon"+File.separator;
         String Picturename="user_icon.jpg";
         Bitmap bitmap=Filedata.loadPicture(context,path,Picturename);
         return bitmap;

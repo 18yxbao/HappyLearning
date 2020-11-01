@@ -30,6 +30,7 @@
         <activity android:name=".Teacher.TeacherMainActivity" />
         <activity android:name=".Teacher.Teacher_ClassActivity" />
         <activity android:name=".Student.Class.PublicPostActivity"/>
+        <activity android:name=".Student.Class.CommentDetailActivity"/>
 
         <provider
             android:name="androidx.core.content.FileProvider"

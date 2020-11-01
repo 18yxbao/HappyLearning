@@ -12,4 +12,19 @@
     <item name="publish_homework_part" type="id" />
     <item name="publish_content" type="id" />
     <item name="publish_title" type="id" />
+    <item name="content_detail_check_layout" type="id" />
+    <item name="content_detail_homework_name" type="id" />
+    <item name="content_detail_limit_time" type="id" />
+    <item name="content_detail_submit" type="id" />
+    <item name="content_detail_is_submit" type="id" />
+    <item name="content_detail_submit_layout" type="id" />
+    <item name="content_toolbar" type="id" />
+    <item name="content_detail_title" type="id" />
+    <item name="content_detail_time" type="id" />
+    <item name="content_detail_content" type="id" />
+    <item name="content_detail_ppt_layout" type="id" />
+    <item name="content_detail_download" type="id" />
+    <item name="content_detail_file_name" type="id" />
+    <item name="content_detail_limit_time2" type="id" />
+    <item name="content_detail_recyclerview" type="id" />
 </resources>

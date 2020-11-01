@@ -3,10 +3,14 @@ package com.example.happylearning.Adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -23,11 +27,6 @@ import java.util.List;
 public class Home_RecyclerViewAdapter extends RecyclerView.Adapter<Home_RecyclerViewAdapter.ViewHolder> {
     private List<Classes> classList;
     private String account_type;
-
-    public static final int ITEM_HEAD = 0;
-    //信息
-    public static final int ITEM_MESSAGE = 1;
-
 
     static class ViewHolder extends RecyclerView.ViewHolder{
         View classView;
@@ -51,18 +50,6 @@ public class Home_RecyclerViewAdapter extends RecyclerView.Adapter<Home_Recycler
     }
 
     @Override
-    public int getItemViewType(int position)
-    {
-        if (position == 0)
-            //确定第一个是头部
-            return ITEM_HEAD;
-        else if (position == 1)
-            //确定第二个是信息
-            return ITEM_MESSAGE;
-        return -1;
-    }
-
-    @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_class,parent,false);
@@ -77,18 +64,25 @@ public class Home_RecyclerViewAdapter extends RecyclerView.Adapter<Home_Recycler
                 Context context = view.getContext();
 
                 Intent intent ;
-
                 if(account_type.equals("0")) {
                     intent = new Intent(context, ClassActivity.class);
                 }
                 else{
                     intent = new Intent(context, Teacher_ClassActivity.class);
                 }
-
                 intent.putExtra("classID",classes.getClassNum());
                 intent.putExtra("class",classes.getClassName());
 
                 context.startActivity(intent);
+            }
+        });
+
+        holder.classView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                int position = holder.getAdapterPosition();
+                showPopupMenu(view,position);
+                return false;
             }
         });
 
@@ -107,5 +101,34 @@ public class Home_RecyclerViewAdapter extends RecyclerView.Adapter<Home_Recycler
     public int getItemCount(){
         return classList.size();
     }
+
+
+    private void showPopupMenu(View view, int position) {
+        // View当前PopupMenu显示的相对View的位置
+        PopupMenu popupMenu = new PopupMenu(view.getContext(), view);
+        // menu布局
+        popupMenu.getMenuInflater().inflate(R.menu.menu_long_click_class, popupMenu.getMenu());
+        // menu的item点击事件
+        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.menu_long_click_class_item1:
+
+                        break;
+                }
+                return false;
+            }
+        });
+        // PopupMenu关闭事件
+        popupMenu.setOnDismissListener(new PopupMenu.OnDismissListener() {
+            @Override
+            public void onDismiss(PopupMenu menu) {
+            }
+        });
+
+        popupMenu.show();
+    }
+
 
 }

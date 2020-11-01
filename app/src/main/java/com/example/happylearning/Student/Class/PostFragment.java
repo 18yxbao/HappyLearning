@@ -93,15 +93,20 @@ public class PostFragment extends Fragment {
         protected void onPostExecute(GetPostListAPI result) {
             super.onPostExecute(result);
             String seeNoticeListAPI_result = result.getResponseData();
+            if(seeNoticeListAPI_result.equals("fail")){
+                Toast.makeText(getContext(), "这门课还没有讨论消息，快去发一个吧！", Toast.LENGTH_SHORT).show();
+                return;
+            }
             if(seeNoticeListAPI_result.equals("")){
                 Toast.makeText(getContext(), "连接服务器失败！", Toast.LENGTH_SHORT).show();
+                return;
             }
             else {
                 postBeanList.clear();
                 String[] spiltResult=seeNoticeListAPI_result.split("\n");
 
                 for(int i=0;i<spiltResult.length;i++){
-                    Log.d("123456789", "onPostExecute: "+spiltResult[i]);
+//                    Log.d("123456789", "onPostExecute: "+spiltResult[i].substring(1));
                     String[] temp=spiltResult[i].split(",@.#");
                     PostBean postBean=new PostBean();
                     if(temp[0].equals("like")){
@@ -113,6 +118,7 @@ public class PostFragment extends Fragment {
                     }
                     int j=1;
                     postBean.setUserType(temp[j++]);
+                    Log.d("123456789", "UserType: "+i+temp[j-1]);
                     String iconStr=temp[j++];
                     postBean.setIcon(Filedata.stringtoBitmap(iconStr));
 

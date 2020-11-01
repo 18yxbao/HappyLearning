@@ -61,9 +61,20 @@ public class Util {
         String get_result = api.getResponseData();
         Log.d("getUserInfo", "getUserInfo: "+get_result);
         if(get_result==null||get_result.equals("fail")||get_result.equals("")){
-            return null;
+            return homeWorkLists;
         }
         String[] result = get_result.split(",");
+        int i;
+        for( i=0;i<result.length;i=i+6){
+            HomeWorkList homeWorkList=new HomeWorkList();
+            homeWorkList.setType(result[i]);
+            homeWorkList.setTitle(result[i+1]);
+            homeWorkList.setFile_name(result[i+2]);
+            homeWorkList.setPublic_time(result[i+3]);
+            homeWorkList.setID(result[i+4]);
+            homeWorkList.setIsSubmit(result[i+5]);
+            homeWorkLists.add(homeWorkList);
+        }
         //0:number 1:name 2:people_number
 
         return homeWorkLists;

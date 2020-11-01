@@ -5,25 +5,19 @@ import android.app.Fragment;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.PopupMenu;
-import android.widget.Toast;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.happylearning.API.NoticeAPI.SeeNoticeListAPI;
-import com.example.happylearning.Adapter.ClassMemberRecyclerViewAdapter;
 import com.example.happylearning.Adapter.HomeWorkRecyclerViewAdapter;
-import com.example.happylearning.Adapter.NoticeListRecyclerViewAdapter;
 import com.example.happylearning.Bean.HomeWorkList;
-import com.example.happylearning.Bean.NoticeList;
+import com.example.happylearning.Data.AccountUtil;
 import com.example.happylearning.Data.TimeUtil;
+import com.example.happylearning.Data.Util;
 import com.example.happylearning.R;
 
 import java.util.ArrayList;
@@ -69,17 +63,12 @@ public class Teacher_HomeWorkFragment extends Fragment {
                 return false;
             }
         };
-        HomeWorkList homeWorkList = new HomeWorkList();
-        homeWorkList.setContent("小黄书.txt");
-        homeWorkList.setIsSubmit("1");
-        homeWorkList.setTime(TimeUtil.getTime());
-        homeWorkList.setTitle("观看小黄书");
-        homeWorkList.setType("1");
-
-        homeWorkLists.add(homeWorkList);
         recyclerView.setLayoutManager(layoutManager);
-        adapter = new HomeWorkRecyclerViewAdapter(homeWorkLists);
+        adapter = new HomeWorkRecyclerViewAdapter(homeWorkLists,title,classID);
         recyclerView.setAdapter(adapter);
+
+        Atask atask = new Atask();
+        atask.execute();
         return view;
     }
 
@@ -100,19 +89,19 @@ public class Teacher_HomeWorkFragment extends Fragment {
     };
 
 
-    private class Atask extends AsyncTask<SeeNoticeListAPI,SeeNoticeListAPI,SeeNoticeListAPI>{
+    private class Atask extends AsyncTask<List<HomeWorkList>,List<HomeWorkList>,List<HomeWorkList>>{
 
         @Override
-        protected SeeNoticeListAPI doInBackground(SeeNoticeListAPI... seeNoticeListAPIS) {
-
-            return new SeeNoticeListAPI(classID);
+        protected List<HomeWorkList> doInBackground(List<HomeWorkList>... seeNoticeListAPIS) {
+            return Util.getHomeWorkLists(getContext(),classID, AccountUtil.getAccount(getContext()) , AccountUtil.getAccount_type(getContext()));
         }
 
         @Override
-        protected void onPostExecute(SeeNoticeListAPI result) {
+        protected void onPostExecute(List<HomeWorkList> result) {
             super.onPostExecute(result);
-
-
+            homeWorkLists.clear();
+            homeWorkLists.addAll(result);
+            adapter.notifyDataSetChanged();
         }
     }
 

@@ -3,6 +3,8 @@ package com.example.happylearning.Adapter;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -21,7 +23,9 @@ import com.example.happylearning.API.PostAPI.DeletePostListAPI;
 import com.example.happylearning.API.PostAPI.StarPostListAPI;
 import com.example.happylearning.Bean.PostBean;
 import com.example.happylearning.Data.AccountUtil;
+import com.example.happylearning.Data.Filedata;
 import com.example.happylearning.R;
+import com.example.happylearning.Student.Class.CommentDetailActivity;
 import com.example.happylearning.Student.main.MainActivity;
 
 import java.util.List;
@@ -81,6 +85,20 @@ public class TiebaRecyclerViewAdapter extends RecyclerView.Adapter<TiebaRecycler
             public void onClick(View view) {
                 int position = holder.getAdapterPosition();
                 Context context = view.getContext();
+                Intent intent=new Intent(context, CommentDetailActivity.class);
+                intent.putExtra("replyID",postBeanList.get(position).getId());
+                intent.putExtra("classID",classID);
+                intent.putExtra("icon", Filedata.bitmapToBytes(postBeanList.get(position).getIcon()));
+                if(postBeanList.get(position).getUserType().equals("1")){
+                    intent.putExtra("userT", postBeanList.get(position).getUsername()+"(老师)");
+                }else{
+                    intent.putExtra("userT", postBeanList.get(position).getUsername());
+                }
+                intent.putExtra("timeT", postBeanList.get(position).getTime());
+                intent.putExtra("content", postBeanList.get(position).getContent());
+                intent.putExtra("star", postBeanList.get(position).getStarNum());
+                intent.putExtra("comment", postBeanList.get(position).getCommentNum());
+                context.startActivity(intent);
             }
         });
 

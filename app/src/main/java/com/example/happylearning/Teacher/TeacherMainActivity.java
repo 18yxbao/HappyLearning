@@ -61,6 +61,9 @@ public class TeacherMainActivity extends AppCompatActivity {
             case R.id.menu_create_class_item1:
                 alert_edit();
                 break;
+            case R.id.menu_create_class_item2:
+
+                break;
             default:
                 break;
         }

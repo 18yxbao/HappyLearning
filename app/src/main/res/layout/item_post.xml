@@ -128,9 +128,9 @@
     </LinearLayout>
 
 
-    <Space
+    <View
         android:layout_width="match_parent"
-        android:layout_height="10dp"
+        android:layout_height="5dp"
         android:background="@color/color_background_grey"/>
 
 

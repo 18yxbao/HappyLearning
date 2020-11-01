@@ -128,9 +128,9 @@
     </LinearLayout>
 
 
-    <Space
+    <View
         android:layout_width="match_parent"
-        android:layout_height="10dp"
+        android:layout_height="5dp"
         android:background="@color/color_background_grey"/>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -149,7 +149,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Name" />
+            android:hint="回复" />
 
         <Button
             android:id="@+id/detailed_comment_send"
