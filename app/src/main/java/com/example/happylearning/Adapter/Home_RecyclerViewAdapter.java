@@ -4,13 +4,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -38,7 +36,7 @@ public class Home_RecyclerViewAdapter extends RecyclerView.Adapter<Home_Recycler
             super(view);
             classView = view;
             classLayout = (LinearLayout)view.findViewById(R.id.item_class_layout);
-            classname = (TextView)view.findViewById(R.id.item_class_name);
+            classname = (TextView)view.findViewById(R.id.item_homework_submiter_name);
             showmsg = (TextView)view.findViewById(R.id.item_class_msg);
         }
     }

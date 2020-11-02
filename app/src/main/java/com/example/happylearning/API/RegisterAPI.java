@@ -24,6 +24,7 @@ public class RegisterAPI {
                 .add("account_type", account_type)
                 .build();
         Request request = new Request.Builder()
+               // .url("http://192.168.43.89:8080//HappyLearning_Server//Register")
                 .url("http://42.194.219.209:8080//HappyLearning_Server//Register")
                 .post(requestBody)
                 .build();

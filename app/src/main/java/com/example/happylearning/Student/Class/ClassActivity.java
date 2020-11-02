@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.happylearning.R;
+import com.example.happylearning.Teacher.Teacher_HomeWorkFragment;
 
 public class ClassActivity extends AppCompatActivity {
 
@@ -19,6 +20,7 @@ public class ClassActivity extends AppCompatActivity {
     private NoticeFragment noticeFragment;
     private ClassMemberFragment classMemberFragment;
     private PostFragment postFragment;
+    private HomeWorkFragment homeWorkFragment;
 
     private Toolbar toolbar;
     private String classID;
@@ -73,10 +75,8 @@ public class ClassActivity extends AppCompatActivity {
                     setTalkFragment();
                     break;
                 case R.id.class_data:
-
+                    setHomeWorkFragment();
                     break;
-
-
             }
         }
     };
@@ -110,4 +110,10 @@ public class ClassActivity extends AppCompatActivity {
         transaction.commit();
     }
 
+    private void setHomeWorkFragment() {
+        FragmentTransaction transaction = fm.beginTransaction();
+        homeWorkFragment = new HomeWorkFragment(classID,title);
+        transaction.replace(R.id.class_content, homeWorkFragment);
+        transaction.commit();
+    }
 }

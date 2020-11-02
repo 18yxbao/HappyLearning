@@ -59,50 +59,29 @@ public class HomeWorkRecyclerViewAdapter extends RecyclerView.Adapter<HomeWorkRe
 
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_homework,parent,false);
         final ViewHolder holder = new ViewHolder(view);
-        account_type=AccountUtil.getAccount_type(view.getContext());
+
         holder.Hview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 int position = holder.getAdapterPosition();
-                if(account_type.equals("0")){
-                    Intent intent=new Intent(view.getContext(), ContentDetailActivity.class);
+                Intent intent = new Intent(view.getContext(), ContentDetailActivity.class);
 //                    private String type;
 //                    private String title;
 //                    private String public_time;
 //                    private String ID;
 //                    private String isSubmit;
 //                    private String file_name;
-                    intent.putExtra("className",className);
-                    intent.putExtra("classNum",classNum);
-                    intent.putExtra("type",homeWorkLists.get(position).getType());
-                    intent.putExtra("title",homeWorkLists.get(position).getTitle());
-                    intent.putExtra("public_time",homeWorkLists.get(position).getPublic_time());
-                    intent.putExtra("ID",homeWorkLists.get(position).getID());
-                    intent.putExtra("isSubmit",homeWorkLists.get(position).getIsSubmit());
-                    intent.putExtra("file_name",homeWorkLists.get(position).getFile_name());
-                    intent.putExtra("action_type","1");
-                    view.getContext().startActivity(intent);
+                intent.putExtra("className", className);
+                intent.putExtra("classNum", classNum);
+                intent.putExtra("type", homeWorkLists.get(position).getType());
+                intent.putExtra("title", homeWorkLists.get(position).getTitle());
+                intent.putExtra("public_time", homeWorkLists.get(position).getPublic_time());
+                intent.putExtra("ID", homeWorkLists.get(position).getID());
+                intent.putExtra("isSubmit", homeWorkLists.get(position).getIsSubmit());
+                intent.putExtra("file_name", homeWorkLists.get(position).getFile_name());
+                intent.putExtra("action_type", "1");
+                view.getContext().startActivity(intent);
 
-
-                }else{
-                    Intent intent=new Intent(view.getContext(), ContentDetailActivity.class);
-//                    private String type;
-//                    private String title;
-//                    private String public_time;
-//                    private String ID;
-//                    private String isSubmit;
-//                    private String file_name;
-                    intent.putExtra("className",className);
-                    intent.putExtra("classNum",classNum);
-                    intent.putExtra("type",homeWorkLists.get(position).getType());
-                    intent.putExtra("title",homeWorkLists.get(position).getTitle());
-                    intent.putExtra("public_time",homeWorkLists.get(position).getPublic_time());
-                    intent.putExtra("ID",homeWorkLists.get(position).getID());
-                    intent.putExtra("isSubmit",homeWorkLists.get(position).getIsSubmit());
-                    intent.putExtra("file_name",homeWorkLists.get(position).getFile_name());
-                    intent.putExtra("action_type","1");
-                    view.getContext().startActivity(intent);
-                }
             }
         });
 

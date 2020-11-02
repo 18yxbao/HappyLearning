@@ -24,6 +24,7 @@ public class GetWorkDetailAPI {
                 .build();
         Request request = new Request.Builder()
                 .url("http://42.194.219.209:8080//HappyLearning_Server//GetWorkDetail")
+                //.url("http://192.168.43.89:8080//HappyLearning_Server//GetWorkDetail")
                 .post(requestBody)
                 .build();
         Log.d("JoinClassTest", "JoinClassTest");

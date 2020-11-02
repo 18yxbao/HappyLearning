@@ -9,13 +9,21 @@ public class HomeWorkList {
     private String ID;
     private String isSubmit;
     private String file_name;
-
+    private String file_path;
 
     private String limit_time;
     private String content;
 
 
 
+
+    public String getFile_path() {
+        return file_path;
+    }
+
+    public void setFile_path(String file_path) {
+        this.file_path = file_path;
+    }
 
     public String getFile_name() {
         return file_name;

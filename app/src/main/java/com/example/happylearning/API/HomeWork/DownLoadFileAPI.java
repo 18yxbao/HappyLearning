@@ -20,14 +20,15 @@ public class DownLoadFileAPI {
                 .add("file_path", file_path)
                 .build();
         Request request = new Request.Builder()
-                .url("http://42.194.219.209:8080//HappyLearning_Server//DownLoadFile")
+                .url("http://42.194.219.209:8080//HappyLearning_Server//DownLoadSpecialWork")
                 .post(requestBody)
                 .build();
         Log.d("JoinClassTest", "JoinClassTest");
 
         try {
             response = client.newCall(request).execute();
-            Log.d("LoginTest", "onClick:" + responseData);
+//            responseData = response.body().string();
+//            Log.d("LoginTest", "onClick:" + responseData);
         } catch (IOException e) {
             e.printStackTrace();
         }

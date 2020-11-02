@@ -22,6 +22,8 @@ public class GetSpecialWorkListAPI {
                 .build();
         Request request = new Request.Builder()
                 .url("http://42.194.219.209:8080//HappyLearning_Server//GetSpecialWorkList")
+                //.url("http://192.168.43.89:8080//HappyLearning_Server//GetSpecialWorkList")
+
                 .post(requestBody)
                 .build();
         Log.d("JoinClassTest", "JoinClassTest");

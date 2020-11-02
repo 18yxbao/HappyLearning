@@ -255,26 +255,6 @@ public class PublishActivity extends AppCompatActivity {
                     T_path.setText(path);
                 }
 
-                //                Uri uri = data.getData(); // 获取用户选择文件的URI
-//
-//                String[] filePathColumn = {MediaStore.MediaColumns.DATA};
-//
-////                 通过ContentProvider查询文件路径
-//                ContentResolver resolver = this.getContentResolver();
-//                Cursor cursor = resolver.query(uri, filePathColumn, null, null, null);
-//                if (cursor == null) {
-//                    // 未查询到，说明为普通文件，可直接通过URI获取文件路径
-//                    path = uri.getPath();
-//                    T_path.setText(path);
-//                    return;
-//                }
-//                if (cursor.moveToFirst()) {
-//                    // 多媒体文件，从数据库中获取文件的真实路径
-//                    path = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA));
-//                    T_path.setText(path);
-//                }
-//
-//                cursor.close();
                 break;
         }
     }

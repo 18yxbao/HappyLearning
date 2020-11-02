@@ -11,6 +11,7 @@ import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.util.Base64;
+import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -20,8 +21,11 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+
+import okhttp3.Response;
 
 public class Filedata {
 
@@ -121,6 +125,54 @@ public class Filedata {
         }
         return bitmap;
     }
+
+    public static String writeFile(Context context, Response response,String path, String file_name) {
+        InputStream is = null;
+        FileOutputStream fos = null;
+        is = response.body().byteStream();
+        File bomb=new File(context.getApplicationContext().getExternalCacheDir(),path);
+        if (!bomb.exists()){
+            bomb.mkdir();
+        }
+
+        try {
+            fos  = context.openFileOutput(file_name, context.MODE_PRIVATE);
+            byte[] bytes = new byte[8];
+            int len = 0;
+            //获取下载的文件的大小
+            long fileSize = response.body().contentLength();
+            //Log.d("MyTag", "writeFile: "+fileSize);;
+            long sum = 0;
+            int porSize = 0;
+            while ((len = is.read(bytes)) != -1) {
+                fos.write(bytes,0,len);
+                //Log.d("MyTag:", "writeFile: "+(new String(bytes)));;
+                sum += len;
+                porSize = (int) ((sum * 1.0f / fileSize) * 100);
+            }
+            Log.d("MyTag", "writeFileSum: "+sum);
+            fos.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (is != null) {
+                    is.close();
+                }
+                if (fos != null) {
+                    fos.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        Log.i("myTag", "下载成功");
+        return "success";
+
+    }
+
+
+
 
     //获取真实路径
     public static String getPath(final Context context, final Uri uri) {
