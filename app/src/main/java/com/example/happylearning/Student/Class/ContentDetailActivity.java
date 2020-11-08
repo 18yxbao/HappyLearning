@@ -19,17 +19,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.happylearning.API.HomeWork.DownLoadFileAPI;
-import com.example.happylearning.API.HomeWork.GetSpecialWorkListAPI;
 import com.example.happylearning.API.HomeWork.GetWorkDetailAPI;
 import com.example.happylearning.API.HomeWork.SubmitWorkAPI;
 import com.example.happylearning.API.NoticeAPI.AddNoticeAPI;
-import com.example.happylearning.Adapter.ClassMemberRecyclerViewAdapter;
-import com.example.happylearning.Adapter.StudentSubmitListRecyclerViewAdapter;
-import com.example.happylearning.Bean.Classes;
 import com.example.happylearning.Bean.HomeWorkList;
 import com.example.happylearning.Bean.SubmitHomeWorkList;
 import com.example.happylearning.Data.AccountUtil;
@@ -40,19 +35,13 @@ import com.example.happylearning.Login.RegisterActivity;
 import com.example.happylearning.R;
 import com.example.happylearning.Teacher.PublishActivity;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class ContentDetailActivity extends AppCompatActivity {
 
     private static final int REQUEST_CODE=1;
 
 
-    private HomeWorkList homeWorkList = new HomeWorkList();
-    private SubmitHomeWorkList  submitHomeWorkList = new SubmitHomeWorkList();;
-    private List<SubmitHomeWorkList> submitHomeWorkLists = new ArrayList<SubmitHomeWorkList>();
-private StudentSubmitListRecyclerViewAdapter adapter;
-
+    private HomeWorkList homeWorkList;
+    private SubmitHomeWorkList submitHomeWorkList;
     private String classID;
     private String className;
 
@@ -87,6 +76,9 @@ private StudentSubmitListRecyclerViewAdapter adapter;
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_content_detail);
+
+        homeWorkList = new HomeWorkList();
+        submitHomeWorkList = new SubmitHomeWorkList();
 
         classID=getIntent().getStringExtra("classNum");
         className=getIntent().getStringExtra("className");
@@ -153,17 +145,6 @@ private StudentSubmitListRecyclerViewAdapter adapter;
                 check_layout.setVisibility(View.GONE);
             }else{
                 submit_layout.setVisibility(View.GONE);
-
-                LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext()) {
-                    @Override
-                    public boolean canScrollVertically() {
-                        return false;
-                    }
-                };
-
-                recyclerView.setLayoutManager(layoutManager);
-                adapter = new StudentSubmitListRecyclerViewAdapter(submitHomeWorkLists,classID,homeWorkList.getID());
-                recyclerView.setAdapter(adapter);
             }
 
             //如果是课件, 将提交作业隐藏
@@ -238,7 +219,7 @@ private StudentSubmitListRecyclerViewAdapter adapter;
             DownLoadFileAPI  downLoadFileAPI=new DownLoadFileAPI(homeWorkList.getFile_path());
 
 
-            String temp= Filedata.writeFile(getApplicationContext(),downLoadFileAPI.getResponse(),"ClassData/"+classID+"/"+"HomeWork"+homeWorkList.getID(),homeWorkList.getFile_name());
+            String temp= Filedata.writeFile(getApplicationContext(),downLoadFileAPI.getResponse(),"ClassData/"+classID+"/"+"HomeWork",homeWorkList.getFile_name());
             return temp;
         }
 
@@ -296,6 +277,7 @@ private StudentSubmitListRecyclerViewAdapter adapter;
             if(temp.equals("0")){
                 Toast.makeText(getApplicationContext(),"访问失败",Toast.LENGTH_SHORT).show();
             }
+            Log.d("作业内容测试", "onPostExecute: "+temp);
             String[] data=temp.split(",");
             homeWorkList.setContent(data[0]);
             homeWorkList.setLimit_time(data[1]);
@@ -315,44 +297,6 @@ private StudentSubmitListRecyclerViewAdapter adapter;
             submit_time.setText(submitHomeWorkList.getSubmit_time());
         }
     }
-
-
-    private class ATask_GetSpecialWorkListAPI extends AsyncTask<GetSpecialWorkListAPI,GetSpecialWorkListAPI,GetSpecialWorkListAPI > {
-
-        //后台线程执行时
-        @Override
-        protected GetSpecialWorkListAPI doInBackground(GetSpecialWorkListAPI... params) {
-            GetSpecialWorkListAPI api = new GetSpecialWorkListAPI(classID,homeWorkList.getID());
-            return api;
-        }
-
-        //后台线程执行结束后的操作，其中参数result为doInBackground返回的结果
-        @Override
-        protected void onPostExecute(GetSpecialWorkListAPI result) {
-            super.onPostExecute(result);
-            String temp=result.getResponseData();
-            if(temp==null||temp.equals("fail")||temp.equals("")){
-
-            }
-            else {
-                String[] get_result = temp.split(",");
-                //0:number 1:name 2:people_number
-                int i;
-                for (i = 0; i < get_result.length; i = i + 5) {
-                    submitHomeWorkList.setFile_name(get_result[i]);
-                    submitHomeWorkList.setSubmitter_number(get_result[i+1]);
-                    submitHomeWorkList.setSubmitter_name(get_result[i+2]);
-                    submitHomeWorkList.setSubmit_time(get_result[i+3]);
-                    submitHomeWorkList.setFile_path(get_result[i+4]);
-                    submitHomeWorkLists.add(submitHomeWorkList);
-                }
-                adapter.notifyDataSetChanged();
-            }
-        }
-    }
-
-
-
 
     //startActivityForResult回调
     @Override

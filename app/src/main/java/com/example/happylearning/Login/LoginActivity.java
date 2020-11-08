@@ -21,6 +21,7 @@ import com.example.happylearning.R;
 import com.example.happylearning.Student.main.MainActivity;
 import com.example.happylearning.Teacher.TeacherMainActivity;
 
+import okhttp3.OkHttpClient;
 
 
 public class LoginActivity<click> extends AppCompatActivity {
@@ -34,7 +35,7 @@ public class LoginActivity<click> extends AppCompatActivity {
     private String account_type ="0";
     private String user;
     private String pwd;
-
+    public static OkHttpClient client = new OkHttpClient();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -93,6 +94,7 @@ public class LoginActivity<click> extends AppCompatActivity {
         @Override
         protected LoginAPI doInBackground(LoginAPI... params) {
             LoginAPI login = new LoginAPI(user, pwd, account_type);
+            Log.d("Login", "doInBackground: "+login.getResponseData());
             return login;
         }
 
@@ -100,6 +102,7 @@ public class LoginActivity<click> extends AppCompatActivity {
         @Override
         protected void onPostExecute(LoginAPI result) {
             super.onPostExecute(result);
+            Log.d("Login", "onPostExecute: "+result.getResponseData());
             String login_result = result.getResponseData();
             if(login_result.equals("")){
                 Toast.makeText(LoginActivity.this, "连接服务器失败！", Toast.LENGTH_SHORT).show();

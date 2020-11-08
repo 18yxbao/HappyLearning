@@ -42,7 +42,7 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/item_homework_submiter_time"
+                    android:id="@+id/item_homework_submit_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
@@ -69,7 +69,7 @@
                     android:text="文件名:" />
 
                 <TextView
-                    android:id="@+id/item_homework_submiter_file_name"
+                    android:id="@+id/item_homework_file_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
@@ -87,7 +87,7 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/item_homework_submiter_download"
+                android:id="@+id/item_homework_download"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"

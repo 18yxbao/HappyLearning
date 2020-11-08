@@ -11,14 +11,13 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
-
+import static com.example.happylearning.Login.LoginActivity.client;
 
 public class CreateClassAPI {
 
     private String responseData;
 
     public CreateClassAPI(String class_password, String class_name,String account) {
-        OkHttpClient client = new OkHttpClient();
         RequestBody requestBody = new FormBody.Builder()
                 .add("class_password", class_password)
                 .add("class_name",class_name)

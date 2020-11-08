@@ -9,7 +9,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
-
+import static com.example.happylearning.Login.LoginActivity.client;
 public class AddNoticeAPI {
     /**
      * 教师发布公告：
@@ -21,7 +21,6 @@ public class AddNoticeAPI {
     private String responseData="";
 
     public AddNoticeAPI(String class_number, String notice_title, String notice_content, String notice_date) {
-        OkHttpClient client = new OkHttpClient();
         RequestBody requestBody = new FormBody.Builder()
                 .add("class_number", class_number)
                 .add("notice_title", notice_title)

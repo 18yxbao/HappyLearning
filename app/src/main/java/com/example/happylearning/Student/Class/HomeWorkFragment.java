@@ -53,8 +53,8 @@ public class HomeWorkFragment extends Fragment {
 
         recyclerView = (RecyclerView) view.findViewById(R.id.fragment_homework_recyclerview);
         add_meg=view.findViewById(R.id.fragment_homework_add);
-        add_meg.setVisibility(View.GONE);
 
+        add_meg.setVisibility(View.GONE);
 
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(view.getContext()){
@@ -71,6 +71,8 @@ public class HomeWorkFragment extends Fragment {
         atask.execute();
         return view;
     }
+
+
 
     private class Atask extends AsyncTask<List<HomeWorkList>,List<HomeWorkList>,List<HomeWorkList>>{
 

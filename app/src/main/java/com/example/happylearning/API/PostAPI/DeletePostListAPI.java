@@ -9,13 +9,12 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
-
+import static com.example.happylearning.Login.LoginActivity.client;
 public class DeletePostListAPI {
     private String responseData="";
 
     public DeletePostListAPI(String class_number, String post_id){
 
-        OkHttpClient client = new OkHttpClient();
         RequestBody requestBody = new FormBody.Builder()
                 .add("class_number",class_number)
                 .add("post_id", post_id)

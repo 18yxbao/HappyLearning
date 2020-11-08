@@ -9,7 +9,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
-
+import static com.example.happylearning.Login.LoginActivity.client;
 public class UpdateUserInfoAPI {
     /**
      * 教师发布公告：
@@ -21,7 +21,6 @@ public class UpdateUserInfoAPI {
     private String responseData="";
 
     public UpdateUserInfoAPI(String user_number, String user_type,String user_name, String user_school, String user_schoolId, String user_major, String user_gender) {
-        OkHttpClient client = new OkHttpClient();
         RequestBody requestBody = new FormBody.Builder()
                 .add("user_number" , user_number)
                 .add("user_type",user_type)

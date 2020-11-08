@@ -126,30 +126,17 @@ public class Filedata {
         return bitmap;
     }
 
-    public static String writeFile(Context context, Response response, String path, String file_name) {
+    public static String writeFile(Context context, Response response,String path, String file_name) {
         InputStream is = null;
         FileOutputStream fos = null;
         is = response.body().byteStream();
-
-        String[] temp = path.split("/");
-        File bomb = new File(context.getApplicationContext().getExternalCacheDir(), temp[0]);
-
-        for(int i =0 ;i<temp.length;i++) {
-            if(i!=0) {
-                bomb = new File(bomb, temp[i]);
-            }
-            if (!bomb.exists()) {
-                bomb.mkdir();
-            }
-        }
-        File file=new File(bomb,file_name);
-
-        if (file.exists()) {
-            file.delete();
+        File bomb=new File(context.getApplicationContext().getExternalCacheDir(),path);
+        if (!bomb.exists()){
+            bomb.mkdir();
         }
 
         try {
-            fos = new FileOutputStream(file);
+            fos  = context.openFileOutput(file_name, context.MODE_PRIVATE);
             byte[] bytes = new byte[8];
             int len = 0;
             //获取下载的文件的大小

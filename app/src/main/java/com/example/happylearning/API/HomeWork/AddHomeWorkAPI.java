@@ -13,6 +13,8 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
+import static com.example.happylearning.Login.LoginActivity.client;
+
 
 public class AddHomeWorkAPI {
 
@@ -43,7 +45,7 @@ public class AddHomeWorkAPI {
 //            e.printStackTrace();
 //        }
             MultipartBody multipartBody;
-            OkHttpClient client = new OkHttpClient();
+
 
             if(!file_path.equals("0")) {
                 File  file = new File(file_path);//文件路径

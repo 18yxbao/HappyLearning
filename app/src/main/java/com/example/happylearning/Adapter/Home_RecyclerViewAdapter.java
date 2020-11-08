@@ -36,7 +36,7 @@ public class Home_RecyclerViewAdapter extends RecyclerView.Adapter<Home_Recycler
             super(view);
             classView = view;
             classLayout = (LinearLayout)view.findViewById(R.id.item_class_layout);
-            classname = (TextView)view.findViewById(R.id.item_class_name);
+            classname = (TextView)view.findViewById(R.id.item_homework_submiter_name);
             showmsg = (TextView)view.findViewById(R.id.item_class_msg);
         }
     }

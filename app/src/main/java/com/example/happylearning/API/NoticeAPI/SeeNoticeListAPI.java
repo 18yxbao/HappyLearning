@@ -9,7 +9,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
-
+import static com.example.happylearning.Login.LoginActivity.client;
 public class SeeNoticeListAPI {
     /**
      * 教师/学生查看公告列表：
@@ -20,7 +20,6 @@ public class SeeNoticeListAPI {
     private String responseData="";
 
     public SeeNoticeListAPI(String class_number) {
-        OkHttpClient client = new OkHttpClient();
         RequestBody requestBody = new FormBody.Builder()
                 .add("class_number", class_number)
                 .build();

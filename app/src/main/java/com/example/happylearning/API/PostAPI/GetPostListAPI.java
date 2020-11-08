@@ -13,13 +13,12 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
-
+import static com.example.happylearning.Login.LoginActivity.client;
 public class GetPostListAPI {
     private String responseData="";
 
     public GetPostListAPI(String class_number,String user_number,String user_type,String reply_id){
 
-        OkHttpClient client = new OkHttpClient();
         RequestBody requestBody = new FormBody.Builder()
                 .add("class_number",class_number)
                 .add("user_number", user_number)

@@ -9,7 +9,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
-
+import static com.example.happylearning.Login.LoginActivity.client;
 /**
  * 点赞/取消点赞
  * class_number
@@ -22,7 +22,6 @@ public class StarPostListAPI {
 
     public StarPostListAPI(String class_number, String user_number, String user_type, String post_id,String if_like){
 
-        OkHttpClient client = new OkHttpClient();
         RequestBody requestBody = new FormBody.Builder()
                 .add("class_number",class_number)
                 .add("user_number",user_number)

@@ -11,7 +11,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
-
+import static com.example.happylearning.Login.LoginActivity.client;
 /**
  * 发送微博
  */
@@ -23,7 +23,6 @@ public class AddPostListAPI {
                           String image_number, String[] image_src, String post_date, String reply_id )
     {
 
-        OkHttpClient client = new OkHttpClient();
         MediaType mediaType = MediaType.parse("application/octet-stream");//设置类型，类型为八位字节流
 
         MultipartBody.Builder builder = new MultipartBody.Builder()

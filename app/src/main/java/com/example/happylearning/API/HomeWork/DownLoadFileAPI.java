@@ -9,13 +9,12 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
-
+import static com.example.happylearning.Login.LoginActivity.client;
 public class DownLoadFileAPI {
     private String responseData;
     private Response response = null;
     public DownLoadFileAPI(String file_path)
     {
-        OkHttpClient client = new OkHttpClient();
         RequestBody requestBody = new FormBody.Builder()
                 .add("file_path", file_path)
                 .build();

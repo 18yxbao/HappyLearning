@@ -12,7 +12,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
-
+import static com.example.happylearning.Login.LoginActivity.client;
 public class UpdateIconAPI {
 
     private String responseData="";
@@ -21,7 +21,6 @@ public class UpdateIconAPI {
     {
         File file = new File(image_src);//文件路径
         long size = file.length();//文件长度
-        OkHttpClient client = new OkHttpClient();
         MediaType mediaType = MediaType.parse("application/octet-stream");//设置类型，类型为八位字节流
         RequestBody requestBody = RequestBody.Companion.create(file,mediaType);//把文件与类型放入请求体
 

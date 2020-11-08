@@ -9,13 +9,13 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
-
+import static com.example.happylearning.Login.LoginActivity.client;
 public class GetSpecialWorkListAPI {
     private String responseData;
 
     public GetSpecialWorkListAPI(String class_number,String work_id)
     {
-        OkHttpClient client = new OkHttpClient();
+
         RequestBody requestBody = new FormBody.Builder()
                 .add("class_number", class_number)
                 .add("work_id", work_id)

@@ -9,7 +9,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
-
+import static com.example.happylearning.Login.LoginActivity.client;
 public class DeleteNoticeAPI {
     /**
      * 教师删除公告：
@@ -20,7 +20,6 @@ public class DeleteNoticeAPI {
     private String responseData="";
 
     public DeleteNoticeAPI(String class_number, String notice_title, String notice_date) {
-        OkHttpClient client = new OkHttpClient();
         RequestBody requestBody = new FormBody.Builder()
                 .add("class_number", class_number)
                 .add("notice_title", notice_title)

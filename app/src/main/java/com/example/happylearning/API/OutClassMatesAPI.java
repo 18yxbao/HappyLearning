@@ -10,14 +10,13 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
-
+import static com.example.happylearning.Login.LoginActivity.client;
 
 public class OutClassMatesAPI {
 
     private String responseData;
 
     public OutClassMatesAPI(String class_number, String out_number, List<String> deleteMember) {
-        OkHttpClient client = new OkHttpClient();
         FormBody.Builder temp = new FormBody.Builder();
         temp.add("class_number", class_number).add("out_number",out_number);
         for(int i=0;i < Integer.parseInt(out_number); i++){

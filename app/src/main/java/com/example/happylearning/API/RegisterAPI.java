@@ -9,7 +9,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
-
+import static com.example.happylearning.Login.LoginActivity.client;
 public class RegisterAPI {
     // 注意：调用该API前需先在注册活动处对两个密码框的密码是否一致进行判断和处理
     //调用构造类，传入RegisterActivity用户名编辑框获取到的用户名（str1）以及密码编辑框(任何一个）获取到的密码（str2）
@@ -17,7 +17,6 @@ public class RegisterAPI {
     private String responseData;
 
     public RegisterAPI(String username, String password,String account_type) {
-        OkHttpClient client = new OkHttpClient();
         RequestBody requestBody = new FormBody.Builder()
                 .add("username", username)
                 .add("password", password)
